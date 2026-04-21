@@ -1,0 +1,180 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+:root {
+  --accent: #4ddcd3;
+  --accent-hover: #2ec4bb;
+  --background: #ffffff;
+  --foreground: #000000;
+  --surface: #f5f5f5;
+  --border-light: #e5e5e5;
+  --font-space-grotesk: 'Space Grotesk';
+  --font-dm-sans: 'DM Sans';
+  --font-jetbrains-mono: 'JetBrains Mono';
+}
+
+@layer base {
+  * {
+    @apply outline-offset-2;
+  }
+
+  body {
+    @apply bg-white text-black;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif font-bold tracking-tight;
+  }
+
+  h1 {
+    @apply text-5xl md:text-6xl;
+  }
+
+  h2 {
+    @apply text-4xl md:text-5xl;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+
+  a {
+    @apply transition-colors duration-300;
+  }
+
+  button {
+    @apply transition-all duration-200;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 bg-[#4ddcd3] text-black font-medium rounded-lg hover:bg-[#2ec4bb] transition-colors duration-200 shadow-sm hover:shadow-lg;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 border-2 border-black text-black font-medium rounded-lg hover:bg-black hover:text-white transition-colors duration-200;
+  }
+
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 md:px-6;
+  }
+
+  .teal-underline {
+    @apply relative inline-block after:absolute after:bottom-0 after:left-0 after:h-1 after:bg-[#4ddcd3] after:transition-all after:duration-300 after:w-0 hover:after:w-full;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(77, 220, 211, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(77, 220, 211, 0);
+  }
+}
+
+@keyframes bounce-subtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s ease-out;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.4s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.5s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.5s ease-out;
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s infinite;
+}
+
+.bounce-subtle {
+  animation: bounce-subtle 2s infinite;
+}
+
+.shimmer {
+  animation: shimmer 2s infinite;
+  background: linear-gradient(90deg, #f0f0f0 0%, #ffffff 50%, #f0f0f0 100%);
+  background-size: 1000px 100%;
+}

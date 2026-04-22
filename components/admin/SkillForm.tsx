@@ -2,9 +2,12 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Skill } from '@/lib/supabase';
+import { useAuth } from '@/app/context/AuthContext';
+import { CloudinaryUploader } from '@/components/admin/CloudinaryUploader';
+import { skillSchema } from '@/lib/validations';
 import toast from 'react-hot-toast';
-import { Upload, X } from 'lucide-react';
+import { Save, ArrowLeft, X } from 'lucide-react';
+import { Skill } from '@/lib/supabase';
 
 interface SkillFormProps {
   initialData?: Skill;
@@ -13,8 +16,8 @@ interface SkillFormProps {
 
 export function SkillForm({ initialData, isEditing }: SkillFormProps) {
   const router = useRouter();
+  const { session } = useAuth();
   const [loading, setLoading] = useState(false);
-  const [imagePreview, setImagePreview] = useState(initialData?.image_url || '');
   const [formData, setFormData] = useState({
     name: initialData?.name || '',
     category: initialData?.category || '',
@@ -34,70 +37,80 @@ export function SkillForm({ initialData, isEditing }: SkillFormProps) {
     }));
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const result = event.target?.result as string;
-        setImagePreview(result);
-        setFormData((prev) => ({ ...prev, image_url: result }));
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
+      // Validate form data
+      const validated = skillSchema.parse(formData);
+
+      // Get auth token
+      if (!session?.access_token) {
+        toast.error('Session expired. Please login again.');
+        router.push('/admin/login');
+        return;
+      }
+
       const url = isEditing ? `/api/skills/${initialData?.id}` : '/api/skills';
       const method = isEditing ? 'PUT' : 'POST';
 
       const response = await fetch(url, {
         method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify(validated),
       });
 
       if (!response.ok) {
-        toast.error('Failed to save skill');
-        return;
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to save skill');
       }
 
-      toast.success(isEditing ? 'Skill updated' : 'Skill created');
+      toast.success(isEditing ? 'Skill updated successfully!' : 'Skill created successfully!');
       router.push('/admin/skills');
-    } catch (error) {
-      toast.error('Error saving skill');
+    } catch (error: any) {
+      toast.error(error.message || 'Error saving skill');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
+      {/* Back Button */}
+      <button
+        type="button"
+        onClick={() => router.back()}
+        className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6"
+      >
+        <ArrowLeft className="w-4 h-4" />
+        Back
+      </button>
+
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Name *</label>
           <input
             type="text"
             name="name"
             value={formData.name}
             onChange={handleInputChange}
             placeholder="Skill name"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none"
             required
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Category *</label>
           <select
             name="category"
             value={formData.category}
             onChange={handleInputChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none"
             required
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
           >
             <option value="">Select category</option>
             <option value="Web App Testing">Web App Testing</option>
@@ -109,17 +122,29 @@ export function SkillForm({ initialData, isEditing }: SkillFormProps) {
         </div>
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Proficiency (%)</label>
-        <input
-          type="number"
-          name="proficiency"
-          min="0"
-          max="100"
-          value={formData.proficiency}
-          onChange={handleInputChange}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none"
-        />
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Proficiency (%)</label>
+          <input
+            type="number"
+            name="proficiency"
+            min="0"
+            max="100"
+            value={formData.proficiency}
+            onChange={handleInputChange}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Order Index</label>
+          <input
+            type="number"
+            name="order_index"
+            value={formData.order_index}
+            onChange={handleInputChange}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          />
+        </div>
       </div>
 
       <div>
@@ -130,41 +155,17 @@ export function SkillForm({ initialData, isEditing }: SkillFormProps) {
           onChange={handleInputChange}
           placeholder="Brief description"
           rows={3}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
         />
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Image</label>
-        <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="hidden"
-            id="image-input"
-          />
-          <label htmlFor="image-input" className="cursor-pointer flex flex-col items-center gap-2">
-            <Upload className="w-8 h-8 text-gray-400" />
-            <span className="text-sm text-gray-600">Click to upload</span>
-          </label>
-        </div>
-        {imagePreview && (
-          <div className="mt-4 relative inline-block">
-            <img src={imagePreview} alt="Preview" className="h-20 w-20 object-cover rounded" />
-            <button
-              type="button"
-              onClick={() => {
-                setImagePreview('');
-                setFormData((prev) => ({ ...prev, image_url: '' }));
-              }}
-              className="absolute -top-2 -right-2 bg-red-500 text-white p-1 rounded-full"
-            >
-              <X className="w-3 h-3" />
-            </button>
-          </div>
-        )}
-      </div>
+      {/* Image Upload */}
+      <CloudinaryUploader
+        value={formData.image_url}
+        onChange={(url) => setFormData({ ...formData, image_url: url })}
+        folder="portfolio/skills"
+        label="Skill Image"
+      />
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">Image Alt Text</label>
@@ -173,16 +174,31 @@ export function SkillForm({ initialData, isEditing }: SkillFormProps) {
           name="image_alt"
           value={formData.image_alt}
           onChange={handleInputChange}
-          placeholder="Image description"
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none"
+          placeholder="Image description for accessibility"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
         />
       </div>
 
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">Icon Name (Lucide)</label>
+        <input
+          type="text"
+          name="icon_name"
+          value={formData.icon_name}
+          onChange={handleInputChange}
+          placeholder="e.g., Code, Shield, Zap"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+        />
+        <p className="text-xs text-gray-500 mt-1">Lucide icon name (optional)</p>
+      </div>
+
+      {/* Submit */}
       <button
         type="submit"
         disabled={loading}
-        className="w-full px-6 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 disabled:opacity-50 font-medium"
+        className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-teal-600 hover:bg-teal-700 disabled:bg-gray-400 text-white font-medium rounded-lg transition-colors"
       >
+        <Save className="w-4 h-4" />
         {loading ? 'Saving...' : isEditing ? 'Update Skill' : 'Create Skill'}
       </button>
     </form>

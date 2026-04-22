@@ -1,10 +1,15 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { LayoutDashboard, BookOpen, Briefcase, Award, Zap, FileText } from 'lucide-react';
+import { LayoutDashboard, BookOpen, Briefcase, Award, Zap, FileText, LogOut } from 'lucide-react';
+import { useAuth } from '@/app/context/AuthContext';
+import { toast } from 'react-hot-toast';
 
 export default function AdminDashboard() {
+  const router = useRouter();
+  const { signOut, user } = useAuth();
   const [stats, setStats] = useState({
     blogs: 0,
     projects: 0,
@@ -13,6 +18,16 @@ export default function AdminDashboard() {
     certifications: 0,
   });
   const [loading, setLoading] = useState(true);
+
+  const handleLogout = async () => {
+    try {
+      await signOut();
+      toast.success('Logged out successfully');
+      router.push('/admin/login');
+    } catch (error: any) {
+      toast.error('Logout failed: ' + error.message);
+    }
+  };
 
   useEffect(() => {
     const loadStats = async () => {
@@ -85,11 +100,20 @@ export default function AdminDashboard() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-12">
-          <div className="flex items-center gap-3 mb-4">
-            <LayoutDashboard className="w-8 h-8 text-teal-600" />
-            <h1 className="text-4xl font-bold text-gray-900">Admin Dashboard</h1>
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-3">
+              <LayoutDashboard className="w-8 h-8 text-teal-600" />
+              <h1 className="text-4xl font-bold text-gray-900">Admin Dashboard</h1>
+            </div>
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-2 px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+            >
+              <LogOut className="w-4 h-4" />
+              Logout
+            </button>
           </div>
-          <p className="text-gray-600">Manage your portfolio content</p>
+          <p className="text-gray-600">Manage your portfolio content • {user?.email}</p>
         </div>
 
         {/* Stats Grid */}

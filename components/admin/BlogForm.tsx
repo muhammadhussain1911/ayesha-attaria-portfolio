@@ -1,11 +1,14 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { Blog } from "@/lib/supabase";
-import toast from "react-hot-toast";
-import { Upload, X } from "lucide-react";
-import { RichTextEditor } from "./RichTextEditor";
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/app/context/AuthContext';
+import { CloudinaryUploader } from '@/components/admin/CloudinaryUploader';
+import { RichTextEditor } from './RichTextEditor';
+import { blogSchema } from '@/lib/validations';
+import toast from 'react-hot-toast';
+import { Save, ArrowLeft } from 'lucide-react';
+import { Blog } from '@/lib/supabase';
 
 interface BlogFormProps {
   initialData?: Blog;
@@ -14,47 +17,30 @@ interface BlogFormProps {
 
 export function BlogForm({ initialData, isEditing }: BlogFormProps) {
   const router = useRouter();
+  const { session } = useAuth();
   const [loading, setLoading] = useState(false);
-  const [imagePreview, setImagePreview] = useState(
-    initialData?.image_url || "",
-  );
   const [formData, setFormData] = useState({
-    title: initialData?.title || "",
-    slug: initialData?.slug || "",
-    description: initialData?.description || "",
-    content: initialData?.content || "",
-    image_url: initialData?.image_url || "",
-    image_alt: initialData?.image_alt || "",
-    category: initialData?.category || "",
-    tags: initialData?.tags || [],
+    title: initialData?.title || '',
+    slug: initialData?.slug || '',
+    description: initialData?.description || '',
+    content: initialData?.content || '',
+    image_url: initialData?.image_url || '',
+    image_alt: initialData?.image_alt || '',
+    category: initialData?.category || '',
+    tags: initialData?.tags || ([] as string[]),
     published: initialData?.published || false,
   });
-  const [tagInput, setTagInput] = useState("");
+  const [tagInput, setTagInput] = useState('');
 
   const handleInputChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value, type } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]:
-        type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
+        type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
     }));
-  };
-
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const result = event.target?.result as string;
-        setImagePreview(result);
-        setFormData((prev) => ({ ...prev, image_url: result }));
-      };
-      reader.readAsDataURL(file);
-    }
   };
 
   const addTag = () => {
@@ -63,7 +49,7 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
         ...prev,
         tags: [...prev.tags, tagInput.trim()],
       }));
-      setTagInput("");
+      setTagInput('');
     }
   };
 
@@ -79,38 +65,60 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
     setLoading(true);
 
     try {
-      const url = isEditing ? `/api/blogs/${initialData?.slug}` : "/api/blogs";
-      const method = isEditing ? "PUT" : "POST";
+      // Validate form data
+      const validated = blogSchema.parse(formData);
+
+      // Get auth token
+      if (!session?.access_token) {
+        toast.error('Session expired. Please login again.');
+        router.push('/admin/login');
+        return;
+      }
+
+      const url = isEditing ? `/api/blogs/${initialData?.slug}` : '/api/blogs';
+      const method = isEditing ? 'PUT' : 'POST';
 
       const response = await fetch(url, {
         method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify(validated),
       });
 
       if (!response.ok) {
         const error = await response.json();
-        toast.error(error.error || "Failed to save blog");
-        return;
+        throw new Error(error.error || 'Failed to save blog');
       }
 
       toast.success(
-        isEditing ? "Blog updated successfully" : "Blog created successfully",
+        isEditing ? 'Blog updated successfully!' : 'Blog created successfully!'
       );
-      router.push("/admin/blogs");
-    } catch (error) {
-      toast.error("Error saving blog");
+      router.push('/admin/blogs');
+    } catch (error: any) {
+      toast.error(error.message || 'Error saving blog');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
+      {/* Back Button */}
+      <button
+        type="button"
+        onClick={() => router.back()}
+        className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
+      >
+        <ArrowLeft className="w-4 h-4" />
+        Back
+      </button>
+
       {/* Title */}
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">
-          Title
+          Title *
         </label>
         <input
           type="text"
@@ -118,15 +126,15 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
           value={formData.title}
           onChange={handleInputChange}
           placeholder="Enter blog title"
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none"
           required
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
         />
       </div>
 
       {/* Slug */}
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">
-          Slug
+          Slug *
         </label>
         <input
           type="text"
@@ -134,85 +142,37 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
           value={formData.slug}
           onChange={handleInputChange}
           placeholder="my-blog-post"
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none"
           required
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
         />
         <p className="text-xs text-gray-500 mt-1">
-          Must be unique and contain only lowercase letters, numbers, and
-          hyphens
+          Must be unique with only lowercase letters, numbers, and hyphens
         </p>
       </div>
 
       {/* Description */}
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">
-          Description
+          Description *
         </label>
         <textarea
           name="description"
           value={formData.description}
           onChange={handleInputChange}
-          placeholder="Brief description of your blog"
+          placeholder="Brief SEO description"
           rows={3}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none"
           required
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
         />
       </div>
 
-      {/* Content - Rich Text Editor */}
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          Content (Markdown)
-        </label>
-        <RichTextEditor
-          value={formData.content}
-          onChange={(content) => setFormData((prev) => ({ ...prev, content }))}
-        />
-      </div>
-
-      {/* Image */}
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          Featured Image
-        </label>
-        <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-teal-500 transition-colors">
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="hidden"
-            id="image-input"
-          />
-          <label
-            htmlFor="image-input"
-            className="cursor-pointer flex flex-col items-center gap-2"
-          >
-            <Upload className="w-8 h-8 text-gray-400" />
-            <span className="text-sm text-gray-600">
-              Click to upload or drag and drop
-            </span>
-          </label>
-        </div>
-        {imagePreview && (
-          <div className="mt-4 relative inline-block">
-            <img
-              src={imagePreview}
-              alt="Preview"
-              className="h-32 w-32 object-cover rounded-lg"
-            />
-            <button
-              type="button"
-              onClick={() => {
-                setImagePreview("");
-                setFormData((prev) => ({ ...prev, image_url: "" }));
-              }}
-              className="absolute -top-2 -right-2 bg-red-500 text-white p-1 rounded-full hover:bg-red-600"
-            >
-              <X className="w-4 h-4" />
-            </button>
-          </div>
-        )}
-      </div>
+      {/* Image Upload */}
+      <CloudinaryUploader
+        value={formData.image_url}
+        onChange={(url) => setFormData({ ...formData, image_url: url })}
+        folder="portfolio/blogs"
+        label="Featured Image"
+      />
 
       {/* Image Alt Text */}
       <div>
@@ -224,8 +184,8 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
           name="image_alt"
           value={formData.image_alt}
           onChange={handleInputChange}
-          placeholder="Describe the image for accessibility"
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none"
+          placeholder="Descriptive alt text for accessibility"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
         />
       </div>
 
@@ -234,21 +194,14 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Category
         </label>
-        <select
+        <input
+          type="text"
           name="category"
           value={formData.category}
           onChange={handleInputChange}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none"
-          required
-        >
-          <option value="">Select a category</option>
-          <option value="vulnerability">Vulnerability Research</option>
-          <option value="writeup">CTF Writeup</option>
-          <option value="security-tips">Security Tips</option>
-          <option value="owasp">OWASP</option>
-          <option value="api-security">API Security</option>
-          <option value="other">Other</option>
-        </select>
+          placeholder="e.g., Web Security, API Security"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+        />
       </div>
 
       {/* Tags */}
@@ -261,70 +214,73 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
             type="text"
             value={tagInput}
             onChange={(e) => setTagInput(e.target.value)}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                addTag();
-              }
-            }}
+            onKeyPress={(e) =>
+              e.key === 'Enter' && (e.preventDefault(), addTag())
+            }
             placeholder="Add a tag and press Enter"
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none"
+            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
           />
           <button
             type="button"
             onClick={addTag}
-            className="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors"
+            className="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700"
           >
             Add
           </button>
         </div>
         <div className="flex flex-wrap gap-2">
           {formData.tags.map((tag) => (
-            <div
+            <span
               key={tag}
-              className="flex items-center gap-2 bg-teal-100 text-teal-700 px-3 py-1 rounded-full text-sm"
+              className="px-3 py-1 bg-teal-100 text-teal-800 rounded-full text-sm flex items-center gap-2"
             >
               {tag}
               <button
                 type="button"
                 onClick={() => removeTag(tag)}
-                className="text-teal-700 hover:text-teal-900"
+                className="hover:text-red-600"
               >
-                <X className="w-4 h-4" />
+                ✕
               </button>
-            </div>
+            </span>
           ))}
         </div>
       </div>
 
-      {/* Publish Toggle */}
-      <div className="flex items-center gap-3">
+      {/* Content - Rich Text Editor */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Content (Markdown) *
+        </label>
+        <RichTextEditor
+          value={formData.content}
+          onChange={(content) => setFormData((prev) => ({ ...prev, content }))}
+        />
+      </div>
+
+      {/* Published */}
+      <label className="flex items-center gap-2 cursor-pointer">
         <input
           type="checkbox"
           name="published"
           checked={formData.published}
           onChange={handleInputChange}
-          className="w-4 h-4 text-teal-600 rounded focus:ring-2"
-          id="published"
+          className="w-4 h-4 rounded text-teal-600"
         />
-        <label
-          htmlFor="published"
-          className="text-sm font-medium text-gray-700"
-        >
-          Publish this blog
-        </label>
-      </div>
+        <span className="text-sm font-medium text-gray-700">
+          Publish immediately
+        </span>
+      </label>
 
-      {/* Submit Button */}
-      <div className="flex gap-4">
-        <button
-          type="submit"
-          disabled={loading}
-          className="px-6 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium"
-        >
-          {loading ? "Saving..." : isEditing ? "Update Blog" : "Create Blog"}
-        </button>
-      </div>
+      {/* Submit */}
+      <button
+        type="submit"
+        disabled={loading}
+        className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-teal-600 hover:bg-teal-700 disabled:bg-gray-400 text-white font-medium rounded-lg transition-colors"
+      >
+        <Save className="w-4 h-4" />
+        {loading ? 'Saving...' : isEditing ? 'Update Blog' : 'Create Blog'}
+      </button>
     </form>
   );
 }

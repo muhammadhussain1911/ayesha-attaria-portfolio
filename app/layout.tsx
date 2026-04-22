@@ -6,6 +6,7 @@ import { MobileBottomNav } from '@/components/layout/MobileBottomNav'
 import { Footer } from '@/components/layout/Footer'
 import { PersonSchema, OrganizationSchema } from '@/components/seo/SchemaMarkup'
 import { Toaster } from 'react-hot-toast'
+import { AuthProvider } from '@/app/context/AuthContext'
 import './globals.css'
 
 const spaceGrotesk = Space_Grotesk({ 
@@ -69,6 +70,7 @@ export default function RootLayout({
   return (
     <html 
       lang="en"
+      suppressHydrationWarning
       className={`${spaceGrotesk.variable} ${dmSans.variable} ${jetbrainsMono.variable} bg-white`}
     >
       <head>
@@ -76,14 +78,16 @@ export default function RootLayout({
         <OrganizationSchema />
       </head>
       <body className="font-sans antialiased text-black">
-        <Navbar />
-        <main className="min-h-screen">
-          {children}
-        </main>
-        <Footer />
-        <MobileBottomNav />
-        <Toaster position="bottom-center" />
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+        <AuthProvider>
+          <Navbar />
+          <main className="min-h-screen">
+            {children}
+          </main>
+          <Footer />
+          <MobileBottomNav />
+          <Toaster position="bottom-center" />
+          {process.env.NODE_ENV === 'production' && <Analytics />}
+        </AuthProvider>
       </body>
     </html>
   )

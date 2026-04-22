@@ -3,6 +3,15 @@ import { supabase } from '@/lib/supabase';
 import { blogSchema } from '@/lib/validations';
 import { ZodError } from 'zod';
 
+async function isAdmin(userId: string) {
+  const { data } = await supabase
+    .from('admins')
+    .select('id')
+    .eq('id', userId)
+    .single();
+  return !!data;
+}
+
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
@@ -35,12 +44,44 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    // Get auth token
+    const authHeader = request.headers.get('Authorization');
+    const token = authHeader?.split('Bearer ')[1];
+
+    if (!token) {
+      return NextResponse.json(
+        { error: 'Unauthorized - no token provided' },
+        { status: 401 }
+      );
+    }
+
+    // Verify token and get user
+    const { data: { user }, error: authError } = await supabase.auth.getUser(token);
+
+    if (authError || !user) {
+      return NextResponse.json(
+        { error: 'Unauthorized - invalid token' },
+        { status: 401 }
+      );
+    }
+
+    // Check admin status
+    if (!(await isAdmin(user.id))) {
+      return NextResponse.json(
+        { error: 'Forbidden - admin access required' },
+        { status: 403 }
+      );
+    }
+
     const body = await request.json();
     const validated = blogSchema.parse(body);
 
     const { data, error } = await supabase
       .from('blogs')
-      .insert([validated])
+      .insert([{
+        ...validated,
+        created_at: new Date().toISOString(),
+      }])
       .select();
 
     if (error) {

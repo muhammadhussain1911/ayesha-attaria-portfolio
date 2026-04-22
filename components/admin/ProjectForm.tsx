@@ -2,9 +2,12 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Project } from '@/lib/supabase';
+import { useAuth } from '@/app/context/AuthContext';
+import { CloudinaryUploader } from '@/components/admin/CloudinaryUploader';
+import { projectSchema } from '@/lib/validations';
 import toast from 'react-hot-toast';
-import { Upload, X } from 'lucide-react';
+import { Save, ArrowLeft, X } from 'lucide-react';
+import { Project } from '@/lib/supabase';
 
 interface ProjectFormProps {
   initialData?: Project;
@@ -13,8 +16,8 @@ interface ProjectFormProps {
 
 export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
   const router = useRouter();
+  const { session } = useAuth();
   const [loading, setLoading] = useState(false);
-  const [imagePreview, setImagePreview] = useState(initialData?.image_url || '');
   const [formData, setFormData] = useState({
     title: initialData?.title || '',
     slug: initialData?.slug || '',
@@ -40,19 +43,6 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
     }));
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const result = event.target?.result as string;
-        setImagePreview(result);
-        setFormData((prev) => ({ ...prev, image_url: result }));
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
   const addTech = () => {
     if (techInput.trim() && !formData.technologies.includes(techInput.trim())) {
       setFormData((prev) => ({
@@ -75,120 +65,119 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
     setLoading(true);
 
     try {
+      // Validate form data
+      const validated = projectSchema.parse(formData);
+
+      // Get auth token
+      if (!session?.access_token) {
+        toast.error('Session expired. Please login again.');
+        router.push('/admin/login');
+        return;
+      }
+
       const url = isEditing ? `/api/projects/${initialData?.id}` : '/api/projects';
       const method = isEditing ? 'PUT' : 'POST';
 
       const response = await fetch(url, {
         method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify(validated),
       });
 
       if (!response.ok) {
         const error = await response.json();
-        toast.error(error.error || 'Failed to save project');
-        return;
+        throw new Error(error.error || 'Failed to save project');
       }
 
-      toast.success(isEditing ? 'Project updated successfully' : 'Project created successfully');
+      toast.success(
+        isEditing ? 'Project updated successfully!' : 'Project created successfully!'
+      );
       router.push('/admin/projects');
-    } catch (error) {
-      toast.error('Error saving project');
+    } catch (error: any) {
+      toast.error(error.message || 'Error saving project');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
+      {/* Back Button */}
+      <button
+        type="button"
+        onClick={() => router.back()}
+        className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6"
+      >
+        <ArrowLeft className="w-4 h-4" />
+        Back
+      </button>
+
       {/* Title */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Title</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">Title *</label>
         <input
           type="text"
           name="title"
           value={formData.title}
           onChange={handleInputChange}
           placeholder="Project title"
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none"
           required
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
         />
       </div>
 
       {/* Slug */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Slug</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">Slug *</label>
         <input
           type="text"
           name="slug"
           value={formData.slug}
           onChange={handleInputChange}
           placeholder="my-project"
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none"
           required
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
         />
       </div>
 
       {/* Description */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">Description *</label>
         <textarea
           name="description"
           value={formData.description}
           onChange={handleInputChange}
           placeholder="Brief description"
           rows={3}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none"
           required
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
         />
       </div>
 
       {/* Content */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Detailed Content</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">Detailed Content *</label>
         <textarea
           name="content"
           value={formData.content}
           onChange={handleInputChange}
           placeholder="Detailed project information"
           rows={10}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none font-mono text-sm"
           required
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent font-mono text-sm"
         />
       </div>
 
-      {/* Image */}
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Featured Image</label>
-        <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-teal-500 transition-colors">
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="hidden"
-            id="image-input"
-          />
-          <label htmlFor="image-input" className="cursor-pointer flex flex-col items-center gap-2">
-            <Upload className="w-8 h-8 text-gray-400" />
-            <span className="text-sm text-gray-600">Click to upload or drag and drop</span>
-          </label>
-        </div>
-        {imagePreview && (
-          <div className="mt-4 relative inline-block">
-            <img src={imagePreview} alt="Preview" className="h-32 w-32 object-cover rounded-lg" />
-            <button
-              type="button"
-              onClick={() => {
-                setImagePreview('');
-                setFormData((prev) => ({ ...prev, image_url: '' }));
-              }}
-              className="absolute -top-2 -right-2 bg-red-500 text-white p-1 rounded-full hover:bg-red-600"
-            >
-              <X className="w-4 h-4" />
-            </button>
-          </div>
-        )}
-      </div>
+      {/* Image Upload */}
+      <CloudinaryUploader
+        value={formData.image_url}
+        onChange={(url) => setFormData({ ...formData, image_url: url })}
+        folder="portfolio/projects"
+        label="Featured Image"
+      />
 
       {/* Image Alt Text */}
       <div>
@@ -198,8 +187,8 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
           name="image_alt"
           value={formData.image_alt}
           onChange={handleInputChange}
-          placeholder="Describe the image"
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none"
+          placeholder="Describe the image for accessibility"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
         />
       </div>
 
@@ -213,7 +202,7 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
             value={formData.project_url}
             onChange={handleInputChange}
             placeholder="https://..."
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
           />
         </div>
         <div>
@@ -224,7 +213,7 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
             value={formData.github_url}
             onChange={handleInputChange}
             placeholder="https://github.com/..."
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
           />
         </div>
       </div>
@@ -239,7 +228,7 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
             value={formData.severity_found}
             onChange={handleInputChange}
             placeholder="Critical, High, Medium..."
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
           />
         </div>
         <div>
@@ -250,7 +239,7 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
             value={formData.impact}
             onChange={handleInputChange}
             placeholder="Brief impact description"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
           />
         </div>
       </div>
@@ -263,14 +252,11 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
             type="text"
             value={techInput}
             onChange={(e) => setTechInput(e.target.value)}
-            onKeyPress={(e) => {
-              if (e.key === 'Enter') {
-                e.preventDefault();
-                addTech();
-              }
-            }}
+            onKeyPress={(e) =>
+              e.key === 'Enter' && (e.preventDefault(), addTech())
+            }
             placeholder="Add technology"
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none"
+            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
           />
           <button
             type="button"
@@ -282,63 +268,56 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
         </div>
         <div className="flex flex-wrap gap-2">
           {formData.technologies.map((tech) => (
-            <div
+            <span
               key={tech}
-              className="flex items-center gap-2 bg-teal-100 text-teal-700 px-3 py-1 rounded-full text-sm"
+              className="px-3 py-1 bg-teal-100 text-teal-800 rounded-full text-sm flex items-center gap-2"
             >
               {tech}
               <button
                 type="button"
                 onClick={() => removeTech(tech)}
-                className="text-teal-700 hover:text-teal-900"
+                className="hover:text-red-600"
               >
-                <X className="w-4 h-4" />
+                <X className="w-3 h-3" />
               </button>
-            </div>
+            </span>
           ))}
         </div>
       </div>
 
       {/* Checkboxes */}
       <div className="space-y-3">
-        <div className="flex items-center gap-3">
+        <label className="flex items-center gap-2 cursor-pointer">
           <input
             type="checkbox"
             name="published"
             checked={formData.published}
             onChange={handleInputChange}
-            className="w-4 h-4 text-teal-600 rounded"
-            id="published"
+            className="w-4 h-4 rounded text-teal-600"
           />
-          <label htmlFor="published" className="text-sm font-medium text-gray-700">
-            Publish this project
-          </label>
-        </div>
-        <div className="flex items-center gap-3">
+          <span className="text-sm font-medium text-gray-700">Publish this project</span>
+        </label>
+        <label className="flex items-center gap-2 cursor-pointer">
           <input
             type="checkbox"
             name="featured"
             checked={formData.featured}
             onChange={handleInputChange}
-            className="w-4 h-4 text-teal-600 rounded"
-            id="featured"
+            className="w-4 h-4 rounded text-teal-600"
           />
-          <label htmlFor="featured" className="text-sm font-medium text-gray-700">
-            Feature on homepage
-          </label>
-        </div>
+          <span className="text-sm font-medium text-gray-700">Feature on homepage</span>
+        </label>
       </div>
 
       {/* Submit */}
-      <div className="flex gap-4">
-        <button
-          type="submit"
-          disabled={loading}
-          className="px-6 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors disabled:opacity-50 font-medium"
-        >
-          {loading ? 'Saving...' : isEditing ? 'Update Project' : 'Create Project'}
-        </button>
-      </div>
+      <button
+        type="submit"
+        disabled={loading}
+        className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-teal-600 hover:bg-teal-700 disabled:bg-gray-400 text-white font-medium rounded-lg transition-colors"
+      >
+        <Save className="w-4 h-4" />
+        {loading ? 'Saving...' : isEditing ? 'Update Project' : 'Create Project'}
+      </button>
     </form>
   );
 }

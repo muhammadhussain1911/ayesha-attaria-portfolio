@@ -1,18 +1,22 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/app/context/AuthContext';
-import { Loader } from 'lucide-react';
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/app/context/AuthContext";
+import { Loader } from "lucide-react";
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const router = useRouter();
   const { user, loading, isAdmin } = useAuth();
 
   useEffect(() => {
     // Redirect to login if not authenticated
     if (!loading && (!user || !isAdmin)) {
-      router.push('/admin/login');
+      router.push("/admin/login");
     }
   }, [user, loading, isAdmin, router]);
 

@@ -5,6 +5,7 @@ This guide will help you secure your admin panel using Supabase Authentication.
 ---
 
 ## Table of Contents
+
 1. [Overview](#overview)
 2. [Supabase Setup](#supabase-setup)
 3. [Environment Variables](#environment-variables)
@@ -19,6 +20,7 @@ This guide will help you secure your admin panel using Supabase Authentication.
 Supabase provides built-in authentication with email/password, OAuth providers, and more. We'll use **email/password authentication** to protect the admin panel.
 
 **Key Features:**
+
 - Simple email/password authentication
 - Session management via Supabase
 - Row-Level Security (RLS) for database
@@ -64,7 +66,7 @@ CREATE TABLE admins (
 );
 
 -- Insert your admin user
-INSERT INTO admins (id, email, role) 
+INSERT INTO admins (id, email, role)
 VALUES ('YOUR_USER_ID_FROM_SUPABASE', 'your-email@example.com', 'admin');
 
 -- Enable RLS
@@ -448,13 +450,13 @@ export default function RootLayout({
 Add protection to `/api/blogs/route.ts` and other API routes:
 
 ```typescript
-import { supabase } from '@/lib/supabase';
+import { supabase } from "@/lib/supabase";
 
 async function isAdmin(userId: string) {
   const { data } = await supabase
-    .from('admins')
-    .select('id')
-    .eq('id', userId)
+    .from("admins")
+    .select("id")
+    .eq("id", userId)
     .single();
   return !!data;
 }
@@ -462,25 +464,31 @@ async function isAdmin(userId: string) {
 export async function POST(request: NextRequest) {
   try {
     // Get session from header or cookies
-    const token = request.headers.get('Authorization')?.split('Bearer ')[1];
+    const token = request.headers.get("Authorization")?.split("Bearer ")[1];
     if (!token) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     // Verify token
-    const { data: { user }, error } = await supabase.auth.getUser(token);
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser(token);
     if (error || !user) {
-      return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
+      return NextResponse.json({ error: "Invalid token" }, { status: 401 });
     }
 
     // Check if admin
     if (!(await isAdmin(user.id))) {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
     // ... rest of API logic
   } catch (error) {
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 },
+    );
   }
 }
 ```
@@ -497,7 +505,7 @@ Sessions are automatically persisted to localStorage by Supabase. To clear on lo
 const handleLogout = async () => {
   await signOut(); // Clears session from Supabase
   localStorage.clear(); // Optional: clear any local data
-  router.push('/admin/login');
+  router.push("/admin/login");
 };
 ```
 
@@ -522,19 +530,23 @@ The AuthProvider automatically checks session on mount using `getSession()` and 
 ## Troubleshooting
 
 ### "Unexpected token '<'" Error
+
 - Make sure you've added `SUPABASE_SERVICE_ROLE_KEY` to `.env.local`
 - Verify Supabase credentials are correct
 
 ### "Admin table doesn't exist"
+
 - Run the SQL script to create the admins table
 - Make sure RLS is enabled
 
 ### Sessions not persisting
+
 - Check browser localStorage is enabled
 - Verify cookies aren't being blocked
 - Check browser console for CORS errors
 
 ### Login works but redirect fails
+
 - Verify `/admin` route exists
 - Check AuthContext is properly wrapped around app
 - Look for router.push errors in console
@@ -544,8 +556,8 @@ The AuthProvider automatically checks session on mount using `getSession()` and 
 ## Next Steps
 
 After authentication is set up:
+
 1. Follow the **Cloudinary Image Upload Guide**
 2. Implement image uploads in forms
 3. Store image URLs in Supabase
 4. Display images on public pages
-

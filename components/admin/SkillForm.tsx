@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/app/context/AuthContext';
-import { CloudinaryUploader } from '@/components/admin/CloudinaryUploader';
-import { skillSchema } from '@/lib/validations';
-import toast from 'react-hot-toast';
-import { Save, ArrowLeft, X } from 'lucide-react';
-import { Skill } from '@/lib/supabase';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/app/context/AuthContext";
+import { CloudinaryUploader } from "@/components/admin/CloudinaryUploader";
+import { skillSchema } from "@/lib/validations";
+import toast from "react-hot-toast";
+import { Save, ArrowLeft, X } from "lucide-react";
+import { Skill } from "@/lib/supabase";
 
 interface SkillFormProps {
   initialData?: Skill;
@@ -19,21 +19,25 @@ export function SkillForm({ initialData, isEditing }: SkillFormProps) {
   const { session } = useAuth();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    name: initialData?.name || '',
-    category: initialData?.category || '',
+    name: initialData?.name || "",
+    category: initialData?.category || "",
     proficiency: initialData?.proficiency || 80,
-    description: initialData?.description || '',
-    image_url: initialData?.image_url || '',
-    image_alt: initialData?.image_alt || '',
-    icon_name: initialData?.icon_name || '',
+    description: initialData?.description || "",
+    image_url: initialData?.image_url || "",
+    image_alt: initialData?.image_alt || "",
+    icon_name: initialData?.icon_name || "",
     order_index: initialData?.order_index || 0,
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
     const { name, value, type } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === 'number' ? Number(value) : value,
+      [name]: type === "number" ? Number(value) : value,
     }));
   };
 
@@ -47,32 +51,36 @@ export function SkillForm({ initialData, isEditing }: SkillFormProps) {
 
       // Get auth token
       if (!session?.access_token) {
-        toast.error('Session expired. Please login again.');
-        router.push('/admin/login');
+        toast.error("Session expired. Please login again.");
+        router.push("/admin/login");
         return;
       }
 
-      const url = isEditing ? `/api/skills/${initialData?.id}` : '/api/skills';
-      const method = isEditing ? 'PUT' : 'POST';
+      const url = isEditing ? `/api/skills/${initialData?.id}` : "/api/skills";
+      const method = isEditing ? "PUT" : "POST";
 
       const response = await fetch(url, {
         method,
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${session.access_token}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.access_token}`,
         },
         body: JSON.stringify(validated),
       });
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || 'Failed to save skill');
+        throw new Error(error.error || "Failed to save skill");
       }
 
-      toast.success(isEditing ? 'Skill updated successfully!' : 'Skill created successfully!');
-      router.push('/admin/skills');
+      toast.success(
+        isEditing
+          ? "Skill updated successfully!"
+          : "Skill created successfully!",
+      );
+      router.push("/admin/skills");
     } catch (error: any) {
-      toast.error(error.message || 'Error saving skill');
+      toast.error(error.message || "Error saving skill");
     } finally {
       setLoading(false);
     }
@@ -92,7 +100,9 @@ export function SkillForm({ initialData, isEditing }: SkillFormProps) {
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Name *</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Name *
+          </label>
           <input
             type="text"
             name="name"
@@ -104,7 +114,9 @@ export function SkillForm({ initialData, isEditing }: SkillFormProps) {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Category *</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Category *
+          </label>
           <select
             name="category"
             value={formData.category}
@@ -124,7 +136,9 @@ export function SkillForm({ initialData, isEditing }: SkillFormProps) {
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Proficiency (%)</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Proficiency (%)
+          </label>
           <input
             type="number"
             name="proficiency"
@@ -136,7 +150,9 @@ export function SkillForm({ initialData, isEditing }: SkillFormProps) {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Order Index</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Order Index
+          </label>
           <input
             type="number"
             name="order_index"
@@ -148,7 +164,9 @@ export function SkillForm({ initialData, isEditing }: SkillFormProps) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Description
+        </label>
         <textarea
           name="description"
           value={formData.description}
@@ -168,7 +186,9 @@ export function SkillForm({ initialData, isEditing }: SkillFormProps) {
       />
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Image Alt Text</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Image Alt Text
+        </label>
         <input
           type="text"
           name="image_alt"
@@ -180,7 +200,9 @@ export function SkillForm({ initialData, isEditing }: SkillFormProps) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Icon Name (Lucide)</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Icon Name (Lucide)
+        </label>
         <input
           type="text"
           name="icon_name"
@@ -189,7 +211,9 @@ export function SkillForm({ initialData, isEditing }: SkillFormProps) {
           placeholder="e.g., Code, Shield, Zap"
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
         />
-        <p className="text-xs text-gray-500 mt-1">Lucide icon name (optional)</p>
+        <p className="text-xs text-gray-500 mt-1">
+          Lucide icon name (optional)
+        </p>
       </div>
 
       {/* Submit */}
@@ -199,7 +223,7 @@ export function SkillForm({ initialData, isEditing }: SkillFormProps) {
         className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-teal-600 hover:bg-teal-700 disabled:bg-gray-400 text-white font-medium rounded-lg transition-colors"
       >
         <Save className="w-4 h-4" />
-        {loading ? 'Saving...' : isEditing ? 'Update Skill' : 'Create Skill'}
+        {loading ? "Saving..." : isEditing ? "Update Skill" : "Create Skill"}
       </button>
     </form>
   );

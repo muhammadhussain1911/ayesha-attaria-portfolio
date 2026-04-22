@@ -1,43 +1,48 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/app/context/AuthContext';
-import { CloudinaryUploader } from '@/components/admin/CloudinaryUploader';
-import { certificationSchema } from '@/lib/validations';
-import toast from 'react-hot-toast';
-import { Save, ArrowLeft, X } from 'lucide-react';
-import { Certification } from '@/lib/supabase';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/app/context/AuthContext";
+import { CloudinaryUploader } from "@/components/admin/CloudinaryUploader";
+import { certificationSchema } from "@/lib/validations";
+import toast from "react-hot-toast";
+import { Save, ArrowLeft, X } from "lucide-react";
+import { Certification } from "@/lib/supabase";
 
 interface CertificationFormProps {
   initialData?: Certification;
   isEditing?: boolean;
 }
 
-export function CertificationForm({ initialData, isEditing }: CertificationFormProps) {
+export function CertificationForm({
+  initialData,
+  isEditing,
+}: CertificationFormProps) {
   const router = useRouter();
   const { session } = useAuth();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    title: initialData?.title || '',
-    issuer: initialData?.issuer || '',
-    issue_date: initialData?.issue_date || '',
-    expiry_date: initialData?.expiry_date || '',
-    credential_id: initialData?.credential_id || '',
-    credential_url: initialData?.credential_url || '',
-    badge_image_url: initialData?.badge_image_url || '',
-    badge_image_alt: initialData?.badge_image_alt || '',
-    description: initialData?.description || '',
+    title: initialData?.title || "",
+    issuer: initialData?.issuer || "",
+    issue_date: initialData?.issue_date || "",
+    expiry_date: initialData?.expiry_date || "",
+    credential_id: initialData?.credential_id || "",
+    credential_url: initialData?.credential_url || "",
+    badge_image_url: initialData?.badge_image_url || "",
+    badge_image_alt: initialData?.badge_image_alt || "",
+    description: initialData?.description || "",
     order_index: initialData?.order_index || 0,
   });
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
   ) => {
     const { name, value, type } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === 'number' ? Number(value) : value,
+      [name]: type === "number" ? Number(value) : value,
     }));
   };
 
@@ -51,34 +56,38 @@ export function CertificationForm({ initialData, isEditing }: CertificationFormP
 
       // Get auth token
       if (!session?.access_token) {
-        toast.error('Session expired. Please login again.');
-        router.push('/admin/login');
+        toast.error("Session expired. Please login again.");
+        router.push("/admin/login");
         return;
       }
 
-      const url = isEditing ? `/api/certifications/${initialData?.id}` : '/api/certifications';
-      const method = isEditing ? 'PUT' : 'POST';
+      const url = isEditing
+        ? `/api/certifications/${initialData?.id}`
+        : "/api/certifications";
+      const method = isEditing ? "PUT" : "POST";
 
       const response = await fetch(url, {
         method,
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${session.access_token}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.access_token}`,
         },
         body: JSON.stringify(validated),
       });
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || 'Failed to save certification');
+        throw new Error(error.error || "Failed to save certification");
       }
 
       toast.success(
-        isEditing ? 'Certification updated successfully!' : 'Certification created successfully!'
+        isEditing
+          ? "Certification updated successfully!"
+          : "Certification created successfully!",
       );
-      router.push('/admin/certifications');
+      router.push("/admin/certifications");
     } catch (error: any) {
-      toast.error(error.message || 'Error saving certification');
+      toast.error(error.message || "Error saving certification");
     } finally {
       setLoading(false);
     }
@@ -185,12 +194,16 @@ export function CertificationForm({ initialData, isEditing }: CertificationFormP
           placeholder="https://verify.example.com/..."
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
         />
-        <p className="text-xs text-gray-500 mt-1">Link where the certification can be verified</p>
+        <p className="text-xs text-gray-500 mt-1">
+          Link where the certification can be verified
+        </p>
       </div>
 
       {/* Description */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Description
+        </label>
         <textarea
           name="description"
           value={formData.description}
@@ -245,7 +258,11 @@ export function CertificationForm({ initialData, isEditing }: CertificationFormP
         className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-teal-600 hover:bg-teal-700 disabled:bg-gray-400 text-white font-medium rounded-lg transition-colors"
       >
         <Save className="w-4 h-4" />
-        {loading ? 'Saving...' : isEditing ? 'Update Certification' : 'Create Certification'}
+        {loading
+          ? "Saving..."
+          : isEditing
+            ? "Update Certification"
+            : "Create Certification"}
       </button>
     </form>
   );

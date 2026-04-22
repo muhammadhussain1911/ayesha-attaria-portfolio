@@ -2,28 +2,30 @@ interface PersonSchemaProps {
   url?: string;
 }
 
-export function PersonSchema({ url = 'https://ayeshaattaria.com' }: PersonSchemaProps) {
+export function PersonSchema({
+  url = "https://ayeshaattaria.com",
+}: PersonSchemaProps) {
   const schema = {
-    '@context': 'https://schema.org/',
-    '@type': 'Person',
-    name: 'Ayesha Attaria',
-    jobTitle: 'Web Application Penetration Tester',
+    "@context": "https://schema.org/",
+    "@type": "Person",
+    name: "Ayesha Attaria",
+    jobTitle: "Web Application Penetration Tester",
     url,
     sameAs: [
-      'https://www.linkedin.com/in/ayeshaattaria',
-      'https://twitter.com/ayeshaattaria',
+      "https://www.linkedin.com/in/ayeshaattaria",
+      "https://twitter.com/ayeshaattaria",
     ],
     knowsAbout: [
-      'Penetration Testing',
-      'API Security',
-      'OWASP Top 10',
-      'Bug Bounty',
-      'Ethical Hacking',
-      'Cybersecurity',
+      "Penetration Testing",
+      "API Security",
+      "OWASP Top 10",
+      "Bug Bounty",
+      "Ethical Hacking",
+      "Cybersecurity",
     ],
     address: {
-      '@type': 'PostalAddress',
-      addressCountry: 'PK',
+      "@type": "PostalAddress",
+      addressCountry: "PK",
     },
   };
 
@@ -41,17 +43,17 @@ interface ProfessionalServiceSchemaProps {
 }
 
 export function ProfessionalServiceSchema({
-  url = 'https://ayeshaattaria.com',
+  url = "https://ayeshaattaria.com",
 }: ProfessionalServiceSchemaProps) {
   const schema = {
-    '@context': 'https://schema.org/',
-    '@type': 'ProfessionalService',
-    name: 'Ayesha Attaria — Web App & API Penetration Testing',
+    "@context": "https://schema.org/",
+    "@type": "ProfessionalService",
+    name: "Ayesha Attaria — Web App & API Penetration Testing",
     description:
-      'Manual web application and API penetration testing services aligned with OWASP Top 10',
+      "Manual web application and API penetration testing services aligned with OWASP Top 10",
     url,
-    areaServed: ['US', 'GB', 'DE', 'NL', 'FR', 'AU', 'CA'],
-    priceRange: '$$',
+    areaServed: ["US", "GB", "DE", "NL", "FR", "AU", "CA"],
+    priceRange: "$$",
   };
 
   return (
@@ -68,20 +70,20 @@ interface OrganizationSchemaProps {
 }
 
 export function OrganizationSchema({
-  url = 'https://ayeshaattaria.com',
+  url = "https://ayeshaattaria.com",
 }: OrganizationSchemaProps) {
   const schema = {
-    '@context': 'https://schema.org/',
-    '@type': 'WebSite',
-    name: 'Ayesha Attaria',
+    "@context": "https://schema.org/",
+    "@type": "WebSite",
+    name: "Ayesha Attaria",
     url,
     potentialAction: {
-      '@type': 'SearchAction',
+      "@type": "SearchAction",
       target: {
-        '@type': 'EntryPoint',
+        "@type": "EntryPoint",
         urlTemplate: `${url}/search?q={search_term_string}`,
       },
-      'query-input': 'required name=search_term_string',
+      "query-input": "required name=search_term_string",
     },
   };
 
@@ -100,10 +102,10 @@ interface BreadcrumbSchemaProps {
 
 export function BreadcrumbSchema({ items }: BreadcrumbSchemaProps) {
   const schema = {
-    '@context': 'https://schema.org/',
-    '@type': 'BreadcrumbList',
+    "@context": "https://schema.org/",
+    "@type": "BreadcrumbList",
     itemListElement: items.map((item, idx) => ({
-      '@type': 'ListItem',
+      "@type": "ListItem",
       position: idx + 1,
       name: item.name,
       item: item.url,
@@ -138,33 +140,33 @@ export function BlogPostingSchema({
   datePublished,
   dateModified,
   image,
-  author = 'Ayesha Attaria',
+  author = "Ayesha Attaria",
   url,
   keywords = [],
 }: BlogPostingSchemaProps) {
   const schema = {
-    '@context': 'https://schema.org/',
-    '@type': 'BlogPosting',
+    "@context": "https://schema.org/",
+    "@type": "BlogPosting",
     headline,
     description,
-    image: image || 'https://ayeshaattaria.com/og-image.jpg',
+    image: image || "https://ayeshaattaria.com/og-image.jpg",
     datePublished,
     dateModified: dateModified || datePublished,
     author: {
-      '@type': 'Person',
+      "@type": "Person",
       name: author,
-      url: 'https://ayeshaattaria.com',
+      url: "https://ayeshaattaria.com",
     },
     publisher: {
-      '@type': 'Organization',
-      name: 'Ayesha Attaria',
+      "@type": "Organization",
+      name: "Ayesha Attaria",
       logo: {
-        '@type': 'ImageObject',
-        url: 'https://ayeshaattaria.com/logo.png',
+        "@type": "ImageObject",
+        url: "https://ayeshaattaria.com/logo.png",
       },
     },
     url,
-    keywords: keywords.join(', '),
+    keywords: keywords.join(", "),
   };
 
   return (
@@ -182,13 +184,13 @@ interface FAQSchemaProps {
 
 export function FAQSchema({ items }: FAQSchemaProps) {
   const schema = {
-    '@context': 'https://schema.org/',
-    '@type': 'FAQPage',
+    "@context": "https://schema.org/",
+    "@type": "FAQPage",
     mainEntity: items.map((item) => ({
-      '@type': 'Question',
+      "@type": "Question",
       name: item.question,
       acceptedAnswer: {
-        '@type': 'Answer',
+        "@type": "Answer",
         text: item.answer,
       },
     })),

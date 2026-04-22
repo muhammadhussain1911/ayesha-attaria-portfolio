@@ -5,6 +5,7 @@ This guide will help you set up Cloudinary for hosting and serving images from y
 ---
 
 ## Table of Contents
+
 1. [Overview](#overview)
 2. [Cloudinary Setup](#cloudinary-setup)
 3. [Environment Variables](#environment-variables)
@@ -19,6 +20,7 @@ This guide will help you set up Cloudinary for hosting and serving images from y
 ## Overview
 
 **Why Cloudinary?**
+
 - Automatic image optimization (compression, responsive sizing)
 - CDN distribution (fast delivery worldwide)
 - Transformations (cropping, effects, filters)
@@ -27,6 +29,7 @@ This guide will help you set up Cloudinary for hosting and serving images from y
 - Easy integration with Next.js
 
 **What You'll Learn:**
+
 - Upload images from admin panel
 - Store image URLs in Supabase
 - Fetch and display images on public pages
@@ -72,6 +75,7 @@ This guide will help you set up Cloudinary for hosting and serving images from y
 ### Step 4: Create Folders in Cloudinary
 
 For organization, create these folders in your Cloudinary dashboard:
+
 - `portfolio/blogs/` - Blog featured images
 - `portfolio/projects/` - Project images
 - `portfolio/certifications/` - Badge images
@@ -99,7 +103,8 @@ NEXT_PUBLIC_CLOUDINARY_IMAGE_QUALITY=auto
 NEXT_PUBLIC_CLOUDINARY_FETCH_FORMAT=auto
 ```
 
-**Why certain variables are NEXT_PUBLIC_?**
+**Why certain variables are NEXT*PUBLIC*?**
+
 - `CLOUD_NAME`: Needed in browser for uploads
 - `API_KEY`: Used by upload widget (safe to expose)
 - `API_SECRET`: NEVER make public - server-side only
@@ -398,8 +403,8 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'res.cloudinary.com',
+        protocol: "https",
+        hostname: "res.cloudinary.com",
       },
     ],
   },
@@ -450,8 +455,8 @@ Cloudinary automatically optimizes, but you can customize:
 Create `app/api/upload/route.ts` for server-side uploads (optional):
 
 ```typescript
-import { v2 as cloudinary } from 'cloudinary';
-import { NextRequest, NextResponse } from 'next/server';
+import { v2 as cloudinary } from "cloudinary";
+import { NextRequest, NextResponse } from "next/server";
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -462,35 +467,26 @@ cloudinary.config({
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
-    const file = formData.get('file') as File;
-    const folder = formData.get('folder') as string;
+    const file = formData.get("file") as File;
+    const folder = formData.get("folder") as string;
 
     if (!file) {
-      return NextResponse.json(
-        { error: 'No file provided' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "No file provided" }, { status: 400 });
     }
 
     const buffer = await file.arrayBuffer();
     const result = await new Promise((resolve, reject) => {
       cloudinary.uploader
-        .upload_stream(
-          { folder, resource_type: 'auto' },
-          (error, result) => {
-            if (error) reject(error);
-            resolve(result);
-          }
-        )
+        .upload_stream({ folder, resource_type: "auto" }, (error, result) => {
+          if (error) reject(error);
+          resolve(result);
+        })
         .end(Buffer.from(buffer));
     });
 
     return NextResponse.json(result);
   } catch (error: any) {
-    return NextResponse.json(
-      { error: error.message },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
 ```
@@ -502,23 +498,27 @@ export async function POST(request: NextRequest) {
 Your Supabase tables already support image URLs. Key fields:
 
 **Blogs:**
+
 ```sql
 image_url VARCHAR -- Cloudinary URL
 image_alt VARCHAR -- Alt text for accessibility
 ```
 
 **Projects:**
+
 ```sql
 image_url VARCHAR -- Cloudinary URL
 image_alt VARCHAR
 ```
 
 **Certifications:**
+
 ```sql
 badge_url VARCHAR -- Cloudinary URL
 ```
 
 **Experience:**
+
 ```sql
 logo_url VARCHAR -- Cloudinary URL
 ```
@@ -528,12 +528,14 @@ logo_url VARCHAR -- Cloudinary URL
 ## Best Practices
 
 ### 1. Image Optimization
+
 - Use Cloudinary's automatic optimization
 - Always provide `alt` text for accessibility
 - Use `sizes` prop for responsive images
 - Set `priority={false}` for non-critical images
 
 ### 2. Folder Organization
+
 ```
 portfolio/
 ├── blogs/
@@ -551,24 +553,29 @@ portfolio/
 ```
 
 ### 3. File Naming
+
 - Use descriptive names: `blog-penetration-testing-guide.jpg`
 - No special characters (use hyphens instead of spaces)
 - Include date for versioning: `cert-2024-04.png`
 
 ### 4. File Sizes
+
 - Compress before upload (< 5MB recommended)
 - Cloudinary will optimize automatically
 - Use WebP format when possible
 - Monitor usage in Cloudinary Dashboard
 
 ### 5. Security
+
 - Use **Signed uploads** (requires upload preset)
 - Set `maxFileSize` in uploader options
 - Never expose API Secret in frontend code
 - Validate file types on backend
 
 ### 6. Caching
+
 Cloudinary URLs are cached by CDN. To invalidate:
+
 1. Upload new version
 2. Use versioning in URL: `image.jpg?v=2`
 
@@ -577,23 +584,27 @@ Cloudinary URLs are cached by CDN. To invalidate:
 ## Troubleshooting
 
 ### "Cannot find module 'next-cloudinary'"
+
 ```bash
 npm install next-cloudinary
 ```
 
 ### Images not displaying
+
 1. Verify `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` is correct
 2. Check image URL exists in Cloudinary Dashboard
 3. Confirm upload preset is signed correctly
 4. Verify `remotePatterns` in `next.config.mjs`
 
 ### Upload widget not showing
+
 1. Verify `NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET` exists
 2. Check browser console for errors
 3. Ensure upload preset is "Signed"
 4. Verify Cloud Name is correct
 
 ### Images slow to load
+
 1. Enable "Auto format" in Cloudinary settings
 2. Set quality to "auto" or "85"
 3. Use responsive widths with `sizes` prop
@@ -623,4 +634,3 @@ npm install next-cloudinary
 3. Test image transformations
 4. Monitor bandwidth usage in Cloudinary Dashboard
 5. Set up backup/export strategy for images
-

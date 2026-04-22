@@ -5,6 +5,7 @@ This guide ties together **Supabase Authentication** and **Cloudinary Image Uplo
 ---
 
 ## Table of Contents
+
 1. [Architecture Overview](#architecture-overview)
 2. [Setup Checklist](#setup-checklist)
 3. [File Structure](#file-structure)
@@ -68,6 +69,7 @@ This guide ties together **Supabase Authentication** and **Cloudinary Image Uplo
 ## Setup Checklist
 
 ### Phase 1: Supabase Authentication
+
 - [ ] Create Supabase account
 - [ ] Create `admins` table (see SUPABASE_AUTH_SETUP.md)
 - [ ] Create admin user
@@ -77,6 +79,7 @@ This guide ties together **Supabase Authentication** and **Cloudinary Image Uplo
 - [ ] Protect admin routes
 
 ### Phase 2: Cloudinary Integration
+
 - [ ] Create Cloudinary account
 - [ ] Get API credentials
 - [ ] Create upload preset (signed)
@@ -87,6 +90,7 @@ This guide ties together **Supabase Authentication** and **Cloudinary Image Uplo
 - [ ] Update forms with uploader
 
 ### Phase 3: Integration
+
 - [ ] Update API routes with auth checks
 - [ ] Test form submissions
 - [ ] Verify images saved to Cloudinary
@@ -148,17 +152,19 @@ lib/
 ### Step 1: Setup Environment
 
 1. **Copy example to local:**
+
    ```bash
    cp .env.local.example .env.local
    ```
 
 2. **Add all credentials to `.env.local`:**
+
    ```
    # Supabase
    NEXT_PUBLIC_SUPABASE_URL=...
    NEXT_PUBLIC_SUPABASE_ANON_KEY=...
    SUPABASE_SERVICE_ROLE_KEY=...
-   
+
    # Cloudinary
    NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=...
    NEXT_PUBLIC_CLOUDINARY_API_KEY=...
@@ -177,6 +183,7 @@ npm install next-cloudinary @supabase/supabase-js
 See `SUPABASE_AUTH_SETUP.md` → "Create Authentication Context" section
 
 Files to create:
+
 - `app/context/AuthContext.tsx`
 - `app/admin/login/page.tsx`
 - `app/admin/layout.tsx`
@@ -186,11 +193,13 @@ Files to create:
 See `CLOUDINARY_SETUP.md` → "Create Upload Component" section
 
 File to create:
+
 - `components/admin/CloudinaryUploader.tsx`
 
 ### Step 5: Update Forms
 
 Update each form component:
+
 - `components/admin/BlogForm.tsx`
 - `components/admin/ProjectForm.tsx`
 - `components/admin/CertificationForm.tsx`
@@ -198,6 +207,7 @@ Update each form component:
 - `components/admin/SkillForm.tsx`
 
 Add:
+
 ```typescript
 import { CloudinaryUploader } from '@/components/admin/CloudinaryUploader';
 
@@ -216,26 +226,29 @@ Update all API routes in `app/api/*/route.ts`:
 
 ```typescript
 // Add authentication check
-const token = request.headers.get('Authorization')?.split('Bearer ')[1];
+const token = request.headers.get("Authorization")?.split("Bearer ")[1];
 if (!token) {
-  return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 }
 
 // Verify user is admin
-const { data: { user }, error } = await supabase.auth.getUser(token);
+const {
+  data: { user },
+  error,
+} = await supabase.auth.getUser(token);
 if (!user) {
-  return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
+  return NextResponse.json({ error: "Invalid token" }, { status: 401 });
 }
 
 // Check admin status
 const { data: admin } = await supabase
-  .from('admins')
-  .select('id')
-  .eq('id', user.id)
+  .from("admins")
+  .select("id")
+  .eq("id", user.id)
   .single();
 
 if (!admin) {
-  return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+  return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 }
 ```
 
@@ -581,15 +594,15 @@ export function BlogForm({ blogId }: BlogFormProps) {
 
 ```typescript
 // app/api/blogs/route.ts
-import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
-import { blogSchema } from '@/lib/validations';
+import { NextRequest, NextResponse } from "next/server";
+import { supabase } from "@/lib/supabase";
+import { blogSchema } from "@/lib/validations";
 
 async function isAdmin(userId: string) {
   const { data } = await supabase
-    .from('admins')
-    .select('id')
-    .eq('id', userId)
+    .from("admins")
+    .select("id")
+    .eq("id", userId)
     .single();
   return !!data;
 }
@@ -598,18 +611,15 @@ export async function GET(request: NextRequest) {
   // Public endpoint - no auth required for reading
   try {
     const { data, error } = await supabase
-      .from('blogs')
-      .select('*')
-      .eq('published', true)
-      .order('created_at', { ascending: false });
+      .from("blogs")
+      .select("*")
+      .eq("published", true)
+      .order("created_at", { ascending: false });
 
     if (error) throw error;
     return NextResponse.json(data);
   } catch (error: any) {
-    return NextResponse.json(
-      { error: error.message },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
 
@@ -617,31 +627,28 @@ export async function POST(request: NextRequest) {
   // Protected endpoint - auth required
   try {
     // Get auth token
-    const authHeader = request.headers.get('Authorization');
-    const token = authHeader?.split('Bearer ')[1];
+    const authHeader = request.headers.get("Authorization");
+    const token = authHeader?.split("Bearer ")[1];
 
     if (!token) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     // Verify token and get user
-    const { data: { user }, error: authError } = await supabase.auth.getUser(token);
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser(token);
 
     if (authError || !user) {
-      return NextResponse.json(
-        { error: 'Invalid token' },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: "Invalid token" }, { status: 401 });
     }
 
     // Check admin status
     if (!(await isAdmin(user.id))) {
       return NextResponse.json(
-        { error: 'Forbidden - admin access required' },
-        { status: 403 }
+        { error: "Forbidden - admin access required" },
+        { status: 403 },
       );
     }
 
@@ -651,11 +658,13 @@ export async function POST(request: NextRequest) {
 
     // Insert into database
     const { data, error } = await supabase
-      .from('blogs')
-      .insert([{
-        ...validated,
-        created_at: new Date().toISOString(),
-      }])
+      .from("blogs")
+      .insert([
+        {
+          ...validated,
+          created_at: new Date().toISOString(),
+        },
+      ])
       .select();
 
     if (error) throw error;
@@ -663,8 +672,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(data[0], { status: 201 });
   } catch (error: any) {
     return NextResponse.json(
-      { error: error.message || 'Internal server error' },
-      { status: 500 }
+      { error: error.message || "Internal server error" },
+      { status: 500 },
     );
   }
 }
@@ -751,6 +760,7 @@ curl -X POST http://localhost:3000/api/blogs \
 ### Deploy to Vercel
 
 1. **Connect repository:**
+
    ```bash
    vercel link
    ```
@@ -768,6 +778,7 @@ curl -X POST http://localhost:3000/api/blogs \
 ### Deploy to Other Platforms
 
 Update `.env.local` equivalents in:
+
 - **Netlify**: Site settings → Build & deploy → Environment
 - **Railway**: Variables tab
 - **Render**: Environment tab
@@ -779,21 +790,25 @@ Update `.env.local` equivalents in:
 ### Common Issues
 
 **"Cannot find module 'CloudinaryUploader'"**
+
 - Check file path is correct
 - Verify component is exported
 - Clear `.next` folder: `rm -rf .next`
 
 **"Unauthorized" on form submit**
+
 - Verify auth token is valid
 - Check session hasn't expired
 - Re-login if needed
 
 **Images not saving**
+
 - Verify Cloudinary URL in form state
 - Check API response for errors
 - Verify Supabase column accepts URLs
 
 **Images not displaying**
+
 - Verify image_url is saved to database
 - Check Cloudinary Dashboard for image
 - Verify `remotePatterns` in `next.config.mjs`
@@ -809,4 +824,3 @@ Update `.env.local` equivalents in:
 ---
 
 **Status: Ready for production deployment! 🚀**
-

@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/app/context/AuthContext';
-import { CloudinaryUploader } from '@/components/admin/CloudinaryUploader';
-import { RichTextEditor } from './RichTextEditor';
-import { blogSchema } from '@/lib/validations';
-import toast from 'react-hot-toast';
-import { Save, ArrowLeft } from 'lucide-react';
-import { Blog } from '@/lib/supabase';
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/app/context/AuthContext";
+import { CloudinaryUploader } from "@/components/admin/CloudinaryUploader";
+import { RichTextEditor } from "./RichTextEditor";
+import { blogSchema } from "@/lib/validations";
+import toast from "react-hot-toast";
+import { Save, ArrowLeft } from "lucide-react";
+import { Blog } from "@/lib/supabase";
 
 interface BlogFormProps {
   initialData?: Blog;
@@ -20,26 +20,28 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
   const { session } = useAuth();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    title: initialData?.title || '',
-    slug: initialData?.slug || '',
-    description: initialData?.description || '',
-    content: initialData?.content || '',
-    image_url: initialData?.image_url || '',
-    image_alt: initialData?.image_alt || '',
-    category: initialData?.category || '',
+    title: initialData?.title || "",
+    slug: initialData?.slug || "",
+    description: initialData?.description || "",
+    content: initialData?.content || "",
+    image_url: initialData?.image_url || "",
+    image_alt: initialData?.image_alt || "",
+    category: initialData?.category || "",
     tags: initialData?.tags || ([] as string[]),
     published: initialData?.published || false,
   });
-  const [tagInput, setTagInput] = useState('');
+  const [tagInput, setTagInput] = useState("");
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
   ) => {
     const { name, value, type } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]:
-        type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
+        type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
     }));
   };
 
@@ -49,7 +51,7 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
         ...prev,
         tags: [...prev.tags, tagInput.trim()],
       }));
-      setTagInput('');
+      setTagInput("");
     }
   };
 
@@ -70,34 +72,34 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
 
       // Get auth token
       if (!session?.access_token) {
-        toast.error('Session expired. Please login again.');
-        router.push('/admin/login');
+        toast.error("Session expired. Please login again.");
+        router.push("/admin/login");
         return;
       }
 
-      const url = isEditing ? `/api/blogs/${initialData?.slug}` : '/api/blogs';
-      const method = isEditing ? 'PUT' : 'POST';
+      const url = isEditing ? `/api/blogs/${initialData?.slug}` : "/api/blogs";
+      const method = isEditing ? "PUT" : "POST";
 
       const response = await fetch(url, {
         method,
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${session.access_token}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.access_token}`,
         },
         body: JSON.stringify(validated),
       });
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || 'Failed to save blog');
+        throw new Error(error.error || "Failed to save blog");
       }
 
       toast.success(
-        isEditing ? 'Blog updated successfully!' : 'Blog created successfully!'
+        isEditing ? "Blog updated successfully!" : "Blog created successfully!",
       );
-      router.push('/admin/blogs');
+      router.push("/admin/blogs");
     } catch (error: any) {
-      toast.error(error.message || 'Error saving blog');
+      toast.error(error.message || "Error saving blog");
     } finally {
       setLoading(false);
     }
@@ -215,7 +217,7 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
             value={tagInput}
             onChange={(e) => setTagInput(e.target.value)}
             onKeyPress={(e) =>
-              e.key === 'Enter' && (e.preventDefault(), addTag())
+              e.key === "Enter" && (e.preventDefault(), addTag())
             }
             placeholder="Add a tag and press Enter"
             className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
@@ -279,7 +281,7 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
         className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-teal-600 hover:bg-teal-700 disabled:bg-gray-400 text-white font-medium rounded-lg transition-colors"
       >
         <Save className="w-4 h-4" />
-        {loading ? 'Saving...' : isEditing ? 'Update Blog' : 'Create Blog'}
+        {loading ? "Saving..." : isEditing ? "Update Blog" : "Create Blog"}
       </button>
     </form>
   );

@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/app/context/AuthContext';
-import { CloudinaryUploader } from '@/components/admin/CloudinaryUploader';
-import { projectSchema } from '@/lib/validations';
-import toast from 'react-hot-toast';
-import { Save, ArrowLeft, X } from 'lucide-react';
-import { Project } from '@/lib/supabase';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/app/context/AuthContext";
+import { CloudinaryUploader } from "@/components/admin/CloudinaryUploader";
+import { projectSchema } from "@/lib/validations";
+import toast from "react-hot-toast";
+import { Save, ArrowLeft, X } from "lucide-react";
+import { Project } from "@/lib/supabase";
 
 interface ProjectFormProps {
   initialData?: Project;
@@ -19,27 +19,32 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
   const { session } = useAuth();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    title: initialData?.title || '',
-    slug: initialData?.slug || '',
-    description: initialData?.description || '',
-    content: initialData?.content || '',
-    image_url: initialData?.image_url || '',
-    image_alt: initialData?.image_alt || '',
-    project_url: initialData?.project_url || '',
-    github_url: initialData?.github_url || '',
+    title: initialData?.title || "",
+    slug: initialData?.slug || "",
+    description: initialData?.description || "",
+    content: initialData?.content || "",
+    image_url: initialData?.image_url || "",
+    image_alt: initialData?.image_alt || "",
+    project_url: initialData?.project_url || "",
+    github_url: initialData?.github_url || "",
     technologies: initialData?.technologies || [],
-    severity_found: initialData?.severity_found || '',
-    impact: initialData?.impact || '',
+    severity_found: initialData?.severity_found || "",
+    impact: initialData?.impact || "",
     published: initialData?.published || false,
     featured: initialData?.featured || false,
   });
-  const [techInput, setTechInput] = useState('');
+  const [techInput, setTechInput] = useState("");
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
     const { name, value, type } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
+      [name]:
+        type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
     }));
   };
 
@@ -49,7 +54,7 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
         ...prev,
         technologies: [...prev.technologies, techInput.trim()],
       }));
-      setTechInput('');
+      setTechInput("");
     }
   };
 
@@ -70,34 +75,38 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
 
       // Get auth token
       if (!session?.access_token) {
-        toast.error('Session expired. Please login again.');
-        router.push('/admin/login');
+        toast.error("Session expired. Please login again.");
+        router.push("/admin/login");
         return;
       }
 
-      const url = isEditing ? `/api/projects/${initialData?.id}` : '/api/projects';
-      const method = isEditing ? 'PUT' : 'POST';
+      const url = isEditing
+        ? `/api/projects/${initialData?.id}`
+        : "/api/projects";
+      const method = isEditing ? "PUT" : "POST";
 
       const response = await fetch(url, {
         method,
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${session.access_token}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.access_token}`,
         },
         body: JSON.stringify(validated),
       });
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || 'Failed to save project');
+        throw new Error(error.error || "Failed to save project");
       }
 
       toast.success(
-        isEditing ? 'Project updated successfully!' : 'Project created successfully!'
+        isEditing
+          ? "Project updated successfully!"
+          : "Project created successfully!",
       );
-      router.push('/admin/projects');
+      router.push("/admin/projects");
     } catch (error: any) {
-      toast.error(error.message || 'Error saving project');
+      toast.error(error.message || "Error saving project");
     } finally {
       setLoading(false);
     }
@@ -117,7 +126,9 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
 
       {/* Title */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Title *</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Title *
+        </label>
         <input
           type="text"
           name="title"
@@ -131,7 +142,9 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
 
       {/* Slug */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Slug *</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Slug *
+        </label>
         <input
           type="text"
           name="slug"
@@ -145,7 +158,9 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
 
       {/* Description */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Description *</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Description *
+        </label>
         <textarea
           name="description"
           value={formData.description}
@@ -159,7 +174,9 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
 
       {/* Content */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Detailed Content *</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Detailed Content *
+        </label>
         <textarea
           name="content"
           value={formData.content}
@@ -181,7 +198,9 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
 
       {/* Image Alt Text */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Image Alt Text</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Image Alt Text
+        </label>
         <input
           type="text"
           name="image_alt"
@@ -195,7 +214,9 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
       {/* URLs */}
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Project URL</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Project URL
+          </label>
           <input
             type="url"
             name="project_url"
@@ -206,7 +227,9 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">GitHub URL</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            GitHub URL
+          </label>
           <input
             type="url"
             name="github_url"
@@ -221,7 +244,9 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
       {/* Severity & Impact */}
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Severity Found</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Severity Found
+          </label>
           <input
             type="text"
             name="severity_found"
@@ -232,7 +257,9 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Impact</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Impact
+          </label>
           <input
             type="text"
             name="impact"
@@ -246,14 +273,16 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
 
       {/* Technologies */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Technologies</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Technologies
+        </label>
         <div className="flex gap-2 mb-2">
           <input
             type="text"
             value={techInput}
             onChange={(e) => setTechInput(e.target.value)}
             onKeyPress={(e) =>
-              e.key === 'Enter' && (e.preventDefault(), addTech())
+              e.key === "Enter" && (e.preventDefault(), addTech())
             }
             placeholder="Add technology"
             className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
@@ -295,7 +324,9 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
             onChange={handleInputChange}
             className="w-4 h-4 rounded text-teal-600"
           />
-          <span className="text-sm font-medium text-gray-700">Publish this project</span>
+          <span className="text-sm font-medium text-gray-700">
+            Publish this project
+          </span>
         </label>
         <label className="flex items-center gap-2 cursor-pointer">
           <input
@@ -305,7 +336,9 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
             onChange={handleInputChange}
             className="w-4 h-4 rounded text-teal-600"
           />
-          <span className="text-sm font-medium text-gray-700">Feature on homepage</span>
+          <span className="text-sm font-medium text-gray-700">
+            Feature on homepage
+          </span>
         </label>
       </div>
 
@@ -316,7 +349,11 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
         className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-teal-600 hover:bg-teal-700 disabled:bg-gray-400 text-white font-medium rounded-lg transition-colors"
       >
         <Save className="w-4 h-4" />
-        {loading ? 'Saving...' : isEditing ? 'Update Project' : 'Create Project'}
+        {loading
+          ? "Saving..."
+          : isEditing
+            ? "Update Project"
+            : "Create Project"}
       </button>
     </form>
   );

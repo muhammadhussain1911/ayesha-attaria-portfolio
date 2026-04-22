@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { createContext, useContext, useEffect, useState } from 'react';
-import { User, Session } from '@supabase/supabase-js';
-import { supabase } from '@/lib/supabase';
+import { createContext, useContext, useEffect, useState } from "react";
+import { User, Session } from "@supabase/supabase-js";
+import { supabase } from "@/lib/supabase";
 
 interface AuthContextType {
   user: User | null;
@@ -34,14 +34,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         // Check if user is admin
         if (session?.user) {
           const { data } = await supabase
-            .from('admins')
-            .select('id')
-            .eq('id', session.user.id)
+            .from("admins")
+            .select("id")
+            .eq("id", session.user.id)
             .single();
           setIsAdmin(!!data);
         }
       } catch (error) {
-        console.error('Error checking session:', error);
+        console.error("Error checking session:", error);
       } finally {
         setLoading(false);
       }
@@ -58,9 +58,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       if (session?.user) {
         const { data } = await supabase
-          .from('admins')
-          .select('id')
-          .eq('id', session.user.id)
+          .from("admins")
+          .select("id")
+          .eq("id", session.user.id)
           .single();
         setIsAdmin(!!data);
       } else {
@@ -72,7 +72,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
     if (error) throw error;
   };
 
@@ -82,7 +85,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, session, loading, signIn, signOut, isAdmin }}>
+    <AuthContext.Provider
+      value={{ user, session, loading, signIn, signOut, isAdmin }}
+    >
       {children}
     </AuthContext.Provider>
   );
@@ -91,7 +96,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 export function useAuth() {
   const context = useContext(AuthContext);
   if (undefined === context) {
-    throw new Error('useAuth must be used within AuthProvider');
+    throw new Error("useAuth must be used within AuthProvider");
   }
   return context;
 }

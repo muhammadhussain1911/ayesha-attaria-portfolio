@@ -1,63 +1,71 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/app/context/AuthContext';
-import { CloudinaryUploader } from '@/components/admin/CloudinaryUploader';
-import { experienceSchema } from '@/lib/validations';
-import toast from 'react-hot-toast';
-import { Save, ArrowLeft, X } from 'lucide-react';
-import { Experience } from '@/lib/supabase';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/app/context/AuthContext";
+import { CloudinaryUploader } from "@/components/admin/CloudinaryUploader";
+import { experienceSchema } from "@/lib/validations";
+import toast from "react-hot-toast";
+import { Save, ArrowLeft, X } from "lucide-react";
+import { Experience } from "@/lib/supabase";
 
 interface ExperienceFormProps {
   initialData?: Experience;
   isEditing?: boolean;
 }
 
-export function ExperienceForm({ initialData, isEditing }: ExperienceFormProps) {
+export function ExperienceForm({
+  initialData,
+  isEditing,
+}: ExperienceFormProps) {
   const router = useRouter();
   const { session } = useAuth();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    title: initialData?.title || '',
-    organization: initialData?.organization || '',
-    organization_logo_url: initialData?.organization_logo_url || '',
-    organization_logo_alt: initialData?.organization_logo_alt || '',
-    description: initialData?.description || '',
-    start_date: initialData?.start_date || '',
-    end_date: initialData?.end_date || '',
+    title: initialData?.title || "",
+    organization: initialData?.organization || "",
+    organization_logo_url: initialData?.organization_logo_url || "",
+    organization_logo_alt: initialData?.organization_logo_alt || "",
+    description: initialData?.description || "",
+    start_date: initialData?.start_date || "",
+    end_date: initialData?.end_date || "",
     is_current: initialData?.is_current || false,
-    type: initialData?.type || 'employment',
-    location: initialData?.location || '',
+    type: initialData?.type || "employment",
+    location: initialData?.location || "",
     achievements: initialData?.achievements || [],
     technologies: initialData?.technologies || [],
     order_index: initialData?.order_index || 0,
   });
-  const [achievementInput, setAchievementInput] = useState('');
-  const [techInput, setTechInput] = useState('');
+  const [achievementInput, setAchievementInput] = useState("");
+  const [techInput, setTechInput] = useState("");
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
   ) => {
     const { name, value, type } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]:
-        type === 'checkbox'
+        type === "checkbox"
           ? (e.target as HTMLInputElement).checked
-          : type === 'number'
+          : type === "number"
             ? Number(value)
             : value,
     }));
   };
 
   const addAchievement = () => {
-    if (achievementInput.trim() && !formData.achievements.includes(achievementInput.trim())) {
+    if (
+      achievementInput.trim() &&
+      !formData.achievements.includes(achievementInput.trim())
+    ) {
       setFormData((prev) => ({
         ...prev,
         achievements: [...prev.achievements, achievementInput.trim()],
       }));
-      setAchievementInput('');
+      setAchievementInput("");
     }
   };
 
@@ -74,7 +82,7 @@ export function ExperienceForm({ initialData, isEditing }: ExperienceFormProps) 
         ...prev,
         technologies: [...prev.technologies, techInput.trim()],
       }));
-      setTechInput('');
+      setTechInput("");
     }
   };
 
@@ -95,34 +103,38 @@ export function ExperienceForm({ initialData, isEditing }: ExperienceFormProps) 
 
       // Get auth token
       if (!session?.access_token) {
-        toast.error('Session expired. Please login again.');
-        router.push('/admin/login');
+        toast.error("Session expired. Please login again.");
+        router.push("/admin/login");
         return;
       }
 
-      const url = isEditing ? `/api/experience/${initialData?.id}` : '/api/experience';
-      const method = isEditing ? 'PUT' : 'POST';
+      const url = isEditing
+        ? `/api/experience/${initialData?.id}`
+        : "/api/experience";
+      const method = isEditing ? "PUT" : "POST";
 
       const response = await fetch(url, {
         method,
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${session.access_token}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.access_token}`,
         },
         body: JSON.stringify(validated),
       });
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || 'Failed to save experience');
+        throw new Error(error.error || "Failed to save experience");
       }
 
       toast.success(
-        isEditing ? 'Experience updated successfully!' : 'Experience created successfully!'
+        isEditing
+          ? "Experience updated successfully!"
+          : "Experience created successfully!",
       );
-      router.push('/admin/experience');
+      router.push("/admin/experience");
     } catch (error: any) {
-      toast.error(error.message || 'Error saving experience');
+      toast.error(error.message || "Error saving experience");
     } finally {
       setLoading(false);
     }
@@ -142,7 +154,9 @@ export function ExperienceForm({ initialData, isEditing }: ExperienceFormProps) 
 
       {/* Title */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Title *</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Title *
+        </label>
         <input
           type="text"
           name="title"
@@ -156,7 +170,9 @@ export function ExperienceForm({ initialData, isEditing }: ExperienceFormProps) 
 
       {/* Organization */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Organization *</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Organization *
+        </label>
         <input
           type="text"
           name="organization"
@@ -170,7 +186,9 @@ export function ExperienceForm({ initialData, isEditing }: ExperienceFormProps) 
 
       {/* Type */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Type *</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Type *
+        </label>
         <select
           name="type"
           value={formData.type}
@@ -187,7 +205,9 @@ export function ExperienceForm({ initialData, isEditing }: ExperienceFormProps) 
 
       {/* Location */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Location</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Location
+        </label>
         <input
           type="text"
           name="location"
@@ -200,7 +220,9 @@ export function ExperienceForm({ initialData, isEditing }: ExperienceFormProps) 
 
       {/* Start Date */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Start Date *</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Start Date *
+        </label>
         <input
           type="date"
           name="start_date"
@@ -214,7 +236,9 @@ export function ExperienceForm({ initialData, isEditing }: ExperienceFormProps) 
       {/* End Date & Is Current */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">End Date</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            End Date
+          </label>
           <input
             type="date"
             name="end_date"
@@ -233,14 +257,18 @@ export function ExperienceForm({ initialData, isEditing }: ExperienceFormProps) 
               onChange={handleInputChange}
               className="w-4 h-4 rounded text-teal-600"
             />
-            <span className="text-sm font-medium text-gray-700">Currently working here</span>
+            <span className="text-sm font-medium text-gray-700">
+              Currently working here
+            </span>
           </label>
         </div>
       </div>
 
       {/* Description */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Description
+        </label>
         <textarea
           name="description"
           value={formData.description}
@@ -254,14 +282,18 @@ export function ExperienceForm({ initialData, isEditing }: ExperienceFormProps) 
       {/* Organization Logo Upload */}
       <CloudinaryUploader
         value={formData.organization_logo_url}
-        onChange={(url) => setFormData({ ...formData, organization_logo_url: url })}
+        onChange={(url) =>
+          setFormData({ ...formData, organization_logo_url: url })
+        }
         folder="portfolio/experience"
         label="Organization Logo"
       />
 
       {/* Organization Logo Alt Text */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Logo Alt Text</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Logo Alt Text
+        </label>
         <input
           type="text"
           name="organization_logo_alt"
@@ -274,13 +306,17 @@ export function ExperienceForm({ initialData, isEditing }: ExperienceFormProps) 
 
       {/* Technologies */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Technologies Used</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Technologies Used
+        </label>
         <div className="flex gap-2 mb-2">
           <input
             type="text"
             value={techInput}
             onChange={(e) => setTechInput(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addTechnology())}
+            onKeyPress={(e) =>
+              e.key === "Enter" && (e.preventDefault(), addTechnology())
+            }
             placeholder="e.g., Burp Suite, OWASP"
             className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
           />
@@ -313,13 +349,17 @@ export function ExperienceForm({ initialData, isEditing }: ExperienceFormProps) 
 
       {/* Achievements */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Achievements</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Achievements
+        </label>
         <div className="flex gap-2 mb-2">
           <input
             type="text"
             value={achievementInput}
             onChange={(e) => setAchievementInput(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addAchievement())}
+            onKeyPress={(e) =>
+              e.key === "Enter" && (e.preventDefault(), addAchievement())
+            }
             placeholder="e.g., Found 15 critical vulnerabilities"
             className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
           />
@@ -333,7 +373,10 @@ export function ExperienceForm({ initialData, isEditing }: ExperienceFormProps) 
         </div>
         <div className="space-y-2">
           {formData.achievements.map((achievement) => (
-            <div key={achievement} className="flex items-center justify-between gap-2 bg-blue-50 border border-blue-200 p-3 rounded-lg">
+            <div
+              key={achievement}
+              className="flex items-center justify-between gap-2 bg-blue-50 border border-blue-200 p-3 rounded-lg"
+            >
               <span className="text-sm text-gray-700">{achievement}</span>
               <button
                 type="button"
@@ -368,7 +411,11 @@ export function ExperienceForm({ initialData, isEditing }: ExperienceFormProps) 
         className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-teal-600 hover:bg-teal-700 disabled:bg-gray-400 text-white font-medium rounded-lg transition-colors"
       >
         <Save className="w-4 h-4" />
-        {loading ? 'Saving...' : isEditing ? 'Update Experience' : 'Create Experience'}
+        {loading
+          ? "Saving..."
+          : isEditing
+            ? "Update Experience"
+            : "Create Experience"}
       </button>
     </form>
   );

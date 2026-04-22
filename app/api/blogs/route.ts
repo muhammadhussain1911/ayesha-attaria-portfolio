@@ -1,13 +1,13 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
-import { blogSchema } from '@/lib/validations';
-import { ZodError } from 'zod';
+import { NextRequest, NextResponse } from "next/server";
+import { supabase } from "@/lib/supabase";
+import { blogSchema } from "@/lib/validations";
+import { ZodError } from "zod";
 
 async function isAdmin(userId: string) {
   const { data } = await supabase
-    .from('admins')
-    .select('id')
-    .eq('id', userId)
+    .from("admins")
+    .select("id")
+    .eq("id", userId)
     .single();
   return !!data;
 }
@@ -15,20 +15,20 @@ async function isAdmin(userId: string) {
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
-    const published = searchParams.get('published') === 'true';
-    const category = searchParams.get('category');
+    const published = searchParams.get("published") === "true";
+    const category = searchParams.get("category");
 
-    let query = supabase.from('blogs').select('*');
+    let query = supabase.from("blogs").select("*");
 
     if (published) {
-      query = query.eq('published', true);
+      query = query.eq("published", true);
     }
 
     if (category) {
-      query = query.eq('category', category);
+      query = query.eq("category", category);
     }
 
-    query = query.order('created_at', { ascending: false });
+    query = query.order("created_at", { ascending: false });
 
     const { data, error } = await query;
 
@@ -38,38 +38,44 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(data);
   } catch (error) {
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 },
+    );
   }
 }
 
 export async function POST(request: NextRequest) {
   try {
     // Get auth token
-    const authHeader = request.headers.get('Authorization');
-    const token = authHeader?.split('Bearer ')[1];
+    const authHeader = request.headers.get("Authorization");
+    const token = authHeader?.split("Bearer ")[1];
 
     if (!token) {
       return NextResponse.json(
-        { error: 'Unauthorized - no token provided' },
-        { status: 401 }
+        { error: "Unauthorized - no token provided" },
+        { status: 401 },
       );
     }
 
     // Verify token and get user
-    const { data: { user }, error: authError } = await supabase.auth.getUser(token);
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser(token);
 
     if (authError || !user) {
       return NextResponse.json(
-        { error: 'Unauthorized - invalid token' },
-        { status: 401 }
+        { error: "Unauthorized - invalid token" },
+        { status: 401 },
       );
     }
 
     // Check admin status
     if (!(await isAdmin(user.id))) {
       return NextResponse.json(
-        { error: 'Forbidden - admin access required' },
-        { status: 403 }
+        { error: "Forbidden - admin access required" },
+        { status: 403 },
       );
     }
 
@@ -77,11 +83,13 @@ export async function POST(request: NextRequest) {
     const validated = blogSchema.parse(body);
 
     const { data, error } = await supabase
-      .from('blogs')
-      .insert([{
-        ...validated,
-        created_at: new Date().toISOString(),
-      }])
+      .from("blogs")
+      .insert([
+        {
+          ...validated,
+          created_at: new Date().toISOString(),
+        },
+      ])
       .select();
 
     if (error) {
@@ -93,6 +101,9 @@ export async function POST(request: NextRequest) {
     if (error instanceof ZodError) {
       return NextResponse.json({ error: error.errors }, { status: 400 });
     }
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 },
+    );
   }
 }

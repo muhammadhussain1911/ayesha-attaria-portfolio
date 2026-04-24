@@ -3,7 +3,6 @@ import { SectionHeading } from "@/components/shared/SectionHeading";
 import { ToolsGrid } from "@/components/shared/ToolsGrid";
 import { supabaseAdmin } from "@/lib/supabase";
 import { Skill } from "@/lib/supabase";
-import { Shield, Zap, Search, Wrench, Target } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Skills & Expertise | Ayesha Attaria — Web App & API Pentester",

@@ -3,15 +3,6 @@ import { SectionHeading } from "@/components/shared/SectionHeading";
 import { CertCard } from "@/components/shared/CertCard";
 import { supabaseAdmin } from "@/lib/supabase";
 import { Certification } from "@/lib/supabase";
-import {
-  Trophy,
-  Sword,
-  GraduationCap,
-  Shield,
-  Search,
-  Phone,
-  MapPin,
-} from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Certifications & Achievements | Ayesha Attaria — Ethical Hacker",
@@ -40,16 +31,10 @@ async function getCertifications(): Promise<Certification[]> {
 }
 
 const getCertIcon = (title: string) => {
-  if (title.toLowerCase().includes("bug bounty"))
-    return <Trophy className="w-12 h-12 text-teal-600" />;
-  if (title.toLowerCase().includes("red team"))
-    return <Sword className="w-12 h-12 text-teal-600" />;
-  if (
-    title.toLowerCase().includes("educator") ||
-    title.toLowerCase().includes("education")
-  )
-    return <GraduationCap className="w-12 h-12 text-teal-600" />;
-  return <Shield className="w-12 h-12 text-teal-600" />;
+  if (title.toLowerCase().includes("bug bounty")) return "🏆";
+  if (title.toLowerCase().includes("red team")) return "⚔️";
+  if (title.toLowerCase().includes("educator") || title.toLowerCase().includes("education")) return "🎓";
+  return "🛡️";
 };
 
 const ctfRankings = [
@@ -74,48 +59,17 @@ const ctfRankings = [
 ];
 
 const programs = [
-  { name: "Bugcrowd", icon: <Trophy className="w-8 h-8 text-teal-600" /> },
-  { name: "YesWeHack", icon: <Search className="w-8 h-8 text-teal-600" /> },
-  { name: "Intigriti", icon: <Shield className="w-8 h-8 text-teal-600" /> },
-  { name: "Standoff365", icon: <Sword className="w-8 h-8 text-teal-600" /> },
-  { name: "Google", icon: <Search className="w-8 h-8 text-teal-600" /> },
-  { name: "TikTok", icon: <Phone className="w-8 h-8 text-teal-600" /> },
-  { name: "Pinterest", icon: <MapPin className="w-8 h-8 text-teal-600" /> },
+  { name: "Bugcrowd", icon: "🏆" },
+  { name: "YesWeHack", icon: "🎯" },
+  { name: "Intigriti", icon: "🛡️" },
+  { name: "Standoff365", icon: "⚔️" },
+  { name: "Google", icon: "🔍" },
+  { name: "TikTok", icon: "📱" },
+  { name: "Pinterest", icon: "📌" },
 ];
 
 export default async function CertificationsPage() {
   const certifications = await getCertifications();
-
-  const ctfRankings = [
-    {
-      rank: "🥇 #5",
-      event: "Bugcrowd x Black Hat USA International CTF 2025",
-      description:
-        "Ranked among the top 5 teams globally in web security challenges.",
-    },
-    {
-      rank: "🏅 #18",
-      event: "Iran Tech Olympics International CTF 2025",
-      description:
-        "Top-ranked performer in international cybersecurity competition.",
-    },
-    {
-      rank: "🏆 Top Ranked",
-      event: "Multiple Public & Private Bug Bounty Programs",
-      description:
-        "Consistent top performer on Bugcrowd, YesWeHack, Intigriti, and Standoff365.",
-    },
-  ];
-
-  const programs = [
-    { name: "Bugcrowd", icon: "🏆" },
-    { name: "YesWeHack", icon: "🎯" },
-    { name: "Intigriti", icon: "🛡️" },
-    { name: "Standoff365", icon: "⚔️" },
-    { name: "Google", icon: "🔍" },
-    { name: "TikTok", icon: "📱" },
-    { name: "Pinterest", icon: "📌" },
-  ];
 
   return (
     <div className="bg-white">
@@ -158,7 +112,7 @@ export default async function CertificationsPage() {
                         />
                       </div>
                     ) : (
-                      <div className="flex-shrink-0">
+                      <div className="flex-shrink-0 text-4xl">
                         {getCertIcon(cert.title)}
                       </div>
                     )}

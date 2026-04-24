@@ -3,39 +3,17 @@ import Link from "next/link";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { ToolsGrid } from "@/components/shared/ToolsGrid";
 
-export const metadata: Metadata = {
-  title: "About Ayesha Attaria | Ethical Hacker & Penetration Tester",
-  description:
-    "Learn about Ayesha Attaria — a Web Application & API Penetration Tester from Pakistan helping global clients secure their digital assets through manual VAPT and bug bounty research.",
-  openGraph: {
-    title: "About Ayesha Attaria",
-    url: "https://ayeshaattaria.com/about",
-    type: "website",
-  },
-};
-
-import {
-  Search,
-  Sword,
-  Mail,
-  Zap,
-  Target,
-  Droplet,
-  Map,
-  Wrench,
-} from "lucide-react";
-
 export default function AboutPage() {
   const tools = [
-    { name: "Burp Suite", icon: Search },
-    { name: "OWASP ZAP", icon: Sword },
-    { name: "Postman", icon: Mail },
-    { name: "ffuf", icon: Zap },
-    { name: "Nuclei", icon: Target },
-    { name: "SQLMap", icon: Droplet },
-    { name: "Nmap", icon: Map },
-    { name: "Subfinder", icon: Search },
-    { name: "Metasploit", icon: Wrench },
+    { name: "Burp Suite", icon: "🔍" },
+    { name: "OWASP ZAP", icon: "⚡" },
+    { name: "Postman", icon: "📬" },
+    { name: "ffuf", icon: "⚡" },
+    { name: "Nuclei", icon: "🎯" },
+    { name: "SQLMap", icon: "💉" },
+    { name: "Nmap", icon: "🗺️" },
+    { name: "Subfinder", icon: "🔎" },
+    { name: "Metasploit", icon: "💥" },
   ];
 
   return (

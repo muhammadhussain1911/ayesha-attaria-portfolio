@@ -28,18 +28,13 @@ export default function EditProject({ params }: EditProjectPageProps) {
 
     const loadProject = async () => {
       try {
-        const response = await fetch(`/api/projects`);
+        const response = await fetch(`/api/projects/${id}`);
         if (!response.ok) {
-          toast.error('Failed to load project');
-          return;
-        }
-        const data = await response.json();
-        const found = data.find((p: Project) => p.id === id);
-        if (!found) {
           toast.error('Project not found');
           return;
         }
-        setProject(found);
+        const data = await response.json();
+        setProject(data);
       } catch (error) {
         toast.error('Error loading project');
       } finally {

@@ -3,23 +3,23 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Skill } from '@/lib/supabase';
+import { useAuth } from '@/app/context/AuthContext';
 import { Plus, Edit2, Trash2, ArrowLeft } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export default function AdminSkills() {
+  const { session } = useAuth();
   const [skills, setSkills] = useState<Skill[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadSkills();
-  }, []);
+  useEffect(() => { loadSkills(); }, []);
 
   const loadSkills = async () => {
     try {
       const response = await fetch('/api/skills');
       const data = await response.json();
       setSkills(Array.isArray(data) ? data : []);
-    } catch (error) {
+    } catch {
       toast.error('Failed to load skills');
     } finally {
       setLoading(false);
@@ -29,10 +29,15 @@ export default function AdminSkills() {
   const handleDelete = async (id: string) => {
     if (!confirm('Delete this skill?')) return;
     try {
-      const response = await fetch(`/api/skills/${id}`, { method: 'DELETE' });
+      const response = await fetch(`/api/skills/${id}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${session?.access_token}` },
+      });
       if (response.ok) {
         setSkills(skills.filter((s) => s.id !== id));
         toast.success('Skill deleted');
+      } else {
+        toast.error('Failed to delete skill');
       }
     } catch {
       toast.error('Error deleting skill');
@@ -49,10 +54,7 @@ export default function AdminSkills() {
             </Link>
             <h1 className="text-3xl font-bold text-gray-900">Manage Skills</h1>
           </div>
-          <Link
-            href="/admin/skills/new"
-            className="flex items-center gap-2 bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700"
-          >
+          <Link href="/admin/skills/new" className="flex items-center gap-2 bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700">
             <Plus className="w-5 h-5" />
             New Skill
           </Link>
@@ -64,11 +66,8 @@ export default function AdminSkills() {
           </div>
         ) : skills.length === 0 ? (
           <div className="bg-white rounded-lg shadow p-8 text-center">
-            <p className="text-gray-500 mb-4">No skills yet. Add your first skill!</p>
-            <Link
-              href="/admin/skills/new"
-              className="inline-flex items-center gap-2 bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700"
-            >
+            <p className="text-gray-500 mb-4">No skills yet.</p>
+            <Link href="/admin/skills/new" className="inline-flex items-center gap-2 bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700">
               <Plus className="w-5 h-5" />
               Add Skill
             </Link>
@@ -79,19 +78,13 @@ export default function AdminSkills() {
               <div key={skill.id} className="bg-white rounded-lg shadow p-6 flex items-center justify-between">
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900">{skill.name}</h3>
-                  <p className="text-sm text-gray-500">{skill.category} - {skill.proficiency}% proficiency</p>
+                  <p className="text-sm text-gray-500">{skill.category} — {skill.proficiency}% proficiency</p>
                 </div>
                 <div className="flex gap-2">
-                  <Link
-                    href={`/admin/skills/edit/${skill.id}`}
-                    className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg"
-                  >
+                  <Link href={`/admin/skills/edit/${skill.id}`} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg">
                     <Edit2 className="w-5 h-5" />
                   </Link>
-                  <button
-                    onClick={() => handleDelete(skill.id)}
-                    className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
-                  >
+                  <button onClick={() => handleDelete(skill.id)} className="p-2 text-red-600 hover:bg-red-50 rounded-lg">
                     <Trash2 className="w-5 h-5" />
                   </button>
                 </div>

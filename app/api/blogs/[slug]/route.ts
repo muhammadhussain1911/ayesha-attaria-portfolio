@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase, supabaseAdmin } from '@/lib/supabase';
+import { supabaseAdmin } from '@/lib/supabase';
 import { blogSchema } from '@/lib/validations';
 import { ZodError } from 'zod';
 
@@ -22,7 +22,7 @@ export async function GET(
   try {
     const { slug } = await params;
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('blogs')
       .select('*')
       .eq('slug', slug)
@@ -32,14 +32,17 @@ export async function GET(
       return NextResponse.json({ error: 'Blog not found' }, { status: 404 });
     }
 
-    // Increment view count
-    await supabase
-      .from('blogs')
-      .update({ views: (data.views || 0) + 1 })
-      .eq('id', data.id);
+    // Only increment views on public reads (no auth token)
+    const token = request.headers.get('Authorization');
+    if (!token) {
+      await supabaseAdmin
+        .from('blogs')
+        .update({ views: (data.views || 0) + 1 })
+        .eq('id', data.id);
+    }
 
     return NextResponse.json(data);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
@@ -58,7 +61,7 @@ export async function PUT(
     const body = await request.json();
     const validated = blogSchema.parse(body);
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('blogs')
       .update({ ...validated, updated_at: new Date().toISOString() })
       .eq('slug', slug)
@@ -90,7 +93,7 @@ export async function DELETE(
 
     const { slug } = await params;
 
-    const { error } = await supabase
+    const { error } = await supabaseAdmin
       .from('blogs')
       .delete()
       .eq('slug', slug);
@@ -100,7 +103,7 @@ export async function DELETE(
     }
 
     return NextResponse.json({ message: 'Blog deleted successfully' });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

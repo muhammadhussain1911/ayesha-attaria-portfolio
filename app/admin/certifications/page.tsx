@@ -3,23 +3,23 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Certification } from '@/lib/supabase';
+import { useAuth } from '@/app/context/AuthContext';
 import { Plus, Edit2, Trash2, ArrowLeft } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export default function AdminCertifications() {
+  const { session } = useAuth();
   const [certs, setCerts] = useState<Certification[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadCerts();
-  }, []);
+  useEffect(() => { loadCerts(); }, []);
 
   const loadCerts = async () => {
     try {
       const response = await fetch('/api/certifications');
       const data = await response.json();
       setCerts(Array.isArray(data) ? data : []);
-    } catch (error) {
+    } catch {
       toast.error('Failed to load certifications');
     } finally {
       setLoading(false);
@@ -29,10 +29,15 @@ export default function AdminCertifications() {
   const handleDelete = async (id: string) => {
     if (!confirm('Delete this certification?')) return;
     try {
-      const response = await fetch(`/api/certifications/${id}`, { method: 'DELETE' });
+      const response = await fetch(`/api/certifications/${id}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${session?.access_token}` },
+      });
       if (response.ok) {
         setCerts(certs.filter((c) => c.id !== id));
         toast.success('Certification deleted');
+      } else {
+        toast.error('Failed to delete certification');
       }
     } catch {
       toast.error('Error deleting certification');
@@ -49,10 +54,7 @@ export default function AdminCertifications() {
             </Link>
             <h1 className="text-3xl font-bold text-gray-900">Manage Certifications</h1>
           </div>
-          <Link
-            href="/admin/certifications/new"
-            className="flex items-center gap-2 bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700"
-          >
+          <Link href="/admin/certifications/new" className="flex items-center gap-2 bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700">
             <Plus className="w-5 h-5" />
             New Certification
           </Link>
@@ -64,11 +66,8 @@ export default function AdminCertifications() {
           </div>
         ) : certs.length === 0 ? (
           <div className="bg-white rounded-lg shadow p-8 text-center">
-            <p className="text-gray-500 mb-4">No certifications yet. Add your first certification!</p>
-            <Link
-              href="/admin/certifications/new"
-              className="inline-flex items-center gap-2 bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700"
-            >
+            <p className="text-gray-500 mb-4">No certifications yet.</p>
+            <Link href="/admin/certifications/new" className="inline-flex items-center gap-2 bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700">
               <Plus className="w-5 h-5" />
               Add Certification
             </Link>
@@ -83,16 +82,10 @@ export default function AdminCertifications() {
                   <p className="text-sm text-gray-400">{cert.issue_date}</p>
                 </div>
                 <div className="flex gap-2">
-                  <Link
-                    href={`/admin/certifications/edit/${cert.id}`}
-                    className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg"
-                  >
+                  <Link href={`/admin/certifications/edit/${cert.id}`} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg">
                     <Edit2 className="w-5 h-5" />
                   </Link>
-                  <button
-                    onClick={() => handleDelete(cert.id)}
-                    className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
-                  >
+                  <button onClick={() => handleDelete(cert.id)} className="p-2 text-red-600 hover:bg-red-50 rounded-lg">
                     <Trash2 className="w-5 h-5" />
                   </button>
                 </div>

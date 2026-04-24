@@ -3,23 +3,23 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Experience } from '@/lib/supabase';
+import { useAuth } from '@/app/context/AuthContext';
 import { Plus, Edit2, Trash2, ArrowLeft } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export default function AdminExperience() {
+  const { session } = useAuth();
   const [experiences, setExperiences] = useState<Experience[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadExperiences();
-  }, []);
+  useEffect(() => { loadExperiences(); }, []);
 
   const loadExperiences = async () => {
     try {
       const response = await fetch('/api/experience');
       const data = await response.json();
       setExperiences(Array.isArray(data) ? data : []);
-    } catch (error) {
+    } catch {
       toast.error('Failed to load experiences');
     } finally {
       setLoading(false);
@@ -29,10 +29,15 @@ export default function AdminExperience() {
   const handleDelete = async (id: string) => {
     if (!confirm('Delete this experience?')) return;
     try {
-      const response = await fetch(`/api/experience/${id}`, { method: 'DELETE' });
+      const response = await fetch(`/api/experience/${id}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${session?.access_token}` },
+      });
       if (response.ok) {
         setExperiences(experiences.filter((e) => e.id !== id));
         toast.success('Experience deleted');
+      } else {
+        toast.error('Failed to delete experience');
       }
     } catch {
       toast.error('Error deleting experience');
@@ -49,10 +54,7 @@ export default function AdminExperience() {
             </Link>
             <h1 className="text-3xl font-bold text-gray-900">Manage Experience</h1>
           </div>
-          <Link
-            href="/admin/experience/new"
-            className="flex items-center gap-2 bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700"
-          >
+          <Link href="/admin/experience/new" className="flex items-center gap-2 bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700">
             <Plus className="w-5 h-5" />
             New Experience
           </Link>
@@ -64,11 +66,8 @@ export default function AdminExperience() {
           </div>
         ) : experiences.length === 0 ? (
           <div className="bg-white rounded-lg shadow p-8 text-center">
-            <p className="text-gray-500 mb-4">No experiences yet. Add your first experience!</p>
-            <Link
-              href="/admin/experience/new"
-              className="inline-flex items-center gap-2 bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700"
-            >
+            <p className="text-gray-500 mb-4">No experiences yet.</p>
+            <Link href="/admin/experience/new" className="inline-flex items-center gap-2 bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700">
               <Plus className="w-5 h-5" />
               Add Experience
             </Link>
@@ -79,20 +78,14 @@ export default function AdminExperience() {
               <div key={exp.id} className="bg-white rounded-lg shadow p-6 flex items-center justify-between">
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900">{exp.title}</h3>
-                  <p className="text-sm text-gray-500">{exp.organization} - {exp.type}</p>
+                  <p className="text-sm text-gray-500">{exp.organization} — {exp.type}</p>
                   <p className="text-sm text-gray-400">{exp.start_date} to {exp.end_date || 'Present'}</p>
                 </div>
                 <div className="flex gap-2">
-                  <Link
-                    href={`/admin/experience/edit/${exp.id}`}
-                    className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg"
-                  >
+                  <Link href={`/admin/experience/edit/${exp.id}`} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg">
                     <Edit2 className="w-5 h-5" />
                   </Link>
-                  <button
-                    onClick={() => handleDelete(exp.id)}
-                    className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
-                  >
+                  <button onClick={() => handleDelete(exp.id)} className="p-2 text-red-600 hover:bg-red-50 rounded-lg">
                     <Trash2 className="w-5 h-5" />
                   </button>
                 </div>

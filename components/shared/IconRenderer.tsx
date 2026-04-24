@@ -33,12 +33,15 @@ const iconMap: Record<string, LucideIcon> = {
   Check: LucideIcons.Check,
 };
 
-export function IconRenderer({ name, className = "w-6 h-6" }: IconRendererProps) {
+export function IconRenderer({
+  name,
+  className = "w-6 h-6",
+}: IconRendererProps) {
   const Icon = iconMap[name];
-  
+
   if (!Icon) {
     return null;
   }
-  
+
   return <Icon className={className} />;
 }

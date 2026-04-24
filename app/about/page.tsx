@@ -112,7 +112,10 @@ export default function AboutPage() {
                 key={idx}
                 className="flex items-start gap-3 text-gray-700 text-lg"
               >
-                <IconRenderer name="Check" className="w-6 h-6 text-[#4ddcd3] flex-shrink-0 mt-0.5" />
+                <IconRenderer
+                  name="Check"
+                  className="w-6 h-6 text-[#4ddcd3] flex-shrink-0 mt-0.5"
+                />
                 <span>{item}</span>
               </li>
             ))}

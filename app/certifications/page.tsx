@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { CertCard } from "@/components/shared/CertCard";
+import { IconRenderer } from "@/components/shared/IconRenderer";
 import { supabaseAdmin } from "@/lib/supabase";
 import { Certification } from "@/lib/supabase";
 
@@ -31,27 +32,30 @@ async function getCertifications(): Promise<Certification[]> {
 }
 
 const getCertIcon = (title: string) => {
-  if (title.toLowerCase().includes("bug bounty")) return "🏆";
-  if (title.toLowerCase().includes("red team")) return "⚔️";
-  if (title.toLowerCase().includes("educator") || title.toLowerCase().includes("education")) return "🎓";
-  return "🛡️";
+  if (title.toLowerCase().includes("bug bounty")) return "Trophy";
+  if (title.toLowerCase().includes("red team")) return "Swords";
+  if (title.toLowerCase().includes("educator") || title.toLowerCase().includes("education")) return "GraduationCap";
+  return "Shield";
 };
 
 const ctfRankings = [
   {
-    rank: "🥇 #5",
+    rank: "#5",
+    icon: "Trophy",
     event: "Bugcrowd x Black Hat USA International CTF 2025",
     description:
       "Ranked among the top 5 teams globally in web security challenges.",
   },
   {
-    rank: "🏅 #18",
+    rank: "#18",
+    icon: "Trophy",
     event: "Iran Tech Olympics International CTF 2025",
     description:
       "Top-ranked performer in international cybersecurity competition.",
   },
   {
-    rank: "🏆 Top Ranked",
+    rank: "Top Ranked",
+    icon: "Trophy",
     event: "Multiple Public & Private Bug Bounty Programs",
     description:
       "Consistent top performer on Bugcrowd, YesWeHack, Intigriti, and Standoff365.",
@@ -59,13 +63,13 @@ const ctfRankings = [
 ];
 
 const programs = [
-  { name: "Bugcrowd", icon: "🏆" },
-  { name: "YesWeHack", icon: "🎯" },
-  { name: "Intigriti", icon: "🛡️" },
-  { name: "Standoff365", icon: "⚔️" },
-  { name: "Google", icon: "🔍" },
-  { name: "TikTok", icon: "📱" },
-  { name: "Pinterest", icon: "📌" },
+  { name: "Bugcrowd", icon: "Trophy" },
+  { name: "YesWeHack", icon: "Target" },
+  { name: "Intigriti", icon: "Shield" },
+  { name: "Standoff365", icon: "Swords" },
+  { name: "Google", icon: "Search" },
+  { name: "TikTok", icon: "Smartphone" },
+  { name: "Pinterest", icon: "Pin" },
 ];
 
 export default async function CertificationsPage() {
@@ -113,7 +117,7 @@ export default async function CertificationsPage() {
                       </div>
                     ) : (
                       <div className="flex-shrink-0 text-4xl">
-                        {getCertIcon(cert.title)}
+                        <IconRenderer name={getCertIcon(cert.title)} className="w-12 h-12 text-[#4ddcd3]" />
                       </div>
                     )}
                     <div className="flex-1">
@@ -232,7 +236,7 @@ export default async function CertificationsPage() {
                 key={idx}
                 className="flex items-start gap-4 p-4 rounded-lg bg-white border border-[#e5e5e5]"
               >
-                <span className="text-[#4ddcd3] font-bold text-2xl">★</span>
+                <IconRenderer name="Star" className="w-6 h-6 text-[#4ddcd3] flex-shrink-0 mt-0.5" />
                 <span className="text-gray-700 font-medium">{achievement}</span>
               </div>
             ))}
@@ -264,7 +268,7 @@ export default async function CertificationsPage() {
               "Experimenting with emerging attack vectors and techniques",
             ].map((item, idx) => (
               <li key={idx} className="flex items-start gap-3">
-                <span className="text-[#4ddcd3] font-bold mt-1">✓</span>
+                <IconRenderer name="Check" className="w-6 h-6 text-[#4ddcd3] flex-shrink-0 mt-0.5" />
                 <span className="text-gray-700">{item}</span>
               </li>
             ))}

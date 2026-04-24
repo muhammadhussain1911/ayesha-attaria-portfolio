@@ -1,6 +1,7 @@
 "use client";
 
 import type { LucideIcon } from "lucide-react";
+import * as LucideIcons from "lucide-react";
 
 interface Tool {
   name: string;
@@ -12,14 +13,48 @@ interface ToolsGridProps {
   className?: string;
 }
 
+// Map of icon names to lucide-react icon components
+const iconMap: Record<string, LucideIcon> = {
+  Search: LucideIcons.Search,
+  Zap: LucideIcons.Zap,
+  Mail: LucideIcons.Mail,
+  Target: LucideIcons.Target,
+  Database: LucideIcons.Database,
+  Map: LucideIcons.Map,
+  Flame: LucideIcons.Flame,
+  AlertTriangle: LucideIcons.AlertTriangle,
+  Scissors: LucideIcons.Scissors,
+  Swords: LucideIcons.Swords,
+  Waves: LucideIcons.Waves,
+  Lock: LucideIcons.Lock,
+  Trophy: LucideIcons.Trophy,
+  Shield: LucideIcons.Shield,
+  AlertCircle: LucideIcons.AlertCircle,
+  Package: LucideIcons.Package,
+  GraduationCap: LucideIcons.GraduationCap,
+  Smartphone: LucideIcons.Smartphone,
+  Pin: LucideIcons.Pin,
+  Star: LucideIcons.Star,
+  Check: LucideIcons.Check,
+};
+
 export function ToolsGrid({ tools, className = "" }: ToolsGridProps) {
   return (
     <div
       className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ${className}`}
     >
       {tools.map((tool) => {
-        const isEmoji = typeof tool.icon === "string";
-        const Icon = !isEmoji ? tool.icon : null;
+        const isComponent = typeof tool.icon !== "string";
+        const isIconName = typeof tool.icon === "string" && iconMap[tool.icon];
+        const isEmoji = typeof tool.icon === "string" && !isIconName;
+
+        let IconComponent: LucideIcon | null = null;
+
+        if (isComponent) {
+          IconComponent = tool.icon as LucideIcon;
+        } else if (isIconName) {
+          IconComponent = iconMap[tool.icon as string];
+        }
 
         return (
           <div
@@ -28,9 +63,9 @@ export function ToolsGrid({ tools, className = "" }: ToolsGridProps) {
           >
             {isEmoji ? (
               <span className="text-4xl mb-2">{tool.icon}</span>
-            ) : (
-              <Icon className="w-12 h-12 text-teal-600 mb-2" />
-            )}
+            ) : IconComponent ? (
+              <IconComponent className="w-12 h-12 text-[#4ddcd3] mb-2" />
+            ) : null}
             <p className="text-center font-medium text-sm text-black">
               {tool.name}
             </p>

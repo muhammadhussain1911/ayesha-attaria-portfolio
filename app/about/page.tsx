@@ -2,18 +2,19 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { ToolsGrid } from "@/components/shared/ToolsGrid";
+import { IconRenderer } from "@/components/shared/IconRenderer";
 
 export default function AboutPage() {
   const tools = [
-    { name: "Burp Suite", icon: "🔍" },
-    { name: "OWASP ZAP", icon: "⚡" },
-    { name: "Postman", icon: "📬" },
-    { name: "ffuf", icon: "⚡" },
-    { name: "Nuclei", icon: "🎯" },
-    { name: "SQLMap", icon: "💉" },
-    { name: "Nmap", icon: "🗺️" },
-    { name: "Subfinder", icon: "🔎" },
-    { name: "Metasploit", icon: "💥" },
+    { name: "Burp Suite", icon: "Search" },
+    { name: "OWASP ZAP", icon: "Zap" },
+    { name: "Postman", icon: "Mail" },
+    { name: "ffuf", icon: "Zap" },
+    { name: "Nuclei", icon: "Target" },
+    { name: "SQLMap", icon: "Database" },
+    { name: "Nmap", icon: "Map" },
+    { name: "Subfinder", icon: "Search" },
+    { name: "Metasploit", icon: "Flame" },
   ];
 
   return (
@@ -111,7 +112,7 @@ export default function AboutPage() {
                 key={idx}
                 className="flex items-start gap-3 text-gray-700 text-lg"
               >
-                <span className="text-[#4ddcd3] font-bold mt-1">✓</span>
+                <IconRenderer name="Check" className="w-6 h-6 text-[#4ddcd3] flex-shrink-0 mt-0.5" />
                 <span>{item}</span>
               </li>
             ))}

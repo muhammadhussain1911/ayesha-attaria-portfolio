@@ -94,27 +94,27 @@ const frameworks = [
 ];
 
 const tools = [
-  { name: "Burp Suite Pro", icon: "🔍" },
-  { name: "OWASP ZAP", icon: "⚡" },
-  { name: "Postman", icon: "📬" },
-  { name: "Nuclei", icon: "💣" },
-  { name: "Subfinder", icon: "🎯" },
-  { name: "SQLMap", icon: "💉" },
-  { name: "XSStrike", icon: "✂️" },
-  { name: "Nikto", icon: "🔪" },
-  { name: "Nmap", icon: "🗺️" },
-  { name: "Wireshark", icon: "🌊" },
-  { name: "Hashcat", icon: "🔐" },
-  { name: "Metasploit", icon: "💥" },
+  { name: "Burp Suite Pro", icon: "Search" },
+  { name: "OWASP ZAP", icon: "Zap" },
+  { name: "Postman", icon: "Mail" },
+  { name: "Nuclei", icon: "AlertTriangle" },
+  { name: "Subfinder", icon: "Target" },
+  { name: "SQLMap", icon: "Database" },
+  { name: "XSStrike", icon: "Scissors" },
+  { name: "Nikto", icon: "Swords" },
+  { name: "Nmap", icon: "Map" },
+  { name: "Wireshark", icon: "Waves" },
+  { name: "Hashcat", icon: "Lock" },
+  { name: "Metasploit", icon: "Flame" },
 ];
 
 const platforms = [
-  { name: "Bugcrowd", icon: "🏆" },
-  { name: "YesWeHack", icon: "🎯" },
-  { name: "Intigriti", icon: "🛡️" },
-  { name: "Standoff365", icon: "⚔️" },
-  { name: "HackerOne", icon: "🔴" },
-  { name: "Hack The Box", icon: "📦" },
+  { name: "Bugcrowd", icon: "Trophy" },
+  { name: "YesWeHack", icon: "Target" },
+  { name: "Intigriti", icon: "Shield" },
+  { name: "Standoff365", icon: "Swords" },
+  { name: "HackerOne", icon: "AlertCircle" },
+  { name: "Hack The Box", icon: "Package" },
 ];
 
 export default async function SkillsPage() {

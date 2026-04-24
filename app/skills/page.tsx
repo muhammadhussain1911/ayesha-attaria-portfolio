@@ -64,6 +64,60 @@ const coreCompetencies = [
   },
 ];
 
+const vulnerabilities = [
+  "SQL Injection",
+  "Cross-Site Scripting (XSS)",
+  "Cross-Site Request Forgery (CSRF)",
+  "Broken Authentication",
+  "API Key Exposure",
+  "Server-Side Template Injection (SSTI)",
+  "XML External Entity (XXE)",
+  "Insecure Deserialization",
+  "API Rate Limiting Bypass",
+  "GraphQL Vulnerabilities",
+  "JWT Token Vulnerabilities",
+  "Directory Traversal",
+  "Insecure Direct Object References",
+  "Security Misconfiguration",
+  "Sensitive Data Exposure",
+  "Broken Access Control",
+];
+
+const frameworks = [
+  "OWASP Top 10",
+  "OWASP API Security Top 10",
+  "NIST Cybersecurity Framework",
+  "CIS Controls",
+  "CVSS v3.1 Scoring",
+  "SANS Top 25",
+  "Mitre ATT&CK Framework",
+  "RESTful API Security",
+];
+
+const tools = [
+  { name: "Burp Suite Pro", icon: "🔍" },
+  { name: "OWASP ZAP", icon: "⚡" },
+  { name: "Postman", icon: "📬" },
+  { name: "Nuclei", icon: "💣" },
+  { name: "Subfinder", icon: "🎯" },
+  { name: "SQLMap", icon: "💉" },
+  { name: "XSStrike", icon: "✂️" },
+  { name: "Nikto", icon: "🔪" },
+  { name: "Nmap", icon: "🗺️" },
+  { name: "Wireshark", icon: "🌊" },
+  { name: "Hashcat", icon: "🔐" },
+  { name: "Metasploit", icon: "💥" },
+];
+
+const platforms = [
+  { name: "Bugcrowd", icon: "🏆" },
+  { name: "YesWeHack", icon: "🎯" },
+  { name: "Intigriti", icon: "🛡️" },
+  { name: "Standoff365", icon: "⚔️" },
+  { name: "HackerOne", icon: "🔴" },
+  { name: "Hack The Box", icon: "📦" },
+];
+
 export default async function SkillsPage() {
   const skills = await getSkills();
 
@@ -179,6 +233,68 @@ export default async function SkillsPage() {
           <ToolsGrid tools={platforms} />
         </div>
       </section>
+
+      {/* Skills by Category */}
+      {Object.keys(skillsByCategory).length > 0 && (
+        <section className="py-12 md:py-20 bg-[#f5f5f5]">
+          <div className="section-container">
+            <SectionHeading
+              title="Technical Skills"
+              subtitle="Detailed skills and proficiencies organized by category."
+            />
+
+            <div className="space-y-12">
+              {Object.entries(skillsByCategory).map(([category, categorySkills]) => (
+                <div key={category}>
+                  <h3 className="text-2xl font-serif font-bold text-black mb-6">
+                    {category}
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {categorySkills.map((skill) => (
+                      <div
+                        key={skill.id}
+                        className="p-6 rounded-lg bg-white border border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300"
+                      >
+                        {skill.image_url && (
+                          <div className="mb-4 relative w-full h-32 rounded-lg overflow-hidden bg-gradient-to-br from-[#f5f5f5] to-[#e5e5e5] flex items-center justify-center">
+                            <img
+                              src={skill.image_url}
+                              alt={skill.name}
+                              className="w-full h-full object-contain p-3"
+                            />
+                          </div>
+                        )}
+                        <h4 className="font-serif font-bold text-lg text-black mb-2">
+                          {skill.name}
+                        </h4>
+                        {skill.description && (
+                          <p className="text-gray-700 text-sm mb-4">
+                            {skill.description}
+                          </p>
+                        )}
+                        <div className="flex items-center gap-2">
+                          <div className="grow bg-[#e5e5e5] rounded-full h-2 overflow-hidden">
+                            <div
+                              className="bg-[#4ddcd3] h-full transition-all duration-300"
+                              style={{
+                                width: `${skill.proficiency || 0}%`,
+                              }}
+                            />
+                          </div>
+                          </div>
+                          <span className="text-xs font-medium text-gray-600 w-12 text-right">
+                            {skill.proficiency || 0}%
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </div>
   );
 }

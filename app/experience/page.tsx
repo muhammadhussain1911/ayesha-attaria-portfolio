@@ -85,9 +85,19 @@ export default async function ExperiencePage() {
                     {/* Content card */}
                     <div className="p-6 rounded-lg bg-[#f5f5f5] border border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300">
                       <div className="flex items-start gap-4 mb-4">
-                        <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-white border-2 border-[#4ddcd3] flex items-center justify-center">
-                          {getIconForType(exp.type)}
-                        </div>
+                        {exp.logo_url ? (
+                          <div className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden bg-white border-2 border-[#4ddcd3] flex items-center justify-center">
+                            <img
+                              src={exp.logo_url}
+                              alt={exp.organization}
+                              className="w-full h-full object-contain p-2"
+                            />
+                          </div>
+                        ) : (
+                          <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-white border-2 border-[#4ddcd3] flex items-center justify-center">
+                            {getIconForType(exp.type)}
+                          </div>
+                        )}
                         <div className="flex-1">
                           <h3 className="font-serif font-bold text-2xl text-black">
                             {exp.organization}

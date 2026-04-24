@@ -149,9 +149,19 @@ export default async function CertificationsPage() {
                   className="p-6 rounded-lg bg-white border-2 border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300"
                 >
                   <div className="flex items-start gap-4 mb-4">
-                    <div className="flex-shrink-0">
-                      {getCertIcon(cert.title)}
-                    </div>
+                    {cert.badge_image_url ? (
+                      <div className="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden bg-gradient-to-br from-[#f5f5f5] to-[#e5e5e5] flex items-center justify-center">
+                        <img
+                          src={cert.badge_image_url}
+                          alt={cert.badge_image_alt || cert.title}
+                          className="w-full h-full object-contain p-2"
+                        />
+                      </div>
+                    ) : (
+                      <div className="flex-shrink-0">
+                        {getCertIcon(cert.title)}
+                      </div>
+                    )}
                     <div className="flex-1">
                       <h3 className="font-serif font-bold text-lg text-black mb-1">
                         {cert.title}

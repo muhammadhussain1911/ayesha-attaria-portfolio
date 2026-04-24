@@ -70,6 +70,9 @@ export function SkillForm({ initialData, isEditing }: SkillFormProps) {
 
       if (!response.ok) {
         const error = await response.json();
+        if (Array.isArray(error.error)) {
+          throw new Error(error.error.map((e: any) => e.message).join(', '));
+        }
         throw new Error(error.error || "Failed to save skill");
       }
 

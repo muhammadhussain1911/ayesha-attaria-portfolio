@@ -1,22 +1,22 @@
 import { z } from 'zod';
 
 export const blogSchema = z.object({
-  title: z.string().min(5, 'Title must be at least 5 characters'),
-  slug: z.string().min(3, 'Slug must be at least 3 characters').regex(/^[a-z0-9-]+$/, 'Slug must contain only lowercase letters, numbers, and hyphens'),
-  description: z.string().min(10, 'Description must be at least 10 characters'),
-  content: z.string().min(50, 'Content must be at least 50 characters'),
+  title: z.string().min(1, 'Title is required'),
+  slug: z.string().min(1, 'Slug is required').regex(/^[a-z0-9-]+$/, 'Slug must contain only lowercase letters, numbers, and hyphens'),
+  description: z.string().min(1, 'Description is required'),
+  content: z.string().min(1, 'Content is required'),
   image_url: z.string().url().optional().or(z.literal('')),
   image_alt: z.string().optional(),
-  category: z.string().min(2, 'Category is required'),
+  category: z.string().min(1, 'Category is required'),
   tags: z.array(z.string()).default([]),
   published: z.boolean().default(false),
 });
 
 export const projectSchema = z.object({
-  title: z.string().min(5, 'Title must be at least 5 characters'),
-  slug: z.string().min(3, 'Slug must be at least 3 characters').regex(/^[a-z0-9-]+$/, 'Slug must contain only lowercase letters, numbers, and hyphens'),
-  description: z.string().min(10, 'Description must be at least 10 characters'),
-  content: z.string().min(50, 'Content must be at least 50 characters'),
+  title: z.string().min(1, 'Title is required'),
+  slug: z.string().min(1, 'Slug is required').regex(/^[a-z0-9-]+$/, 'Slug must contain only lowercase letters, numbers, and hyphens'),
+  description: z.string().min(1, 'Description is required'),
+  content: z.string().min(1, 'Content is required'),
   image_url: z.string().url().optional().or(z.literal('')),
   image_alt: z.string().optional(),
   project_url: z.string().url().optional().or(z.literal('')),

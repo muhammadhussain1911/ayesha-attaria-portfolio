@@ -7,24 +7,22 @@ import { Lock, Mail, AlertCircle, Loader } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
-  const { signIn, user, loading } = useAuth();
+  const { signIn, user, loading, isAdmin } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Redirect if already logged in
   useEffect(() => {
-    if (!loading && user) {
+    if (!loading && user && isAdmin) {
       router.push("/admin");
     }
-  }, [user, loading, router]);
+  }, [user, loading, isAdmin, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setIsSubmitting(true);
-
     try {
       await signIn(email, password);
       router.push("/admin");
@@ -46,21 +44,18 @@ export default function LoginPage() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 px-4">
       <div className="w-full max-w-md">
-        {/* Header */}
         <div className="text-center mb-8">
           <Lock className="w-12 h-12 text-teal-600 mx-auto mb-4" />
           <h1 className="text-3xl font-bold text-gray-900">Admin Login</h1>
           <p className="text-gray-600 mt-2">
-            Secure access to your portfolio admin panel
+            Secure access to the portfolio admin panel
           </p>
         </div>
 
-        {/* Form */}
         <form
           onSubmit={handleSubmit}
           className="bg-white rounded-lg shadow-lg p-8 space-y-6"
         >
-          {/* Error Alert */}
           {error && (
             <div className="flex items-center gap-3 p-4 bg-red-50 border border-red-200 rounded-lg">
               <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0" />
@@ -68,7 +63,6 @@ export default function LoginPage() {
             </div>
           )}
 
-          {/* Email Field */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Email
@@ -87,7 +81,6 @@ export default function LoginPage() {
             </div>
           </div>
 
-          {/* Password Field */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Password
@@ -104,9 +97,16 @@ export default function LoginPage() {
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-transparent disabled:bg-gray-50"
               />
             </div>
+            <div className="text-right mt-1">
+              <a
+                href="/admin/forgot-password"
+                className="text-xs text-teal-600 hover:text-teal-700 font-medium"
+              >
+                Forgot password?
+              </a>
+            </div>
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             disabled={isSubmitting}
@@ -122,12 +122,6 @@ export default function LoginPage() {
             )}
           </button>
         </form>
-
-        {/* Footer */}
-        <p className="text-center text-gray-600 text-sm mt-6">
-          For security purposes, only authorized administrators can access this
-          panel.
-        </p>
       </div>
     </div>
   );

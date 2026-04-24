@@ -1,7 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { supabase, supabaseAdmin } from '@/lib/supabase';
 import { blogSchema } from '@/lib/validations';
 import { ZodError } from 'zod';
+
+async function getAuthUser(request: NextRequest) {
+  const token = request.headers.get('Authorization')?.split('Bearer ')[1];
+  if (!token) return null;
+  const { data: { user } } = await supabaseAdmin.auth.getUser(token);
+  return user;
+}
+
+async function isAdmin(userId: string) {
+  const { data } = await supabaseAdmin.from('admins').select('id').eq('id', userId).single();
+  return !!data;
+}
 
 export async function GET(
   request: NextRequest,
@@ -37,6 +49,11 @@ export async function PUT(
   { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
+    const user = await getAuthUser(request);
+    if (!user || !(await isAdmin(user.id))) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { slug } = await params;
     const body = await request.json();
     const validated = blogSchema.parse(body);
@@ -66,6 +83,11 @@ export async function DELETE(
   { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
+    const user = await getAuthUser(request);
+    if (!user || !(await isAdmin(user.id))) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { slug } = await params;
 
     const { error } = await supabase

@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabase } from "@/lib/supabase";
+import { supabase, supabaseAdmin } from "@/lib/supabase";
 import { certificationSchema } from "@/lib/validations";
 import { ZodError } from "zod";
 
 async function isAdmin(userId: string) {
-  const { data } = await supabase
+  const { data } = await supabaseAdmin
     .from("admins")
     .select("id")
     .eq("id", userId)
@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
     const {
       data: { user },
       error: authError,
-    } = await supabase.auth.getUser(token);
+    } = await supabaseAdmin.auth.getUser(token);
 
     if (authError || !user) {
       return NextResponse.json(
@@ -69,14 +69,9 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const validated = certificationSchema.parse(body);
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from("certifications")
-      .insert([
-        {
-          ...validated,
-          created_at: new Date().toISOString(),
-        },
-      ])
+      .insert([{ ...validated, created_at: new Date().toISOString() }])
       .select();
 
     if (error) {

@@ -91,6 +91,10 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
 
       if (!response.ok) {
         const error = await response.json();
+        // Zod returns array of errors, flatten to readable message
+        if (Array.isArray(error.error)) {
+          throw new Error(error.error.map((e: any) => e.message).join(', '));
+        }
         throw new Error(error.error || "Failed to save blog");
       }
 

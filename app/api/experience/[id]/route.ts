@@ -1,18 +1,35 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { supabaseAdmin } from '@/lib/supabase';
 import { experienceSchema } from '@/lib/validations';
 import { ZodError } from 'zod';
+
+async function getAuthUser(request: NextRequest) {
+  const token = request.headers.get('Authorization')?.split('Bearer ')[1];
+  if (!token) return null;
+  const { data: { user } } = await supabaseAdmin.auth.getUser(token);
+  return user;
+}
+
+async function isAdmin(userId: string) {
+  const { data } = await supabaseAdmin.from('admins').select('id').eq('id', userId).single();
+  return !!data;
+}
 
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const user = await getAuthUser(request);
+    if (!user || !(await isAdmin(user.id))) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { id } = await params;
     const body = await request.json();
     const validated = experienceSchema.parse(body);
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('experience')
       .update({ ...validated, updated_at: new Date().toISOString() })
       .eq('id', id)
@@ -37,9 +54,14 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const user = await getAuthUser(request);
+    if (!user || !(await isAdmin(user.id))) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { id } = await params;
 
-    const { error } = await supabase
+    const { error } = await supabaseAdmin
       .from('experience')
       .delete()
       .eq('id', id);

@@ -48,11 +48,11 @@ export function CloudinaryUploader({
       {/* Upload Widget */}
       <CldUploadWidget
         uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
-        folder={folder}
         onSuccess={handleUploadSuccess}
         onError={handleUploadError}
         onQueuesStart={() => setUploading(true)}
         options={{
+          folder,
           maxFileSize: maxSize * 1024 * 1024,
           maxFiles: 1,
           resourceType: "image",

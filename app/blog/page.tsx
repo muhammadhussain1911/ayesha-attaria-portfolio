@@ -96,11 +96,13 @@ export default async function BlogPage() {
                   className="rounded-lg overflow-hidden border border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300 bg-white flex flex-col h-full"
                 >
                   {post.image_url && (
-                    <img
-                      src={post.image_url}
-                      alt={post.image_alt || post.title}
-                      className="w-full h-48 object-cover"
-                    />
+                    <div className="relative w-full h-48 overflow-hidden bg-gradient-to-br from-[#f5f5f5] to-[#e5e5e5]">
+                      <img
+                        src={post.image_url}
+                        alt={post.image_alt || post.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                   )}
                   <div className="p-6 flex flex-col flex-grow">
                     <div className="flex items-center gap-2 mb-3">
@@ -132,41 +134,24 @@ export default async function BlogPage() {
           ) : (
             <div className="text-center py-16">
               <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <p className="text-gray-500 text-lg">
-                No blog posts published yet. Check back soon!
-              </p>
+              <p className="text-gray-500 text-lg">No blog posts published yet. Check back soon!</p>
             </div>
           )}
         </div>
       </section>
 
-      {/* Placeholder Note */}
-      <section className="py-12 md:py-20 bg-[#f5f5f5]">
-        <div className="section-container max-w-2xl">
-          {posts.length === 0 ? (
-            <div className="p-8 rounded-lg bg-white border-l-4 border-[#4ddcd3]">
-              <p className="text-gray-700 mb-4">
-                <span className="font-bold">Ready to write?</span> Use the admin
-                panel to create your first blog post with rich markdown support.
-              </p>
-              <p className="text-gray-600 text-sm">
-                Blog posts will appear here once published. Visit{" "}
-                <code className="bg-gray-100 px-2 py-1 rounded">
-                  /admin/blogs
-                </code>{" "}
-                to get started.
-              </p>
-            </div>
-          ) : (
+      {/* Subscribe section */}
+      {posts.length > 0 && (
+        <section className="py-12 md:py-20 bg-[#f5f5f5]">
+          <div className="section-container max-w-2xl">
             <div className="p-8 rounded-lg bg-white border-l-4 border-[#4ddcd3]">
               <p className="text-gray-700">
-                <span className="font-bold">Subscribe to updates</span> to be
-                notified when new articles are published.
+                <span className="font-bold">Subscribe to updates</span> to be notified when new articles are published.
               </p>
             </div>
-          )}
-        </div>
-      </section>
+          </div>
+        </section>
+      )}
     </div>
   );
 }

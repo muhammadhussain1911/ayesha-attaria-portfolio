@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, DM_Sans, JetBrains_Mono } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
 import { Navbar } from "@/components/layout/Navbar";
 import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
 import { Footer } from "@/components/layout/Footer";
@@ -8,8 +7,7 @@ import {
   PersonSchema,
   OrganizationSchema,
 } from "@/components/seo/SchemaMarkup";
-import { Toaster } from "react-hot-toast";
-import { AuthProvider } from "@/app/context/AuthContext";
+import { Providers } from "@/app/providers";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -83,14 +81,12 @@ export default function RootLayout({
         <OrganizationSchema />
       </head>
       <body className="font-sans antialiased text-black">
-        <AuthProvider>
+        <Providers>
           <Navbar />
           <main className="min-h-screen">{children}</main>
           <Footer />
           <MobileBottomNav />
-          <Toaster position="bottom-center" />
-          {process.env.NODE_ENV === "production" && <Analytics />}
-        </AuthProvider>
+        </Providers>
       </body>
     </html>
   );

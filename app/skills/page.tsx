@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { ToolsGrid } from "@/components/shared/ToolsGrid";
-import { supabase } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase";
 import { Skill } from "@/lib/supabase";
 import { Shield, Zap, Search, Wrench, Target } from "lucide-react";
 
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 async function getSkills(): Promise<Skill[]> {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from("skills")
       .select("*")
       .order("order_index", { ascending: true });

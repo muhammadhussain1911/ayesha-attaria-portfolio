@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { BlogCard } from "@/components/shared/BlogCard";
 import { SectionHeading } from "@/components/shared/SectionHeading";
-import { supabase } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase";
 import { Blog } from "@/lib/supabase";
 import { FileText } from "lucide-react";
 
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 async function getBlogs(): Promise<Blog[]> {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from("blogs")
       .select("*")
       .eq("published", true)

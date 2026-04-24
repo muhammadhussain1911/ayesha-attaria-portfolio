@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { supabase } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase";
 import { Blog } from "@/lib/supabase";
 import { notFound } from "next/navigation";
 
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 async function getBlogBySlug(slug: string): Promise<Blog | null> {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from("blogs")
       .select("*")
       .eq("slug", slug)
@@ -23,6 +23,13 @@ async function getBlogBySlug(slug: string): Promise<Blog | null> {
       .single();
 
     if (error) throw error;
+
+    // Increment view count
+    await supabaseAdmin
+      .from("blogs")
+      .update({ views: (data.views || 0) + 1 })
+      .eq("id", data.id);
+
     return data || null;
   } catch (error) {
     console.error("Error fetching blog:", error);
@@ -35,7 +42,7 @@ async function getRelatedBlogs(
   currentId: string,
 ): Promise<Blog[]> {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from("blogs")
       .select("*")
       .eq("category", category)
@@ -55,9 +62,10 @@ async function getRelatedBlogs(
 export default async function BlogPostPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const post = await getBlogBySlug(params.slug);
+  const { slug } = await params;
+  const post = await getBlogBySlug(slug);
 
   if (!post) {
     notFound();

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { SectionHeading } from "@/components/shared/SectionHeading";
-import { supabase } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase";
 import { Experience } from "@/lib/supabase";
 import { Briefcase, Award, Code2, BookOpen } from "lucide-react";
 
@@ -28,7 +28,7 @@ const getIconForType = (type: string) => {
 
 async function getExperiences(): Promise<Experience[]> {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from("experience")
       .select("*")
       .order("order_index", { ascending: true });

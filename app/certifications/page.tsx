@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { CertCard } from "@/components/shared/CertCard";
-import { supabase } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase";
 import { Certification } from "@/lib/supabase";
 import {
   Trophy,
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 
 async function getCertifications(): Promise<Certification[]> {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from("certifications")
       .select("*")
       .order("order_index", { ascending: true });

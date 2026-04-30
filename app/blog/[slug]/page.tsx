@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: "Security research and vulnerability writeup.",
   openGraph: {
     type: "article",
-    url: "https://ayeshaattaria.com/blog",
+    url: "https://ayeshaattaria.site/blog",
   },
 };
 

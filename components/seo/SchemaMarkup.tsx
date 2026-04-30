@@ -3,7 +3,7 @@ interface PersonSchemaProps {
 }
 
 export function PersonSchema({
-  url = "https://ayeshaattaria.com",
+  url = "https://ayeshaattaria.site",
 }: PersonSchemaProps) {
   const schema = {
     "@context": "https://schema.org/",
@@ -43,7 +43,7 @@ interface ProfessionalServiceSchemaProps {
 }
 
 export function ProfessionalServiceSchema({
-  url = "https://ayeshaattaria.com",
+  url = "https://ayeshaattaria.site",
 }: ProfessionalServiceSchemaProps) {
   const schema = {
     "@context": "https://schema.org/",
@@ -70,7 +70,7 @@ interface OrganizationSchemaProps {
 }
 
 export function OrganizationSchema({
-  url = "https://ayeshaattaria.com",
+  url = "https://ayeshaattaria.site",
 }: OrganizationSchemaProps) {
   const schema = {
     "@context": "https://schema.org/",
@@ -149,20 +149,20 @@ export function BlogPostingSchema({
     "@type": "BlogPosting",
     headline,
     description,
-    image: image || "https://ayeshaattaria.com/og-image.jpg",
+    image: image || "https://ayeshaattaria.site/og-image.jpg",
     datePublished,
     dateModified: dateModified || datePublished,
     author: {
       "@type": "Person",
       name: author,
-      url: "https://ayeshaattaria.com",
+      url: "https://ayeshaattaria.site",
     },
     publisher: {
       "@type": "Organization",
       name: "Ayesha Attaria",
       logo: {
         "@type": "ImageObject",
-        url: "https://ayeshaattaria.com/logo.png",
+        url: "https://ayeshaattaria.site/logo.png",
       },
     },
     url,

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     "Explore Ayesha Attaria's security research projects, vulnerability writeups, CTF solutions, and VAPT case studies for web applications and APIs.",
   openGraph: {
     title: "Projects & Security Research | Ayesha Attaria",
-    url: "https://ayeshaattaria.com/projects",
+    url: "https://ayeshaattaria.site/projects",
     type: "website",
   },
 };

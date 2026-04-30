@@ -1,18 +1,14 @@
-import { NextRequest, NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import { NextRequest, NextResponse } from "next/server";
+import nodemailer from "nodemailer";
 
 // Configure your SMTP settings via environment variables
 // SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, CONTACT_EMAIL
 
-async function sendEmail(
-  to: string,
-  subject: string,
-  html: string,
-) {
+async function sendEmail(to: string, subject: string, html: string) {
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
-    port: parseInt(process.env.SMTP_PORT || '587'),
-    secure: process.env.SMTP_SECURE === 'true',
+    port: parseInt(process.env.SMTP_PORT || "587"),
+    secure: process.env.SMTP_SECURE === "true",
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS,
@@ -30,22 +26,27 @@ async function sendEmail(
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { fullName, email, company, website, service, budget, message } = body;
+    const { fullName, email, company, website, service, budget, message } =
+      body;
 
     // Validate required fields
     if (!fullName || !email || !service || !message) {
       return NextResponse.json(
-        { error: 'Missing required fields' },
-        { status: 400 }
+        { error: "Missing required fields" },
+        { status: 400 },
       );
     }
 
     // Check if SMTP is configured
-    if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
-      console.error('[v0] SMTP not configured');
+    if (
+      !process.env.SMTP_HOST ||
+      !process.env.SMTP_USER ||
+      !process.env.SMTP_PASS
+    ) {
+      console.error("[v0] SMTP not configured");
       return NextResponse.json(
-        { error: 'Email service not configured' },
-        { status: 500 }
+        { error: "Email service not configured" },
+        { status: 500 },
       );
     }
 
@@ -60,10 +61,10 @@ export async function POST(request: NextRequest) {
         <div style="margin: 20px 0;">
           <p><strong>From:</strong> ${fullName}</p>
           <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
-          ${company ? `<p><strong>Company:</strong> ${company}</p>` : ''}
-          ${website ? `<p><strong>Website:</strong> <a href="${website}" target="_blank">${website}</a></p>` : ''}
+          ${company ? `<p><strong>Company:</strong> ${company}</p>` : ""}
+          ${website ? `<p><strong>Website:</strong> <a href="${website}" target="_blank">${website}</a></p>` : ""}
           <p><strong>Service:</strong> ${service}</p>
-          ${budget ? `<p><strong>Budget:</strong> ${budget}</p>` : ''}
+          ${budget ? `<p><strong>Budget:</strong> ${budget}</p>` : ""}
           <p><strong>Message:</strong></p>
           <p style="background: #f5f5f5; padding: 15px; border-left: 4px solid #4ddcd3; white-space: pre-wrap;">
             ${message}
@@ -94,7 +95,7 @@ export async function POST(request: NextRequest) {
         <p style="color: #666; font-size: 12px;">
           <strong>Ayesha Attaria</strong><br>
           Web App & API Penetration Tester<br>
-          <a href="https://ayeshaattaria.com" style="color: #4ddcd3; text-decoration: none;">ayeshaattaria.com</a>
+          <a href="https://ayeshaattaria.site" style="color: #4ddcd3; text-decoration: none;">ayeshaattaria.site</a>
         </p>
       </div>
     `;
@@ -103,25 +104,25 @@ export async function POST(request: NextRequest) {
     await sendEmail(
       contactEmail,
       `New Contact Form: ${fullName} - ${service}`,
-      adminEmailHTML
+      adminEmailHTML,
     );
 
     // Send auto-reply to user
     await sendEmail(
       email,
-      'I Received Your Message! - Ayesha Attaria',
-      autoReplyHTML
+      "I Received Your Message! - Ayesha Attaria",
+      autoReplyHTML,
     );
 
     return NextResponse.json(
-      { success: true, message: 'Email sent successfully' },
-      { status: 200 }
+      { success: true, message: "Email sent successfully" },
+      { status: 200 },
     );
   } catch (error) {
-    console.error('[v0] Contact API error:', error);
+    console.error("[v0] Contact API error:", error);
     return NextResponse.json(
-      { error: 'Failed to send email' },
-      { status: 500 }
+      { error: "Failed to send email" },
+      { status: 500 },
     );
   }
 }

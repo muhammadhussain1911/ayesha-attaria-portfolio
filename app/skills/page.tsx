@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     "Ayesha Attaria's cybersecurity skills include Web App Penetration Testing, API Security (REST & GraphQL), OWASP Top 10, Bug Bounty Hunting, and advanced exploitation techniques.",
   openGraph: {
     title: "Skills & Expertise | Ayesha Attaria",
-    url: "https://ayeshaattaria.com/skills",
+    url: "https://ayeshaattaria.site/skills",
     type: "website",
   },
 };

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     "Read Ayesha Attaria's cybersecurity blog — featuring vulnerability writeups, CTF solutions, OWASP Top 10 guides, and API security research for developers and security teams.",
   openGraph: {
     title: "Security Blog & Writeups | Ayesha Attaria",
-    url: "https://ayeshaattaria.com/blog",
+    url: "https://ayeshaattaria.site/blog",
     type: "website",
   },
 };
@@ -134,7 +134,9 @@ export default async function BlogPage() {
           ) : (
             <div className="text-center py-16">
               <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <p className="text-gray-500 text-lg">No blog posts published yet. Check back soon!</p>
+              <p className="text-gray-500 text-lg">
+                No blog posts published yet. Check back soon!
+              </p>
             </div>
           )}
         </div>
@@ -146,7 +148,8 @@ export default async function BlogPage() {
           <div className="section-container max-w-2xl">
             <div className="p-8 rounded-lg bg-white border-l-4 border-[#4ddcd3]">
               <p className="text-gray-700">
-                <span className="font-bold">Subscribe to updates</span> to be notified when new articles are published.
+                <span className="font-bold">Subscribe to updates</span> to be
+                notified when new articles are published.
               </p>
             </div>
           </div>

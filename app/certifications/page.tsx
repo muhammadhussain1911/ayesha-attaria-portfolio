@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     "Ayesha Attaria holds certifications in Bug Bounty Hunting, Red Team Operations, Penetration Testing & Web Hacking, and Cybersecurity Education — with top CTF rankings worldwide.",
   openGraph: {
     title: "Certifications & Achievements | Ayesha Attaria",
-    url: "https://ayeshaattaria.com/certifications",
+    url: "https://ayeshaattaria.site/certifications",
     type: "website",
   },
 };

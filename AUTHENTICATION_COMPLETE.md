@@ -165,14 +165,14 @@ Update these in your Supabase settings:
 **Site URL** (Project → Settings → General):
 
 ```
-https://ayeshaattaria.com
+https://ayeshaattaria.site
 ```
 
 **Redirect URLs** (Project → Settings → Authentication):
 
 ```
-https://ayeshaattaria.com/admin/login
-https://ayeshaattaria.com/admin/reset-password
+https://ayeshaattaria.site/admin/login
+https://ayeshaattaria.site/admin/reset-password
 ```
 
 ## Admin Verification Process
@@ -190,6 +190,7 @@ After a user signs up and verifies their email:
 2. **Add them to admins table**:
    - Go to SQL Editor
    - Run this query:
+
    ```sql
    INSERT INTO admins (id, email, role, created_at, updated_at)
    VALUES (

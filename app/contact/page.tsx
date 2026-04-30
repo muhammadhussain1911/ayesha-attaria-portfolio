@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     title: "Hire Ayesha Attaria | Web App Penetration Tester",
     description:
       "Book a free consultation for web application and API penetration testing services.",
-    url: "https://ayeshaattaria.com/contact",
+    url: "https://ayeshaattaria.site/contact",
     type: "website",
   },
 };

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     "Ayesha Attaria's professional experience includes bug bounty hunting on YesWeHack, Standoff365, and CTF competitions on HackTheBox and PortSwigger Academy.",
   openGraph: {
     title: "Experience | Ayesha Attaria",
-    url: "https://ayeshaattaria.com/experience",
+    url: "https://ayeshaattaria.site/experience",
     type: "website",
   },
 };

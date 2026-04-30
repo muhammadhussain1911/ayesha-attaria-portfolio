@@ -17,6 +17,14 @@ export const metadata: Metadata = {
       "Certified ethical hacker and penetration tester helping global companies secure their web applications.",
     url: "https://ayeshaattaria.site",
     type: "website",
+    images: [
+      {
+        url: "/ayeshaattaria.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "Ayesha Attaria - Web App & API Penetration Tester",
+      },
+    ],
   },
 };
 

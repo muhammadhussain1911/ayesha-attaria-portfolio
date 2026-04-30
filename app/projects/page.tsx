@@ -13,6 +13,14 @@ export const metadata: Metadata = {
     title: "Projects & Security Research | Ayesha Attaria",
     url: "https://ayeshaattaria.site/projects",
     type: "website",
+    images: [
+      {
+        url: "/ayeshaattaria.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "Ayesha Attaria - Web App & API Penetration Tester",
+      },
+    ],
   },
 };
 

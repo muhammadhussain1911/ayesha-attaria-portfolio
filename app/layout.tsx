@@ -40,6 +40,14 @@ export const metadata: Metadata = {
     url: "https://ayeshaattaria.site",
     type: "website",
     locale: "en_US",
+    images: [
+      {
+        url: "/ayeshaattaria.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "Ayesha Attaria - Web App & API Penetration Tester",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -49,16 +57,14 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
+        url: "/ayeshaattaria.jpeg",
+        sizes: "32x32",
+        type: "image/jpeg",
       },
       {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
-      },
-      {
-        url: "/icon.svg",
-        type: "image/svg+xml",
+        url: "/ayeshaattaria.jpeg",
+        sizes: "any",
+        type: "image/jpeg",
       },
     ],
     apple: "/apple-icon.png",

@@ -10,6 +10,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "article",
     url: "https://ayeshaattaria.site/blog",
+    images: [
+      {
+        url: "/ayeshaattaria.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "Ayesha Attaria - Web App & API Penetration Tester",
+      },
+    ],
   },
 };
 

@@ -4,6 +4,26 @@ import { SectionHeading } from "@/components/shared/SectionHeading";
 import { ToolsGrid } from "@/components/shared/ToolsGrid";
 import { IconRenderer } from "@/components/shared/IconRenderer";
 
+export const metadata: Metadata = {
+  title: "About Ayesha Attaria | Penetration Tester & Ethical Hacker",
+  description:
+    "Learn about Ayesha Attaria's journey into cybersecurity, certifications, skills, and approach to ethical hacking and penetration testing.",
+  openGraph: {
+    title: "About Ayesha Attaria",
+    description: "Certified Web Application & API Penetration Tester",
+    url: "https://ayeshaattaria.site/about",
+    type: "website",
+    images: [
+      {
+        url: "/ayeshaattaria.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "Ayesha Attaria - Web App & API Penetration Tester",
+      },
+    ],
+  },
+};
+
 export default function AboutPage() {
   const tools = [
     { name: "Burp Suite", icon: "Search" },

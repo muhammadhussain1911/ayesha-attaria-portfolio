@@ -20,6 +20,14 @@ export const metadata: Metadata = {
       "Book a free consultation for web application and API penetration testing services.",
     url: "https://ayeshaattaria.site/contact",
     type: "website",
+    images: [
+      {
+        url: "/ayeshaattaria.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "Ayesha Attaria - Web App & API Penetration Tester",
+      },
+    ],
   },
 };
 

@@ -20,7 +20,7 @@ export default function AboutPage() {
   return (
     <div className="bg-white">
       {/* Header */}
-      <section className="py-12 md:py-20 bg-gradient-to-b from-[#f5f5f5] to-white">
+      <section className="py-12 md:py-20 bg-linear-to-b from-[#f5f5f5] to-white">
         <div className="section-container">
           <h1 className="text-5xl md:text-6xl font-serif font-bold text-black mb-6 text-balance">
             About Me
@@ -114,7 +114,7 @@ export default function AboutPage() {
               >
                 <IconRenderer
                   name="Check"
-                  className="w-6 h-6 text-[#4ddcd3] flex-shrink-0 mt-0.5"
+                  className="w-6 h-6 text-[#4ddcd3] shrink-0 mt-0.5"
                 />
                 <span>{item}</span>
               </li>

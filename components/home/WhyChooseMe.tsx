@@ -64,7 +64,7 @@ export function WhyChooseMe() {
                 key={idx}
                 className="flex gap-4 p-6 rounded-lg bg-white border border-[#e5e5e5] hover:border-[#4ddcd3] transition-all duration-300"
               >
-                <Icon className="w-8 h-8 text-teal-600 flex-shrink-0" />
+                <Icon className="w-8 h-8 text-teal-600 shrink-0" />
                 <div>
                   <h3 className="font-serif font-bold text-lg text-black mb-2">
                     {reason.title}

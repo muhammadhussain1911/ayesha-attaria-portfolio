@@ -43,7 +43,7 @@ export function Methodology() {
 
         <div className="relative">
           {/* Connecting line (desktop only) */}
-          <div className="hidden md:block absolute top-20 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#4ddcd3] to-transparent"></div>
+          <div className="hidden md:block absolute top-20 left-0 right-0 h-1 bg-linear-to-r from-transparent via-[#4ddcd3] to-transparent"></div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-0">
             {steps.map((step, idx) => {

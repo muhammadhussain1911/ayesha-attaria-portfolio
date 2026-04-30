@@ -40,7 +40,7 @@ export function CertCard({
     <div className="border-2 border-[#e5e5e5] rounded-lg p-6 hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300 bg-white h-full flex flex-col">
       <div className="flex items-start gap-4 mb-4">
         {badge_image_url ? (
-          <div className="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden bg-gradient-to-br from-[#f5f5f5] to-[#e5e5e5] flex items-center justify-center">
+          <div className="shrink-0 w-16 h-16 rounded-lg overflow-hidden bg-linear-to-br from-[#f5f5f5] to-[#e5e5e5] flex items-center justify-center">
             <img
               src={badge_image_url}
               alt={badge_image_alt || title}
@@ -48,7 +48,7 @@ export function CertCard({
             />
           </div>
         ) : (
-          <span className="flex-shrink-0">{getCertIcon(title)}</span>
+          <span className="shrink-0">{getCertIcon(title)}</span>
         )}
         <div className="flex-1">
           <h3 className="font-serif font-bold text-lg text-black mb-1">
@@ -63,7 +63,7 @@ export function CertCard({
         </div>
       </div>
       {description && (
-        <p className="text-gray-700 text-sm leading-relaxed mb-4 flex-grow">
+        <p className="text-gray-700 text-sm leading-relaxed mb-4 grow">
           {description}
         </p>
       )}

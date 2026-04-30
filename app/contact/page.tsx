@@ -27,7 +27,7 @@ export default function ContactPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="py-12 md:py-20 bg-gradient-to-b from-white to-[#f5f5f5]">
+      <section className="py-12 md:py-20 bg-linear-to-b from-white to-[#f5f5f5]">
         <div className="section-container">
           <div className="max-w-3xl">
             <h1 className="text-5xl md:text-6xl font-serif font-bold text-black mb-6 text-balance">

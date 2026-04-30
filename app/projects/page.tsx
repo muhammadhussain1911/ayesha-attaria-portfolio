@@ -38,7 +38,7 @@ export default async function ProjectsPage() {
   return (
     <div className="bg-white">
       {/* Header */}
-      <section className="py-12 md:py-20 bg-gradient-to-b from-[#f5f5f5] to-white">
+      <section className="py-12 md:py-20 bg-linear-to-b from-[#f5f5f5] to-white">
         <div className="section-container">
           <h1 className="text-5xl md:text-6xl font-serif font-bold text-black mb-6 text-balance">
             Projects & Research
@@ -83,7 +83,7 @@ export default async function ProjectsPage() {
                     {project.title}
                   </h3>
 
-                  <p className="text-gray-700 text-sm leading-relaxed mb-6 flex-grow">
+                  <p className="text-gray-700 text-sm leading-relaxed mb-6 grow">
                     {project.description}
                   </p>
 

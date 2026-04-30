@@ -78,7 +78,7 @@ export default async function CertificationsPage() {
   return (
     <div className="bg-white">
       {/* Header */}
-      <section className="py-12 md:py-20 bg-gradient-to-b from-[#f5f5f5] to-white">
+      <section className="py-12 md:py-20 bg-linear-to-b from-[#f5f5f5] to-white">
         <div className="section-container">
           <h1 className="text-5xl md:text-6xl font-serif font-bold text-black mb-6 text-balance">
             Certifications & Achievements
@@ -108,7 +108,7 @@ export default async function CertificationsPage() {
                 >
                   <div className="flex items-start gap-4 mb-4">
                     {cert.badge_image_url ? (
-                      <div className="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden bg-gradient-to-br from-[#f5f5f5] to-[#e5e5e5] flex items-center justify-center">
+                      <div className="shrink-0 w-16 h-16 rounded-lg overflow-hidden bg-linear-to-br from-[#f5f5f5] to-[#e5e5e5] flex items-center justify-center">
                         <img
                           src={cert.badge_image_url}
                           alt={cert.badge_image_alt || cert.title}
@@ -116,7 +116,7 @@ export default async function CertificationsPage() {
                         />
                       </div>
                     ) : (
-                      <div className="flex-shrink-0 text-4xl">
+                      <div className="shrink-0 text-4xl">
                         <IconRenderer name={getCertIcon(cert.title)} className="w-12 h-12 text-[#4ddcd3]" />
                       </div>
                     )}
@@ -170,7 +170,7 @@ export default async function CertificationsPage() {
             {ctfRankings.map((ranking, idx) => (
               <div
                 key={idx}
-                className="p-8 rounded-lg bg-gradient-to-r from-white to-[#f0f9f8] border-2 border-[#4ddcd3]"
+                className="p-8 rounded-lg bg-linear-to-r from-white to-[#f0f9f8] border-2 border-[#4ddcd3]"
               >
                 <div className="flex items-start gap-6">
                   <div className="text-5xl font-serif font-bold text-[#4ddcd3]">
@@ -236,7 +236,7 @@ export default async function CertificationsPage() {
                 key={idx}
                 className="flex items-start gap-4 p-4 rounded-lg bg-white border border-[#e5e5e5]"
               >
-                <IconRenderer name="Star" className="w-6 h-6 text-[#4ddcd3] flex-shrink-0 mt-0.5" />
+                <IconRenderer name="Star" className="w-6 h-6 text-[#4ddcd3] shrink-0 mt-0.5" />
                 <span className="text-gray-700 font-medium">{achievement}</span>
               </div>
             ))}
@@ -268,7 +268,7 @@ export default async function CertificationsPage() {
               "Experimenting with emerging attack vectors and techniques",
             ].map((item, idx) => (
               <li key={idx} className="flex items-start gap-3">
-                <IconRenderer name="Check" className="w-6 h-6 text-[#4ddcd3] flex-shrink-0 mt-0.5" />
+                <IconRenderer name="Check" className="w-6 h-6 text-[#4ddcd3] shrink-0 mt-0.5" />
                 <span className="text-gray-700">{item}</span>
               </li>
             ))}

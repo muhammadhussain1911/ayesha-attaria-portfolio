@@ -59,33 +59,43 @@ export default function ResetPasswordPage() {
 
   if (success) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 px-4">
+      <div className="flex items-center justify-center min-h-screen bg-linear-to-br from-gray-50 to-gray-100 px-4">
         <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-8 text-center space-y-4">
           <CheckCircle className="w-16 h-16 text-green-600 mx-auto" />
           <h1 className="text-2xl font-bold text-gray-900">Password Updated</h1>
-          <p className="text-gray-600">Your password has been changed. Redirecting to admin panel...</p>
+          <p className="text-gray-600">
+            Your password has been changed. Redirecting to admin panel...
+          </p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 px-4">
+    <div className="flex items-center justify-center min-h-screen bg-linear-to-br from-gray-50 to-gray-100 px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Lock className="w-12 h-12 text-teal-600 mx-auto mb-4" />
           <h1 className="text-3xl font-bold text-gray-900">Set New Password</h1>
-          <p className="text-gray-600 mt-2">Choose a strong password for your admin account</p>
+          <p className="text-gray-600 mt-2">
+            Choose a strong password for your admin account
+          </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-lg p-8 space-y-6">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white rounded-lg shadow-lg p-8 space-y-6"
+        >
           {error && (
             <div className="flex items-center gap-3 p-4 bg-red-50 border border-red-200 rounded-lg">
-              <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0" />
+              <AlertCircle className="w-5 h-5 text-red-600 shrink-0" />
               <p className="text-red-700 text-sm">
                 {error}{" "}
                 {error.includes("Invalid or expired") && (
-                  <a href="/admin/forgot-password" className="underline font-medium">
+                  <a
+                    href="/admin/forgot-password"
+                    className="underline font-medium"
+                  >
                     Request a new link
                   </a>
                 )}
@@ -94,7 +104,9 @@ export default function ResetPasswordPage() {
           )}
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">New Password</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              New Password
+            </label>
             <div className="relative">
               <Lock className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
               <input
@@ -110,7 +122,9 @@ export default function ResetPasswordPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Confirm Password
+            </label>
             <div className="relative">
               <Lock className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
               <input

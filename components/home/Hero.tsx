@@ -1,23 +1,26 @@
-import Link from 'next/link';
-import { TypewriterText } from '@/components/shared/TypewriterText';
+import Link from "next/link";
+import { TypewriterText } from "@/components/shared/TypewriterText";
 
 export function Hero() {
   const roles = [
-    'Web App Penetration Tester',
-    'API Security Specialist',
-    'Bug Bounty Hunter',
-    'Ethical Hacker',
+    "Web App Penetration Tester",
+    "API Security Specialist",
+    "Bug Bounty Hunter",
+    "Ethical Hacker",
   ];
 
   return (
-    <section className="py-16 md:py-32 bg-gradient-to-b from-white via-white to-[#f5f5f5] relative overflow-hidden">
+    <section className="py-16 md:py-32 bg-linear-to-b from-white via-white to-[#f5f5f5] relative overflow-hidden">
       {/* Subtle grid background */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">
-        <div className="absolute inset-0" style={{
-          backgroundImage:
-            'linear-gradient(to right, #4ddcd3 1px, transparent 1px), linear-gradient(to bottom, #4ddcd3 1px, transparent 1px)',
-          backgroundSize: '40px 40px',
-        }}></div>
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, #4ddcd3 1px, transparent 1px), linear-gradient(to bottom, #4ddcd3 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
+          }}
+        ></div>
       </div>
 
       <div className="section-container relative z-10">
@@ -75,18 +78,16 @@ export function Hero() {
           {/* Right: Profile Image Placeholder */}
           <div className="flex items-center justify-center md:justify-end">
             <div
-              className="w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-[#4ddcd3] bg-gradient-to-br from-[#f5f5f5] to-white flex items-center justify-center shadow-lg"
+              className="w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-[#4ddcd3] bg-linear-to-br from-[#f5f5f5] to-white flex items-center justify-center shadow-lg"
               style={{
-                boxShadow: '0 0 40px rgba(77, 220, 211, 0.2)',
+                boxShadow: "0 0 40px rgba(77, 220, 211, 0.2)",
               }}
             >
-              <svg
-                className="w-32 h-32 text-[#4ddcd3] opacity-40"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-              </svg>
+              <img
+                src="/ayeshaattaria.jpeg"
+                alt="Ayesha Attaria"
+                className="w-full h-full object-cover rounded-full"
+              />
             </div>
           </div>
         </div>

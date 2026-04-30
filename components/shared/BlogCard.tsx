@@ -24,7 +24,7 @@ export function BlogCard({
   return (
     <article className="border border-[#e5e5e5] rounded-lg overflow-hidden hover:shadow-lg hover:border-[#4ddcd3] transition-all duration-300 bg-white flex flex-col h-full">
       {image_url && (
-        <div className="relative w-full h-48 overflow-hidden bg-gradient-to-br from-[#f5f5f5] to-[#e5e5e5]">
+        <div className="relative w-full h-48 overflow-hidden bg-linear-to-br from-[#f5f5f5] to-[#e5e5e5]">
           <img
             src={image_url}
             alt={image_alt || title}
@@ -42,7 +42,7 @@ export function BlogCard({
         <h3 className="font-serif font-bold text-xl text-black mb-2 line-clamp-2">
           {title}
         </h3>
-        <p className="text-gray-700 text-sm mb-4 line-clamp-3 flex-grow">
+        <p className="text-gray-700 text-sm mb-4 line-clamp-3 grow">
           {excerpt}
         </p>
         <div className="flex items-center justify-between pt-4 border-t border-[#e5e5e5]">

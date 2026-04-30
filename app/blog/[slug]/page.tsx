@@ -76,7 +76,7 @@ export default async function BlogPostPage({
   return (
     <article className="bg-white">
       {/* Post Header */}
-      <header className="py-12 md:py-20 bg-gradient-to-b from-[#f5f5f5] to-white border-b border-[#e5e5e5]">
+      <header className="py-12 md:py-20 bg-linear-to-b from-[#f5f5f5] to-white border-b border-[#e5e5e5]">
         <div className="section-container max-w-3xl">
           <div className="mb-6">
             <span className="inline-block px-3 py-1 bg-[#4ddcd3] text-black text-xs font-medium rounded-full">
@@ -202,7 +202,7 @@ export default async function BlogPostPage({
                       className="w-full h-48 object-cover"
                     />
                   )}
-                  <div className="p-6 flex flex-col flex-grow">
+                  <div className="p-6 flex flex-col grow">
                     <div className="flex items-center gap-2 mb-3">
                       <span className="px-3 py-1 bg-[#4ddcd3] text-black text-xs font-medium rounded-full">
                         {relatedPost.category}
@@ -211,7 +211,7 @@ export default async function BlogPostPage({
                     <h3 className="font-serif font-bold text-lg text-black mb-2 line-clamp-2">
                       {relatedPost.title}
                     </h3>
-                    <p className="text-gray-700 text-sm mb-4 flex-grow line-clamp-3">
+                    <p className="text-gray-700 text-sm mb-4 grow line-clamp-3">
                       {relatedPost.description}
                     </p>
                     <div className="flex items-center justify-between pt-4 border-t border-[#e5e5e5]">

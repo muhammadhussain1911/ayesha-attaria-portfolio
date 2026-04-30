@@ -132,7 +132,7 @@ export default async function SkillsPage() {
   return (
     <div className="bg-white">
       {/* Header */}
-      <section className="py-12 md:py-20 bg-gradient-to-b from-[#f5f5f5] to-white">
+      <section className="py-12 md:py-20 bg-linear-to-b from-[#f5f5f5] to-white">
         <div className="section-container">
           <h1 className="text-5xl md:text-6xl font-serif font-bold text-black mb-6 text-balance">
             Skills & Expertise
@@ -256,7 +256,7 @@ export default async function SkillsPage() {
                           className="p-6 rounded-lg bg-white border border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300"
                         >
                           {skill.image_url && (
-                            <div className="mb-4 relative w-full h-32 rounded-lg overflow-hidden bg-gradient-to-br from-[#f5f5f5] to-[#e5e5e5] flex items-center justify-center">
+                            <div className="mb-4 relative w-full h-32 rounded-lg overflow-hidden bg-linear-to-br from-[#f5f5f5] to-[#e5e5e5] flex items-center justify-center">
                               <img
                                 src={skill.image_url}
                                 alt={skill.name}

@@ -47,7 +47,7 @@ export default async function BlogPage() {
   return (
     <div className="bg-white">
       {/* Header */}
-      <section className="py-12 md:py-20 bg-gradient-to-b from-[#f5f5f5] to-white">
+      <section className="py-12 md:py-20 bg-linear-to-b from-[#f5f5f5] to-white">
         <div className="section-container">
           <h1 className="text-5xl md:text-6xl font-serif font-bold text-black mb-6 text-balance">
             Security Blog
@@ -96,7 +96,7 @@ export default async function BlogPage() {
                   className="rounded-lg overflow-hidden border border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300 bg-white flex flex-col h-full"
                 >
                   {post.image_url && (
-                    <div className="relative w-full h-48 overflow-hidden bg-gradient-to-br from-[#f5f5f5] to-[#e5e5e5]">
+                    <div className="relative w-full h-48 overflow-hidden bg-linear-to-br from-[#f5f5f5] to-[#e5e5e5]">
                       <img
                         src={post.image_url}
                         alt={post.image_alt || post.title}
@@ -104,7 +104,7 @@ export default async function BlogPage() {
                       />
                     </div>
                   )}
-                  <div className="p-6 flex flex-col flex-grow">
+                  <div className="p-6 flex flex-col grow">
                     <div className="flex items-center gap-2 mb-3">
                       <span className="px-3 py-1 bg-[#4ddcd3] text-black text-xs font-medium rounded-full">
                         {post.category}
@@ -113,7 +113,7 @@ export default async function BlogPage() {
                     <h3 className="font-serif font-bold text-lg text-black mb-2 line-clamp-2">
                       {post.title}
                     </h3>
-                    <p className="text-gray-700 text-sm mb-4 flex-grow line-clamp-3">
+                    <p className="text-gray-700 text-sm mb-4 grow line-clamp-3">
                       {post.description}
                     </p>
                     <div className="flex items-center justify-between pt-4 border-t border-[#e5e5e5]">

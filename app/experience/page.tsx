@@ -47,7 +47,7 @@ export default async function ExperiencePage() {
   return (
     <div className="bg-white">
       {/* Header */}
-      <section className="py-12 md:py-20 bg-gradient-to-b from-[#f5f5f5] to-white">
+      <section className="py-12 md:py-20 bg-linear-to-b from-[#f5f5f5] to-white">
         <div className="section-container">
           <h1 className="text-5xl md:text-6xl font-serif font-bold text-black mb-6 text-balance">
             Experience
@@ -70,7 +70,7 @@ export default async function ExperiencePage() {
 
           <div className="relative">
             {/* Timeline line */}
-            <div className="hidden md:block absolute left-24 top-0 bottom-0 w-1 bg-gradient-to-b from-[#4ddcd3] to-transparent"></div>
+            <div className="hidden md:block absolute left-24 top-0 bottom-0 w-1 bg-linear-to-b from-[#4ddcd3] to-transparent"></div>
 
             {/* Experience items */}
             {experiences.length > 0 ? (
@@ -86,7 +86,7 @@ export default async function ExperiencePage() {
                     <div className="p-6 rounded-lg bg-[#f5f5f5] border border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300">
                       <div className="flex items-start gap-4 mb-4">
                         {exp.logo_url ? (
-                          <div className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden bg-white border-2 border-[#4ddcd3] flex items-center justify-center">
+                          <div className="shrink-0 w-12 h-12 rounded-lg overflow-hidden bg-white border-2 border-[#4ddcd3] flex items-center justify-center">
                             <img
                               src={exp.logo_url}
                               alt={exp.organization}
@@ -94,7 +94,7 @@ export default async function ExperiencePage() {
                             />
                           </div>
                         ) : (
-                          <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-white border-2 border-[#4ddcd3] flex items-center justify-center">
+                          <div className="shrink-0 w-12 h-12 rounded-lg bg-white border-2 border-[#4ddcd3] flex items-center justify-center">
                             {getIconForType(exp.type)}
                           </div>
                         )}

@@ -86,7 +86,7 @@ export default function ContactPage() {
               </a>
 
               <a
-                href="https://twitter.com"
+                href="https://x.com/Bug_blitzer"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 p-4 rounded-lg bg-white border border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300"
@@ -101,7 +101,7 @@ export default function ContactPage() {
               </a>
 
               <a
-                href="https://discord.com"
+                href="https://discord.com/users/1238975366186405948"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 p-4 rounded-lg bg-white border border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300"
@@ -122,20 +122,22 @@ export default function ContactPage() {
                 Direct Contact
               </h3>
               <a
-                href="mailto:hussainqadri9263@gmail.com"
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=ayeshaattaria9263@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-4 p-4 rounded-lg bg-white border border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300"
               >
                 <Mail className="w-8 h-8 text-teal-600" />
                 <div>
                   <p className="font-medium text-black">Email</p>
                   <p className="text-sm text-gray-600">
-                    hussainqadri9263@gmail.com
+                    ayeshaattaria9263@gmail.com
                   </p>
                 </div>
               </a>
 
               <a
-                href="https://wa.me"
+                href="https://wa.me/923175779263"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 p-4 rounded-lg bg-white border border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300"

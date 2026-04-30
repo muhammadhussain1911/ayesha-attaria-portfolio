@@ -14,22 +14,30 @@ export function Footer() {
     { href: "/blog", label: "Blog" },
     { href: "/contact", label: "Contact" },
   ];
-
+  // when someone click on
   const socials = [
     {
       icon: Briefcase,
       label: "LinkedIn",
       url: "https://www.linkedin.com/in/ayeshaattaria",
     },
-    { icon: Twitter, label: "Twitter", url: "https://twitter.com" },
-    { icon: MessageCircle, label: "Discord", url: "https://discord.com" },
-    { icon: Phone, label: "WhatsApp", url: "https://wa.me" },
-    { icon: Mail, label: "Email", url: "mailto:hussainqadri9263@gmail.com" },
+    { icon: Twitter, label: "Twitter", url: "https://x.com/Bug_blitzer" },
+    {
+      icon: MessageCircle,
+      label: "Discord",
+      url: "https://discord.com/users/1238975366186405948",
+    },
+    { icon: Phone, label: "WhatsApp", url: "https://wa.me/923175779263" },
+    {
+      icon: Mail,
+      label: "Email",
+      url: "https://mail.google.com/mail/?view=cm&fs=1&to=ayeshaattaria9263@gmail.com",
+    },
   ];
 
   return (
     <footer className="bg-[#f5f5f5] border-t border-[#e5e5e5] mt-20 mb-20 md:mb-0">
-      <div className="section-container py-12">
+      <div className="section-container pt-12 pb-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Branding */}
           <div>
@@ -87,13 +95,25 @@ export function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="border-t border-[#e5e5e5] py-8">
+        <div className="border-t border-[#e5e5e5] pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-gray-700 text-sm">
               © {currentYear} Ayesha Attaria. All rights reserved.
             </p>
-            <p className="text-gray-600 text-xs italic">
+
+            <p className="text-gray-600 text-sm italic">
               Securing the web, one vulnerability at a time.
+            </p>
+            <p className="text-[#4ddcd3] text-sm">
+              Made by{" "}
+              <a
+                href="https://www.hussainappdeveloper.site"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#4ddcd3] hover:underline"
+              >
+                Muhammad Hussain
+              </a>
             </p>
           </div>
         </div>

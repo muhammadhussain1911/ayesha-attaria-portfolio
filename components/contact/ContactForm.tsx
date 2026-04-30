@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import { Loader2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const contactSchema = z.object({
@@ -40,14 +41,22 @@ export function ContactForm() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to send message');
+        const error = await response.json().catch(() => ({error: 'Unknown error'}));
+        throw new Error(error.error || 'Failed to send message');
       }
 
-      toast.success('Message sent successfully! I&apos;ll get back to you soon.');
+      toast.success('Message sent! I\'ll get back to you within 24 hours.', {
+        duration: 4000,
+        position: 'top-center',
+      });
       reset();
     } catch (error) {
-      console.error('[v0] Contact form error:', error);
-      toast.error('Failed to send message. Please try again.');
+      const errorMsg = error instanceof Error ? error.message : 'Failed to send message';
+      console.error('[v0] Contact form error:', errorMsg);
+      toast.error(errorMsg || 'Failed to send message. Please try again.', {
+        duration: 4000,
+        position: 'top-center',
+      });
     } finally {
       setIsLoading(false);
     }
@@ -181,7 +190,7 @@ export function ContactForm() {
       >
         {isLoading ? (
           <>
-            <span className="animate-spin">⏳</span>
+            <Loader2 className="w-5 h-5 animate-spin" />
             Sending...
           </>
         ) : (

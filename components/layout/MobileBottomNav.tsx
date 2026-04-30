@@ -3,28 +3,57 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
+import {
+  Home,
+  User,
+  Shield,
+  Trophy,
+  Mail,
+  Briefcase,
+  FolderOpen,
+  BookOpen,
+  Menu as MenuIcon,
+  X,
+} from 'lucide-react';
+
+const IconRenderer = ({ iconName }: { iconName: string }) => {
+  const iconMap: Record<string, React.ReactNode> = {
+    home: <Home className="w-6 h-6" />,
+    user: <User className="w-6 h-6" />,
+    shield: <Shield className="w-6 h-6" />,
+    trophy: <Trophy className="w-6 h-6" />,
+    mail: <Mail className="w-6 h-6" />,
+    briefcase: <Briefcase className="w-6 h-6" />,
+    folderopen: <FolderOpen className="w-6 h-6" />,
+    bookopen: <BookOpen className="w-6 h-6" />,
+    menu: <MenuIcon className="w-6 h-6" />,
+    x: <X className="w-6 h-6" />,
+  };
+
+  return <>{iconMap[iconName.toLowerCase()] || iconName}</>;
+};
 
 export function MobileBottomNav() {
   const pathname = usePathname();
   const [showMenu, setShowMenu] = useState(false);
 
   const mainLinks = [
-    { href: '/', label: 'Home', icon: '🏠' },
-    { href: '/about', label: 'About', icon: '👩' },
-    { href: '/skills', label: 'Skills', icon: '🛡️' },
-    { href: '/certifications', label: 'Certs', icon: '🏆' },
-    { href: '/contact', label: 'Contact', icon: '📬' },
+    { href: '/', label: 'Home', icon: 'home' },
+    { href: '/about', label: 'About', icon: 'user' },
+    { href: '/skills', label: 'Skills', icon: 'shield' },
+    { href: '/certifications', label: 'Certs', icon: 'trophy' },
+    { href: '/contact', label: 'Contact', icon: 'mail' },
   ];
 
   const allLinks = [
-    { href: '/', label: 'Home', icon: '🏠' },
-    { href: '/about', label: 'About', icon: '👩' },
-    { href: '/skills', label: 'Skills', icon: '🛡️' },
-    { href: '/experience', label: 'Experience', icon: '💼' },
-    { href: '/certifications', label: 'Certifications', icon: '🏆' },
-    { href: '/projects', label: 'Projects', icon: '🗂️' },
-    { href: '/blog', label: 'Blog', icon: '📝' },
-    { href: '/contact', label: 'Contact', icon: '📬' },
+    { href: '/', label: 'Home', icon: 'home' },
+    { href: '/about', label: 'About', icon: 'user' },
+    { href: '/skills', label: 'Skills', icon: 'shield' },
+    { href: '/experience', label: 'Experience', icon: 'briefcase' },
+    { href: '/certifications', label: 'Certifications', icon: 'trophy' },
+    { href: '/projects', label: 'Projects', icon: 'folderopen' },
+    { href: '/blog', label: 'Blog', icon: 'bookopen' },
+    { href: '/contact', label: 'Contact', icon: 'mail' },
   ];
 
   return (
@@ -42,7 +71,7 @@ export function MobileBottomNav() {
                 }`}
                 onClick={() => setShowMenu(false)}
               >
-                <span className="text-xl">{link.icon}</span>
+                <IconRenderer iconName={link.icon} />
                 <span className="text-xs font-medium">{link.label}</span>
               </Link>
             );
@@ -51,7 +80,7 @@ export function MobileBottomNav() {
             onClick={() => setShowMenu(!showMenu)}
             className="flex flex-col items-center justify-center flex-1 h-full gap-1 text-gray-600 hover:text-[#4ddcd3] transition-colors duration-300"
           >
-            <span className="text-xl">☰</span>
+            <IconRenderer iconName="menu" />
             <span className="text-xs font-medium">Menu</span>
           </button>
         </div>
@@ -66,9 +95,9 @@ export function MobileBottomNav() {
           >
             <button
               onClick={() => setShowMenu(false)}
-              className="absolute top-4 right-4 text-2xl"
+              className="absolute top-4 right-4 text-2xl text-gray-600 hover:text-[#4ddcd3]"
             >
-              ✕
+              <X className="w-6 h-6" />
             </button>
             <div className="mt-8 flex flex-col gap-4">
               {allLinks.map((link) => {
@@ -84,7 +113,9 @@ export function MobileBottomNav() {
                     }`}
                     onClick={() => setShowMenu(false)}
                   >
-                    <span className="text-xl">{link.icon}</span>
+                    <div className={`${isActive ? 'text-black' : 'text-gray-600'}`}>
+                      <IconRenderer iconName={link.icon} />
+                    </div>
                     <span>{link.label}</span>
                   </Link>
                 );

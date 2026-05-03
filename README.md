@@ -30,6 +30,7 @@ A modern, high-performance portfolio website for a penetration testing and ethic
 This portfolio application serves as a professional presence for a cybersecurity specialist, enabling dynamic content management through a comprehensive admin panel. The platform highlights certifications, technical skills, professional experience, and case studies while maintaining SEO best practices and optimal performance.
 
 ### Key Objectives
+
 - Showcase cybersecurity expertise and credentials
 - Provide a modern, responsive user experience
 - Enable content management without code deployment
@@ -41,6 +42,7 @@ This portfolio application serves as a professional presence for a cybersecurity
 ## 🛠 Tech Stack
 
 ### Frontend
+
 - **Next.js 16.2.4** - React framework with App Router, SSR/SSG, TypeScript support
 - **React 19.2.4** - UI library with hooks and server components
 - **TypeScript 5.7.3** - Type-safe development
@@ -48,15 +50,18 @@ This portfolio application serves as a professional presence for a cybersecurity
 - **Lucide React 0.564.0** - Consistent icon system (6x6 sizing, teal-600 color)
 
 ### Backend & Database
+
 - **Supabase 2.104.0** - PostgreSQL database, authentication, real-time subscriptions
 - **Node.js 18+** - Runtime environment
 - **Nodemailer 8.0.7** - Email delivery via Gmail SMTP
 
 ### Forms & Validation
+
 - **React Hook Form 7.73.1** - Performant form state management
 - **Zod** - TypeScript-first schema validation
 
 ### Development Tools
+
 - **pnpm** - Fast, disk space efficient package manager
 - **ESLint** - Code quality enforcement
 - **PostCSS 8.4.47** - CSS transformation
@@ -66,6 +71,7 @@ This portfolio application serves as a professional presence for a cybersecurity
 ## ✨ Features
 
 ### Public-Facing Features
+
 1. **Responsive Design** - Mobile-first, optimized for all devices
 2. **Homepage** - Hero section with CTA, services overview, methodologies, testimonials
 3. **About Page** - Consolidated professional narrative with:
@@ -82,6 +88,7 @@ This portfolio application serves as a professional presence for a cybersecurity
 9. **Analytics** - Blog view tracking and engagement metrics
 
 ### Admin Panel Features
+
 1. **Authentication** - Supabase auth with session management
 2. **Skills Management** - Add/edit/delete skills with:
    - Category organization
@@ -204,6 +211,7 @@ root/
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Node.js 18.17 or later
 - pnpm 8.0 or later (recommended) or npm 9.0+
 - Supabase account (free tier available)
@@ -212,12 +220,14 @@ root/
 ### Installation
 
 1. **Clone the repository**
+
 ```bash
 git clone https://github.com/yourusername/ayesha-attaria-portfolio.git
 cd AyeshaAttariaPortfolio
 ```
 
 2. **Install dependencies**
+
 ```bash
 pnpm install
 # or
@@ -227,12 +237,14 @@ npm install
 3. **Configure environment variables** (see section below)
 
 4. **Initialize database**
+
 ```bash
 # Run the SQL script in Supabase SQL editor
 # File: scripts/01-create-tables.sql
 ```
 
 5. **Start development server**
+
 ```bash
 pnpm dev
 # or
@@ -262,6 +274,7 @@ NEXT_PUBLIC_GTAG=your_google_analytics_id
 ```
 
 ### Generating Gmail App Password
+
 1. Enable 2-Step Verification on your Google Account
 2. Go to [Google Account Security](https://myaccount.google.com/security)
 3. Select "App passwords"
@@ -275,6 +288,7 @@ NEXT_PUBLIC_GTAG=your_google_analytics_id
 ### Tables Overview
 
 #### `skills`
+
 Stores technical skills with proficiency levels and categorization.
 
 ```sql
@@ -294,6 +308,7 @@ CREATE TABLE skills (
 ```
 
 #### `experience`
+
 Tracks professional experience and engagements.
 
 ```sql
@@ -318,6 +333,7 @@ CREATE TABLE experience (
 ```
 
 #### `certifications`
+
 Stores professional certifications and credentials.
 
 ```sql
@@ -339,6 +355,7 @@ CREATE TABLE certifications (
 ```
 
 #### `blogs`
+
 Dynamic blog content with metadata.
 
 ```sql
@@ -361,6 +378,7 @@ CREATE TABLE blogs (
 ```
 
 #### `projects`
+
 Portfolio and case study entries.
 
 ```sql
@@ -389,18 +407,22 @@ CREATE TABLE projects (
 ## 🔌 API Documentation
 
 ### Base URL
+
 `/api` - All API routes are prefixed with `/api`
 
 ### Skills Endpoints
 
 #### GET `/api/skills`
+
 Fetch all skills with optional filtering and sorting.
 
 **Query Parameters:**
+
 - `category` (optional): Filter by skill category
 - `sort` (optional): Sort by proficiency (asc/desc)
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -418,9 +440,11 @@ Fetch all skills with optional filtering and sorting.
 ```
 
 #### POST `/api/skills`
+
 Create a new skill. Requires authentication.
 
 **Body:**
+
 ```json
 {
   "name": "string",
@@ -432,17 +456,21 @@ Create a new skill. Requires authentication.
 ```
 
 #### PUT `/api/skills/:id`
+
 Update an existing skill. Requires authentication.
 
 #### DELETE `/api/skills/:id`
+
 Delete a skill. Requires authentication.
 
 ### Experience Endpoints
 
 #### GET `/api/experience`
+
 Fetch all professional experiences ordered by date.
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -461,22 +489,27 @@ Fetch all professional experiences ordered by date.
 ```
 
 #### POST/PUT/DELETE `/api/experience/:id`
+
 Create, update, or delete experience entries. Requires authentication.
 
 ### Certifications Endpoints
 
 #### GET `/api/certifications`
+
 Fetch all certifications ordered by issue date (newest first).
 
 #### POST/PUT/DELETE `/api/certifications/:id`
+
 Manage certifications. Requires authentication.
 
 ### Contact Endpoint
 
 #### POST `/api/contact`
+
 Submit contact form with email delivery.
 
 **Body:**
+
 ```json
 {
   "name": "string",
@@ -487,6 +520,7 @@ Submit contact form with email delivery.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -495,6 +529,7 @@ Submit contact form with email delivery.
 ```
 
 **Error Response (400):**
+
 ```json
 {
   "success": false,
@@ -507,15 +542,17 @@ Submit contact form with email delivery.
 ## 💻 Development Workflow
 
 ### Code Standards
+
 - **Type Safety**: All TypeScript files must be fully typed
 - **Component Structure**: Use functional components with hooks
-- **Naming Conventions**: 
+- **Naming Conventions**:
   - Components: PascalCase
   - Files: match component name or camelCase for utilities
   - Variables/Functions: camelCase
 - **CSS**: Tailwind utilities (no inline styles except dynamic values)
 
 ### Creating New Pages
+
 1. Create a new folder in `/app` with `page.tsx`
 2. Include proper metadata with `Metadata` export
 3. Implement SEO markup with `SchemaMarkup` component
@@ -523,6 +560,7 @@ Submit contact form with email delivery.
 5. Add to navigation components (Navbar, MobileBottomNav)
 
 ### Creating New Components
+
 1. Place in `/components` with appropriate folder
 2. Export as named export matching filename
 3. Use TypeScript interfaces for props
@@ -530,6 +568,7 @@ Submit contact form with email delivery.
 5. Keep components focused and reusable
 
 ### API Route Development
+
 1. Create route in `/app/api/[feature]/route.ts`
 2. Implement proper HTTP methods (GET, POST, PUT, DELETE)
 3. Use Zod validation for request bodies
@@ -537,9 +576,15 @@ Submit contact form with email delivery.
 5. Implement error handling with proper status codes
 
 ### Testing Forms
+
 Use the provided Zod schemas in `/lib/validations.ts`:
+
 ```typescript
-import { skillSchema, experienceSchema, certificationSchema } from '@/lib/validations';
+import {
+  skillSchema,
+  experienceSchema,
+  certificationSchema,
+} from "@/lib/validations";
 ```
 
 ---
@@ -569,11 +614,13 @@ import { skillSchema, experienceSchema, certificationSchema } from '@/lib/valida
 ### Self-Hosted Deployment
 
 1. **Build for production**
+
 ```bash
 pnpm build
 ```
 
 2. **Start production server**
+
 ```bash
 pnpm start
 # or with PM2
@@ -581,11 +628,12 @@ pm2 start "pnpm start" --name "portfolio"
 ```
 
 3. **Configure reverse proxy** (nginx)
+
 ```nginx
 server {
   listen 80;
   server_name ayeshaattaria.site;
-  
+
   location / {
     proxy_pass http://localhost:3000;
     proxy_http_version 1.1;
@@ -597,6 +645,7 @@ server {
 ```
 
 4. **SSL Certificate** (Let's Encrypt)
+
 ```bash
 certbot certonly --standalone -d ayeshaattaria.site
 ```
@@ -606,6 +655,7 @@ certbot certonly --standalone -d ayeshaattaria.site
 ## ⚡ Performance Optimization
 
 ### Current Optimizations
+
 1. **Image Optimization** - Next.js Image component with automatic webp conversion
 2. **Code Splitting** - Automatic via Next.js App Router
 3. **Server Components** - Database queries at server-level to avoid hydration mismatch
@@ -614,11 +664,13 @@ certbot certonly --standalone -d ayeshaattaria.site
 6. **Database Queries** - Selective column fetching, proper indexing
 
 ### Monitoring
+
 - Use Vercel Analytics for Core Web Vitals
 - Monitor Supabase query performance
 - Track database connections
 
 ### Optimization Checklist
+
 - [ ] Images compressed and in modern formats
 - [ ] Unused dependencies removed
 - [ ] CSS classes tree-shaken
@@ -630,31 +682,37 @@ certbot certonly --standalone -d ayeshaattaria.site
 ## 🔒 Security Considerations
 
 ### Authentication & Authorization
+
 - Admin routes protected with Supabase authentication
 - Service role key never exposed to client
 - Auth tokens stored securely by Supabase SDK
 
 ### Data Validation
+
 - All API inputs validated with Zod schemas
 - SQL injection prevented through parameterized queries
 - CSRF protection via SameSite cookies
 
 ### Environment Variables
+
 - `.env.local` never committed to version control
 - Service role key stored only on server-side
 - Public keys safely exposed to frontend
 
 ### Email Security
+
 - Gmail app-specific passwords for SMTP
 - No credentials in code or logs
 - Rate limiting on contact form (recommended)
 
 ### API Security
+
 - CORS configured appropriately
 - Request validation on all endpoints
 - Error responses don't leak sensitive information
 
 ### Recommendations
+
 1. Implement rate limiting on contact form
 2. Add admin IP whitelist for sensitive operations
 3. Regular security audits of database access patterns
@@ -668,40 +726,53 @@ certbot certonly --standalone -d ayeshaattaria.site
 ### Common Issues
 
 #### Build Errors
+
 **Problem**: `Module not found` errors
+
 - **Solution**: Run `pnpm install` and verify node_modules are installed
 
 **Problem**: TypeScript compilation errors
+
 - **Solution**: Check component props against interfaces, ensure all imports are correct
 
 #### Database Connection Issues
+
 **Problem**: `Error: Invalid Supabase URL or key`
+
 - **Solution**: Verify `.env.local` has correct values from Supabase dashboard
 
 **Problem**: `SUPABASE_SERVICE_ROLE_KEY is not defined`
+
 - **Solution**: This is only needed on server routes; verify it's in `.env.local` not `.env`
 
 #### Email Not Sending
+
 **Problem**: Gmail SMTP authentication fails
-- **Solution**: 
+
+- **Solution**:
   - Verify app-specific password (16 characters)
   - Ensure 2-FA is enabled on Gmail
   - Check email isn't rate-limited
 
 #### Styling Issues
+
 **Problem**: Tailwind classes not applied
-- **Solution**: 
+
+- **Solution**:
   - Check file is in `globals.css` import path
   - Clear `.next` build cache: `rm -rf .next`
   - Verify class names are correct (no typos)
 
 ### Debug Mode
+
 Set environment variable for verbose logging:
+
 ```bash
 DEBUG=* pnpm dev
 ```
 
 ### Performance Issues
+
 1. **Slow page loads**: Check Network tab in DevTools
 2. **High API latency**: Monitor Supabase real-time metrics
 3. **Large bundle size**: Run `pnpm analyze` to identify heavy packages
@@ -711,6 +782,7 @@ DEBUG=* pnpm dev
 ## 🤝 Contributing
 
 ### Development Guidelines
+
 1. Create feature branch: `git checkout -b feature/description`
 2. Make atomic, well-documented commits
 3. Write clear commit messages following conventional commits
@@ -718,6 +790,7 @@ DEBUG=* pnpm dev
 5. Submit pull request with description
 
 ### Code Review Checklist
+
 - [ ] TypeScript types are complete
 - [ ] No `any` types without justification
 - [ ] Responsive design tested
@@ -726,6 +799,7 @@ DEBUG=* pnpm dev
 - [ ] Security implications reviewed
 
 ### Commit Message Format
+
 ```
 type(scope): short description
 
@@ -750,6 +824,7 @@ This project is proprietary and confidential. Unauthorized copying or distributi
 ## 📞 Support & Contact
 
 For technical questions or support:
+
 - Email: [contact information]
 - Portfolio: [ayeshaattaria.site](https://ayeshaattaria.site)
 - GitHub: [your-github-profile]

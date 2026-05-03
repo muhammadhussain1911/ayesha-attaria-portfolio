@@ -8,6 +8,7 @@ import {
   Target,
   FileText,
   Users,
+  Wifi,
   Zap,
   CheckCircle,
 } from "lucide-react";
@@ -57,7 +58,7 @@ const coreServices = [
       "SaaS applications, fintech platforms, internal tools, e-commerce sites",
   },
   {
-    icon: Plug,
+    icon: Wifi,
     title: "API Security Testing",
     shortDesc: "Specialized testing for REST, GraphQL & SOAP APIs",
     description:

@@ -2,17 +2,26 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 
 export function Navbar() {
   const pathname = usePathname();
+  const [isAboutHovered, setIsAboutHovered] = useState(false);
 
-  const links = [
+  const mainLinks = [
     { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
     { href: "/projects", label: "Projects" },
     { href: "/services", label: "Services" },
     { href: "/blog", label: "Blog" },
     { href: "/contact", label: "Contact" },
+  ];
+
+  const aboutDropdownLinks = [
+    { href: "/about", label: "About Me" },
+    { href: "/about#skills", label: "Skills" },
+    { href: "/about#experience", label: "Experience" },
+    { href: "/about#certifications", label: "Certifications" },
   ];
 
   return (
@@ -22,7 +31,7 @@ export function Navbar() {
           Ayesha Attaria
         </Link>
         <div className="flex items-center gap-8">
-          {links.map((link) => {
+          {mainLinks.map((link) => {
             const isActive = pathname === link.href;
             return (
               <Link
@@ -41,6 +50,52 @@ export function Navbar() {
               </Link>
             );
           })}
+
+          {/* About Dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={() => setIsAboutHovered(true)}
+            onMouseLeave={() => setIsAboutHovered(false)}
+          >
+            <button
+              className={`flex items-center gap-1 text-sm font-medium transition-colors duration-300 ${
+                isAboutHovered || pathname.startsWith("/about")
+                  ? "text-[#4ddcd3]"
+                  : "text-black hover:text-[#4ddcd3]"
+              }`}
+            >
+              About
+              <ChevronDown
+                className={`w-4 h-4 transition-transform duration-300 ${
+                  isAboutHovered ? "rotate-180" : ""
+                }`}
+              />
+            </button>
+
+            {/* Dropdown Menu */}
+            {isAboutHovered && (
+              <div className="absolute top-full left-0 mt-0 w-48 bg-white border border-[#e5e5e5] rounded-lg shadow-lg overflow-hidden">
+                {aboutDropdownLinks.map((link, index) => {
+                  const isActive = pathname === link.href;
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className={`block px-4 py-2 text-sm transition-colors duration-300 ${
+                        index === 0 ? "border-b border-[#e5e5e5]" : ""
+                      } ${
+                        isActive
+                          ? "bg-[#4ddcd3] text-white font-medium"
+                          : "text-black hover:bg-[#f5f5f5]"
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </nav>

@@ -224,7 +224,7 @@ export default async function AboutPage() {
 
       {/* Skills Section */}
       {Object.keys(skillsByCategory).length > 0 && (
-        <section className="py-12 md:py-20">
+        <section id="skills" className="py-12 md:py-20">
           <div className="section-container">
             <SectionHeading
               title="Skills & Expertise"
@@ -285,7 +285,7 @@ export default async function AboutPage() {
 
       {/* Experience Section */}
       {experiences.length > 0 && (
-        <section className="py-12 md:py-20 bg-[#f5f5f5]">
+        <section id="experience" className="py-12 md:py-20 bg-[#f5f5f5]">
           <div className="section-container max-w-4xl">
             <SectionHeading
               title="Professional Timeline"
@@ -352,7 +352,7 @@ export default async function AboutPage() {
 
       {/* Certifications Section */}
       {certifications.length > 0 && (
-        <section className="py-12 md:py-20">
+        <section id="certifications" className="py-12 md:py-20">
           <div className="section-container">
             <SectionHeading
               title="Certifications & Achievements"

@@ -7,7 +7,7 @@ import { Lock, AlertCircle, CheckCircle, Loader } from "lucide-react";
 
 export default function ResetPasswordPage() {
   const router = useRouter();
-  const { updatePassword, user, loading } = useAuth();
+  const { updatePassword, user, loading, mounted } = useAuth();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
@@ -16,13 +16,13 @@ export default function ResetPasswordPage() {
 
   // Supabase puts the session in the URL hash after clicking the reset link.
   // The onAuthStateChange listener in AuthContext picks it up automatically.
-  // We just wait until loading is done and user is set.
+  // We just wait until hydration is complete and loading is done.
   useEffect(() => {
-    if (!loading && !user) {
+    if (mounted && !loading && !user) {
       // No session — the reset link may be invalid or expired
       setError("Invalid or expired reset link. Please request a new one.");
     }
-  }, [loading, user]);
+  }, [loading, user, mounted]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

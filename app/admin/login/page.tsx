@@ -7,17 +7,17 @@ import { Lock, Mail, AlertCircle, Loader } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
-  const { signIn, user, loading, isAdmin } = useAuth();
+  const { signIn, user, loading, isAdmin, mounted } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    if (!loading && user && isAdmin) {
+    if (mounted && !loading && user && isAdmin) {
       router.push("/admin");
     }
-  }, [user, loading, isAdmin, router]);
+  }, [user, loading, isAdmin, router, mounted]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,7 +33,7 @@ export default function LoginPage() {
     }
   };
 
-  if (loading) {
+  if (!mounted || loading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <Loader className="w-12 h-12 animate-spin text-teal-600" />

@@ -14,6 +14,7 @@ interface AuthContextType {
   user: User | null;
   session: Session | null;
   loading: boolean;
+  mounted: boolean;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
@@ -26,10 +27,14 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
+    // Set mounted to true to indicate hydration is complete
+    setMounted(true);
+    
     const checkSession = async () => {
       try {
         const {
@@ -38,15 +43,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setSession(session);
         setUser(session?.user || null);
         if (session?.user) {
-          const { data } = await supabase
-            .from("admins")
-            .select("id")
-            .eq("id", session.user.id)
-            .single();
-          setIsAdmin(!!data);
+          try {
+            const { data } = await supabase
+              .from("admins")
+              .select("id")
+              .eq("id", session.user.id)
+              .single();
+            setIsAdmin(!!data);
+          } catch (error) {
+            setIsAdmin(false);
+          }
         }
       } catch (error) {
         console.error("Error checking session:", error);
+        // Silently fail - user will be redirected on protected routes
       } finally {
         setLoading(false);
       }
@@ -57,17 +67,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, session) => {
-      setSession(session);
-      setUser(session?.user || null);
-      if (session?.user) {
-        const { data } = await supabase
-          .from("admins")
-          .select("id")
-          .eq("id", session.user.id)
-          .single();
-        setIsAdmin(!!data);
-      } else {
-        setIsAdmin(false);
+      try {
+        setSession(session);
+        setUser(session?.user || null);
+        if (session?.user) {
+          try {
+            const { data } = await supabase
+              .from("admins")
+              .select("id")
+              .eq("id", session.user.id)
+              .single();
+            setIsAdmin(!!data);
+          } catch (error) {
+            setIsAdmin(false);
+          }
+        } else {
+          setIsAdmin(false);
+        }
+      } catch (error) {
+        console.error("Error in auth state change:", error);
       }
     });
 
@@ -83,13 +101,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) throw error;
+    try {
+      await supabase.auth.signOut();
+    } catch (error) {
+      console.error("Error signing out:", error);
+      // Still clear local state even if sign out fails
+      setUser(null);
+      setSession(null);
+      setIsAdmin(false);
+    }
   };
 
   const resetPassword = async (email: string) => {
+    const baseUrl = typeof window !== "undefined" 
+      ? window.location.origin 
+      : process.env.NEXT_PUBLIC_BASE_URL || "https://ayeshaattaria.site";
+    
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/admin/reset-password`,
+      redirectTo: `${baseUrl}/admin/reset-password`,
     });
     if (error) throw error;
   };
@@ -105,6 +134,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         user,
         session,
         loading,
+        mounted,
         signIn,
         signOut,
         resetPassword,

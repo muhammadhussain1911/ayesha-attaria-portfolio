@@ -12,7 +12,7 @@ export default function AdminLayout({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const { user, loading, isAdmin } = useAuth();
+  const { user, loading, isAdmin, mounted } = useAuth();
 
   // Auth pages that don't require login
   const isAuthPage =
@@ -22,13 +22,14 @@ export default function AdminLayout({
     pathname === "/admin/reset-password";
 
   useEffect(() => {
-    // Only protect non-auth pages
-    if (!isAuthPage && !loading && (!user || !isAdmin)) {
+    // Only protect non-auth pages after hydration is complete
+    if (mounted && !isAuthPage && (!user || !isAdmin)) {
       router.push("/admin/login");
     }
-  }, [user, loading, isAdmin, router, isAuthPage]);
+  }, [user, isAdmin, router, isAuthPage, mounted]);
 
-  if (!isAuthPage && loading) {
+  // Show loading state only for protected pages and only after mount
+  if (mounted && !isAuthPage && loading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <Loader className="w-8 h-8 animate-spin text-teal-600" />
@@ -36,9 +37,21 @@ export default function AdminLayout({
     );
   }
 
-  if (!isAuthPage && (!user || !isAdmin)) {
+  // For protected pages, ensure user is authenticated
+  if (mounted && !isAuthPage && (!user || !isAdmin)) {
     return null;
   }
 
-  return <>{children}</>;
+  // For auth pages, render immediately (no auth check needed)
+  if (isAuthPage) {
+    return <>{children}</>;
+  }
+
+  // For protected pages with valid auth, render after mount
+  if (mounted) {
+    return <>{children}</>;
+  }
+
+  // During hydration on protected pages, render nothing to avoid mismatch
+  return null;
 }

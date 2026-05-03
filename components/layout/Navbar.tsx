@@ -19,9 +19,9 @@ export function Navbar() {
 
   const aboutDropdownLinks = [
     { href: "/about", label: "About Me" },
-    { href: "/about#skills", label: "Skills" },
-    { href: "/about#experience", label: "Experience" },
-    { href: "/about#certifications", label: "Certifications" },
+    { href: "/skills", label: "Skills" },
+    { href: "/experience", label: "Experience" },
+    { href: "/certifications", label: "Certifications" },
   ];
 
   return (
@@ -31,25 +31,20 @@ export function Navbar() {
           Ayesha Attaria
         </Link>
         <div className="flex items-center gap-8">
-          {mainLinks.map((link) => {
-            const isActive = pathname === link.href;
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`relative text-sm font-medium transition-colors duration-300 ${
-                  isActive
-                    ? "text-[#4ddcd3]"
-                    : "text-black hover:text-[#4ddcd3]"
-                }`}
-              >
-                {link.label}
-                {isActive && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#4ddcd3]"></span>
-                )}
-              </Link>
-            );
-          })}
+          {/* Home Link */}
+          <Link
+            href="/"
+            className={`relative text-sm font-medium transition-colors duration-300 ${
+              pathname === "/"
+                ? "text-[#4ddcd3]"
+                : "text-black hover:text-[#4ddcd3]"
+            }`}
+          >
+            Home
+            {pathname === "/" && (
+              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#4ddcd3]"></span>
+            )}
+          </Link>
 
           {/* About Dropdown */}
           <div
@@ -59,7 +54,7 @@ export function Navbar() {
           >
             <button
               className={`flex items-center gap-1 text-sm font-medium transition-colors duration-300 ${
-                isAboutHovered || pathname.startsWith("/about")
+                isAboutHovered || pathname === "/about"
                   ? "text-[#4ddcd3]"
                   : "text-black hover:text-[#4ddcd3]"
               }`}
@@ -86,7 +81,7 @@ export function Navbar() {
                       } ${
                         isActive
                           ? "bg-[#4ddcd3] text-white font-medium"
-                          : "text-black hover:bg-[#f5f5f5]"
+                          : "text-black hover:bg-[#e8f7f5] hover:text-[#4ddcd3]"
                       }`}
                     >
                       {link.label}
@@ -96,6 +91,27 @@ export function Navbar() {
               </div>
             )}
           </div>
+
+          {/* Remaining Links */}
+          {mainLinks.slice(1).map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`relative text-sm font-medium transition-colors duration-300 ${
+                  isActive
+                    ? "text-[#4ddcd3]"
+                    : "text-black hover:text-[#4ddcd3]"
+                }`}
+              >
+                {link.label}
+                {isActive && (
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#4ddcd3]"></span>
+                )}
+              </Link>
+            );
+          })}
         </div>
       </div>
     </nav>

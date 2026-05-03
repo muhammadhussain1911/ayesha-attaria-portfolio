@@ -34,7 +34,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     // Set mounted to true to indicate hydration is complete
     setMounted(true);
-    
+
     const checkSession = async () => {
       try {
         const {
@@ -113,10 +113,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const resetPassword = async (email: string) => {
-    const baseUrl = typeof window !== "undefined" 
-      ? window.location.origin 
-      : process.env.NEXT_PUBLIC_BASE_URL || "https://ayeshaattaria.site";
-    
+    const baseUrl =
+      typeof window !== "undefined"
+        ? window.location.origin
+        : process.env.NEXT_PUBLIC_BASE_URL || "https://ayeshaattaria.site";
+
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${baseUrl}/admin/reset-password`,
     });

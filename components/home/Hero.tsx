@@ -28,7 +28,7 @@ export function Hero() {
       </div>
 
       <div className="section-container relative z-10 pt-8">
-        <div className="glass-card p-8 md:p-12 lg:p-16 cyber-border">
+        <div className="glass-card p-8 md:p-12 lg:p-16 cyber-border group/hero">
           <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-12 items-center">
             {/* Left: Text Content */}
             <div className="relative z-10">
@@ -48,7 +48,7 @@ export function Hero() {
               <div className="mb-6 h-16 md:h-20">
                 <TypewriterText
                   words={roles}
-                  className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-[#4ddcd3] filter drop-shadow-[0_0_8px_rgba(77,220,211,0.5)]"
+                  className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-[#4ddcd3] filter drop-shadow-[0_0_8px_rgba(77,220,211,0.5)] group-hover/hero:text-black hover:text-black transition-colors duration-500 cursor-default"
                   speed={50}
                   delay={2000}
                 />

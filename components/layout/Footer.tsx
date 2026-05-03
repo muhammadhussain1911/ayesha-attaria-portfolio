@@ -115,13 +115,13 @@ export function Footer() {
             <p className="text-gray-500 text-sm italic">
               Securing the web, one vulnerability at a time.
             </p>
-            <p className="text-[#4ddcd3] text-sm font-medium">
+            <p className="text-sm font-medium">
               Made by{" "}
               <a
                 href="https://www.hussainappdeveloper.site"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-black hover:text-[#4ddcd3] transition-colors"
+                className="text-[#4ddcd3] hover:text-[#4ddcd3] transition-colors"
               >
                 Muhammad Hussain
               </a>

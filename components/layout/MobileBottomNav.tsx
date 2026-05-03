@@ -55,7 +55,7 @@ export function MobileBottomNav() {
   return (
     <>
       <nav className="md:hidden fixed bottom-6 left-4 right-4 z-50">
-        <div className="glass-card flex items-center justify-around h-16 px-2 mx-auto max-w-sm rounded-full bg-white/90 shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white">
+        <div className="glass-card flex items-center justify-around h-16 px-2 mx-auto max-w-sm rounded-full">
           {navTabLinks.map((link) => {
             const isActive = pathname === link.href;
             return (

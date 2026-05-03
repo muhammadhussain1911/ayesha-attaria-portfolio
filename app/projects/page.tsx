@@ -44,10 +44,11 @@ export default async function ProjectsPage() {
   const projects = await getProjects();
 
   return (
-    <div className="bg-white">
+    <div className="bg-off-white min-h-screen">
       {/* Header */}
-      <section className="py-12 md:py-20 bg-linear-to-b from-[#f5f5f5] to-white">
-        <div className="section-container">
+      <section className="py-12 md:py-20 relative overflow-hidden">
+        <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#4ddcd3]/5 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="section-container relative z-10">
           <h1 className="text-5xl md:text-6xl font-serif font-bold text-black mb-6 text-balance">
             Projects & Research
           </h1>
@@ -71,8 +72,9 @@ export default async function ProjectsPage() {
               {projects.map((project) => (
                 <article
                   key={project.id}
-                  className="p-8 rounded-lg border border-[#e5e5e5] bg-white hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300 flex flex-col h-full"
+                  className="glass-card p-8 group hover:-translate-y-2 transition-all duration-300 flex flex-col h-full relative overflow-hidden"
                 >
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#4ddcd3]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   {project.image_url && (
                     <img
                       src={project.image_url}
@@ -101,7 +103,7 @@ export default async function ProjectsPage() {
                       {project.technologies.map((tech, i) => (
                         <span
                           key={i}
-                          className="px-2 py-1 bg-[#f5f5f5] border border-[#e5e5e5] rounded text-xs text-gray-700"
+                          className="px-2 py-1 glass-card shadow-none rounded text-xs text-gray-700 font-mono"
                         >
                           {tech}
                         </span>
@@ -141,7 +143,7 @@ export default async function ProjectsPage() {
       </section>
 
       {/* Tools & Scripts */}
-      <section className="py-12 md:py-20 bg-[#f5f5f5]">
+      <section className="py-12 md:py-20 relative">
         <div className="section-container">
           <SectionHeading
             title="Open Source Tools & Scripts"
@@ -150,7 +152,7 @@ export default async function ProjectsPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Placeholder */}
-            <div className="p-8 rounded-lg bg-white border-2 border-[#e5e5e5] border-dashed flex items-center justify-center min-h-[200px]">
+            <div className="glass-card p-8 border-2 border-white/50 border-dashed flex items-center justify-center min-h-[200px]">
               <div className="text-center">
                 <FileText className="w-12 h-12 text-gray-300 mx-auto mb-2" />
                 <p className="text-gray-600 font-medium">
@@ -159,7 +161,7 @@ export default async function ProjectsPage() {
               </div>
             </div>
 
-            <div className="p-8 rounded-lg bg-white border-2 border-[#e5e5e5] border-dashed flex items-center justify-center min-h-[200px]">
+            <div className="glass-card p-8 border-2 border-white/50 border-dashed flex items-center justify-center min-h-[200px]">
               <div className="text-center">
                 <FileText className="w-12 h-12 text-gray-300 mx-auto mb-2" />
                 <p className="text-gray-600 font-medium">
@@ -187,10 +189,10 @@ export default async function ProjectsPage() {
             discuss your security needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
-            <Link href="/blog" className="btn-secondary">
+            <Link href="/blog" className="px-8 py-4 bg-white text-black font-medium rounded-2xl border border-gray-100 hover:border-[#4ddcd3]/50 transition-all duration-300 shadow-soft-lg hover:-translate-y-1">
               Read More on Blog
             </Link>
-            <Link href="/contact" className="btn-primary">
+            <Link href="/contact" className="px-8 py-4 bg-black text-white font-medium rounded-2xl hover:bg-[#4ddcd3] hover:text-black transition-all duration-300 shadow-soft-lg hover:-translate-y-1 hover:shadow-soft-xl">
               Start Your Assessment
             </Link>
           </div>

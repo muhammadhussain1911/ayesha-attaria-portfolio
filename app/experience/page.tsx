@@ -53,10 +53,11 @@ export default async function ExperiencePage() {
   const experiences = await getExperiences();
 
   return (
-    <div className="bg-white">
+    <div className="bg-off-white min-h-screen">
       {/* Header */}
-      <section className="py-12 md:py-20 bg-linear-to-b from-[#f5f5f5] to-white">
-        <div className="section-container">
+      <section className="py-12 md:py-20 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#4ddcd3]/5 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="section-container relative z-10">
           <h1 className="text-5xl md:text-6xl font-serif font-bold text-black mb-6 text-balance">
             Experience
           </h1>
@@ -84,14 +85,15 @@ export default async function ExperiencePage() {
             {experiences.length > 0 ? (
               <div className="space-y-8">
                 {experiences.map((exp, idx) => (
-                  <div key={exp.id} className="relative md:ml-56">
+                  <div key={exp.id} className="relative md:ml-56 group">
                     {/* Timeline dot */}
-                    <div className="hidden md:block absolute -left-32 top-6 w-12 h-12 rounded-full bg-white border-4 border-[#4ddcd3] flex items-center justify-center">
+                    <div className="hidden md:flex absolute -left-32 top-6 w-12 h-12 rounded-2xl bg-off-white shadow-inner border-2 border-white items-center justify-center group-hover:bg-[#4ddcd3]/10 transition-colors duration-300">
                       {getIconForType(exp.type)}
                     </div>
 
                     {/* Content card */}
-                    <div className="p-6 rounded-lg bg-[#f5f5f5] border border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300">
+                    <div className="glass-card p-6 group-hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#4ddcd3]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                       <div className="flex items-start gap-4 mb-4">
                         {exp.logo_url ? (
                           <div className="shrink-0 w-12 h-12 rounded-lg overflow-hidden bg-white border-2 border-[#4ddcd3] flex items-center justify-center">
@@ -175,7 +177,7 @@ export default async function ExperiencePage() {
       </section>
 
       {/* Stats */}
-      <section className="py-12 md:py-20 bg-[#f5f5f5]">
+      <section className="py-12 md:py-20 relative">
         <div className="section-container">
           <SectionHeading
             title="Impact & Achievements"
@@ -183,21 +185,21 @@ export default async function ExperiencePage() {
           />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center p-8 rounded-lg bg-white border border-[#e5e5e5]">
+            <div className="text-center p-8 glass-card group hover:-translate-y-2 transition-all duration-300">
               <div className="text-5xl font-serif font-bold text-[#4ddcd3] mb-3">
                 30+
               </div>
               <p className="font-medium text-gray-700">Organizations Secured</p>
             </div>
 
-            <div className="text-center p-8 rounded-lg bg-white border border-[#e5e5e5]">
+            <div className="text-center p-8 glass-card group hover:-translate-y-2 transition-all duration-300 delay-100">
               <div className="text-5xl font-serif font-bold text-[#4ddcd3] mb-3">
                 100+
               </div>
               <p className="font-medium text-gray-700">Vulnerabilities Found</p>
             </div>
 
-            <div className="text-center p-8 rounded-lg bg-white border border-[#e5e5e5]">
+            <div className="text-center p-8 glass-card group hover:-translate-y-2 transition-all duration-300 delay-200">
               <div className="text-5xl font-serif font-bold text-[#4ddcd3] mb-3">
                 #5
               </div>
@@ -231,7 +233,7 @@ export default async function ExperiencePage() {
             ].map((vuln, idx) => (
               <div
                 key={idx}
-                className="flex items-start gap-4 p-4 rounded-lg bg-[#f5f5f5] border border-[#e5e5e5]"
+                className="flex items-start gap-4 p-4 glass-card hover:-translate-y-1 transition-all duration-300"
               >
                 <span className="text-[#4ddcd3] font-bold text-lg">✓</span>
                 <span className="text-gray-700">{vuln}</span>

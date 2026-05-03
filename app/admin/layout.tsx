@@ -31,8 +31,8 @@ export default function AdminLayout({
   // Show loading state only for protected pages and only after mount
   if (mounted && !isAuthPage && loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-50">
-        <Loader className="w-8 h-8 animate-spin text-teal-600" />
+      <div className="flex items-center justify-center min-h-screen bg-off-white">
+        <Loader className="w-8 h-8 animate-spin text-[#4ddcd3]" />
       </div>
     );
   }

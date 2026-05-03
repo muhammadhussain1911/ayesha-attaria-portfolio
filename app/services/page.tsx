@@ -240,10 +240,11 @@ const methodology = [
 
 export default function ServicesPage() {
   return (
-    <div className="bg-white">
+    <div className="bg-off-white min-h-screen">
       {/* Header */}
-      <section className="py-12 md:py-20 bg-linear-to-b from-[#f5f5f5] to-white">
-        <div className="section-container">
+      <section className="py-12 md:py-20 relative overflow-hidden">
+        <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#4ddcd3]/5 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="section-container relative z-10">
           <h1 className="text-5xl md:text-6xl font-serif font-bold text-black mb-6 text-balance">
             Services
           </h1>
@@ -269,8 +270,9 @@ export default function ServicesPage() {
               return (
                 <div
                   key={idx}
-                  className="rounded-lg border border-[#e5e5e5] overflow-hidden hover:shadow-lg transition-all duration-300"
+                  className="glass-card group hover:-translate-y-2 transition-all duration-300 relative overflow-hidden"
                 >
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#4ddcd3]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <div className="p-8 md:p-10">
                     {/* Service Header */}
                     <div className="flex items-start gap-4 mb-6">
@@ -313,7 +315,7 @@ export default function ServicesPage() {
 
                       {/* Meta Info */}
                       <div className="space-y-6">
-                        <div className="p-4 bg-[#f5f5f5] rounded-lg">
+                        <div className="p-4 bg-off-white/50 border border-white rounded-xl">
                           <p className="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1">
                             Timeline
                           </p>
@@ -321,7 +323,7 @@ export default function ServicesPage() {
                             {service.timeline}
                           </p>
                         </div>
-                        <div className="p-4 bg-[#f5f5f5] rounded-lg">
+                        <div className="p-4 bg-off-white/50 border border-white rounded-xl">
                           <p className="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1">
                             Ideal For
                           </p>
@@ -340,7 +342,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Specialized Services */}
-      <section className="py-12 md:py-20 bg-[#f5f5f5]">
+      <section className="py-12 md:py-20 relative">
         <div className="section-container">
           <SectionHeading
             title="Specialized Services"
@@ -353,9 +355,9 @@ export default function ServicesPage() {
               return (
                 <div
                   key={idx}
-                  className="p-8 bg-white rounded-lg border border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300"
+                  className="glass-card p-8 group hover:-translate-y-2 transition-all duration-300"
                 >
-                  <Icon className="w-10 h-10 text-[#4ddcd3] mb-4" />
+                  <Icon className="w-10 h-10 text-[#4ddcd3] mb-4 group-hover:scale-110 transition-transform" />
                   <h3 className="font-serif font-bold text-xl text-black mb-3">
                     {service.title}
                   </h3>
@@ -381,7 +383,7 @@ export default function ServicesPage() {
             {processSteps.map((step, idx) => (
               <div
                 key={idx}
-                className="p-8 rounded-lg border border-[#e5e5e5] bg-white hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300"
+                className="glass-card p-8 group hover:-translate-y-2 transition-all duration-300"
               >
                 <div className="text-4xl font-serif font-bold text-[#4ddcd3] mb-4">
                   {step.number}
@@ -410,7 +412,7 @@ export default function ServicesPage() {
             {methodology.map((method, idx) => (
               <div
                 key={idx}
-                className="p-6 rounded-lg bg-[#f5f5f5] border border-[#e5e5e5] text-center"
+                className="glass-card p-6 text-center hover:shadow-soft-md hover:-translate-y-1 transition-all duration-300"
               >
                 <p className="font-semibold text-gray-800">{method}</p>
               </div>
@@ -420,18 +422,20 @@ export default function ServicesPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-12 md:py-20 bg-[#4ddcd3]">
-        <div className="section-container text-center">
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-black mb-4">
+      <section className="py-16 md:py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#4ddcd3]/10 to-transparent pointer-events-none"></div>
+        <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#4ddcd3] to-transparent opacity-50 animate-scan"></div>
+        <div className="section-container text-center relative z-10 glass-card p-12 md:p-20">
+          <h2 className="text-4xl md:text-5xl font-serif font-bold text-black mb-6">
             Ready to Secure Your Application?
           </h2>
-          <p className="text-lg text-black opacity-90 mb-8 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-700 mb-8 max-w-2xl mx-auto">
             Let&apos;s schedule a consultation to discuss your security needs
             and find the right testing approach for your organization.
           </p>
           <Link
             href="/contact"
-            className="inline-block px-8 py-4 bg-black text-white font-bold rounded-lg hover:bg-gray-800 transition-colors"
+            className="inline-block px-8 py-4 bg-black text-white font-medium rounded-2xl hover:bg-[#4ddcd3] hover:text-black transition-all duration-300 shadow-soft-lg hover:-translate-y-1 hover:shadow-soft-xl"
           >
             Get Started
           </Link>

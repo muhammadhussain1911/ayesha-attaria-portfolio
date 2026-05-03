@@ -51,19 +51,20 @@ export default function ResetPasswordPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-50">
-        <Loader className="w-12 h-12 animate-spin text-teal-600" />
+      <div className="flex items-center justify-center min-h-screen bg-off-white">
+        <Loader className="w-12 h-12 animate-spin text-[#4ddcd3]" />
       </div>
     );
   }
 
   if (success) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-linear-to-br from-gray-50 to-gray-100 px-4">
-        <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-8 text-center space-y-4">
+      <div className="flex items-center justify-center min-h-screen bg-off-white px-4 relative overflow-hidden">
+        <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-[#4ddcd3]/5 rounded-full blur-[80px] pointer-events-none"></div>
+        <div className="w-full max-w-md glass-card p-8 md:p-10 text-center space-y-6 relative z-10">
           <CheckCircle className="w-16 h-16 text-green-600 mx-auto" />
-          <h1 className="text-2xl font-bold text-gray-900">Password Updated</h1>
-          <p className="text-gray-600">
+          <h1 className="text-3xl font-serif font-bold text-black">Password Updated</h1>
+          <p className="text-gray-600 leading-relaxed">
             Your password has been changed. Redirecting to admin panel...
           </p>
         </div>
@@ -72,11 +73,14 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-linear-to-br from-gray-50 to-gray-100 px-4">
-      <div className="w-full max-w-md">
+    <div className="flex items-center justify-center min-h-screen bg-off-white px-4 relative overflow-hidden">
+      <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-[#4ddcd3]/5 rounded-full blur-[80px] pointer-events-none"></div>
+      <div className="w-full max-w-md relative z-10">
         <div className="text-center mb-8">
-          <Lock className="w-12 h-12 text-teal-600 mx-auto mb-4" />
-          <h1 className="text-3xl font-bold text-gray-900">Set New Password</h1>
+          <div className="w-16 h-16 rounded-2xl bg-[#4ddcd3]/10 flex items-center justify-center mx-auto mb-6">
+            <Lock className="w-8 h-8 text-[#4ddcd3]" />
+          </div>
+          <h1 className="text-3xl font-serif font-bold text-black">Set New Password</h1>
           <p className="text-gray-600 mt-2">
             Choose a strong password for your admin account
           </p>
@@ -84,7 +88,7 @@ export default function ResetPasswordPage() {
 
         <form
           onSubmit={handleSubmit}
-          className="bg-white rounded-lg shadow-lg p-8 space-y-6"
+          className="glass-card p-8 md:p-10 space-y-6"
         >
           {error && (
             <div className="flex items-center gap-3 p-4 bg-red-50 border border-red-200 rounded-lg">
@@ -116,7 +120,7 @@ export default function ResetPasswordPage() {
                 placeholder="••••••••"
                 required
                 disabled={isSubmitting || !!error.includes("Invalid")}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-transparent disabled:bg-gray-50"
+                className="w-full pl-10 pr-4 py-3 bg-off-white/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent disabled:bg-gray-50 transition-all"
               />
             </div>
           </div>
@@ -134,7 +138,7 @@ export default function ResetPasswordPage() {
                 placeholder="••••••••"
                 required
                 disabled={isSubmitting || !!error.includes("Invalid")}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-transparent disabled:bg-gray-50"
+                className="w-full pl-10 pr-4 py-3 bg-off-white/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent disabled:bg-gray-50 transition-all"
               />
             </div>
           </div>
@@ -142,7 +146,7 @@ export default function ResetPasswordPage() {
           <button
             type="submit"
             disabled={isSubmitting || !!error.includes("Invalid")}
-            className="w-full flex items-center justify-center gap-2 bg-teal-600 hover:bg-teal-700 disabled:bg-gray-400 text-white font-medium py-2 rounded-lg transition-colors"
+            className="w-full flex items-center justify-center gap-2 bg-black hover:bg-[#4ddcd3] disabled:bg-gray-400 text-white hover:text-black font-medium py-3 rounded-xl transition-all duration-300 shadow-soft-lg hover:-translate-y-1 hover:shadow-soft-xl"
           >
             {isSubmitting ? (
               <>

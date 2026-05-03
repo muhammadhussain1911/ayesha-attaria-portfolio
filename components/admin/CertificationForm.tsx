@@ -102,7 +102,7 @@ export function CertificationForm({
       <button
         type="button"
         onClick={() => router.back()}
-        className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6"
+        className="flex items-center gap-2 text-gray-500 hover:text-black transition-colors mb-6"
       >
         <ArrowLeft className="w-4 h-4" />
         Back
@@ -110,7 +110,7 @@ export function CertificationForm({
 
       {/* Title */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Certification Title *
         </label>
         <input
@@ -120,13 +120,13 @@ export function CertificationForm({
           onChange={handleInputChange}
           placeholder="e.g., Certified Ethical Hacker (CEH)"
           required
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
         />
       </div>
 
       {/* Issuer */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Issuing Organization *
         </label>
         <input
@@ -136,13 +136,13 @@ export function CertificationForm({
           onChange={handleInputChange}
           placeholder="e.g., (ISC)², OSCP, Hack The Box"
           required
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
         />
       </div>
 
       {/* Issue Date */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Issue Date *
         </label>
         <input
@@ -151,13 +151,13 @@ export function CertificationForm({
           value={formData.issue_date}
           onChange={handleInputChange}
           required
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
         />
       </div>
 
       {/* Expiry Date */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Expiry Date (Optional - Leave empty if no expiry)
         </label>
         <input
@@ -165,13 +165,13 @@ export function CertificationForm({
           name="expiry_date"
           value={formData.expiry_date}
           onChange={handleInputChange}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
         />
       </div>
 
       {/* Credential ID */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Credential ID
         </label>
         <input
@@ -180,13 +180,13 @@ export function CertificationForm({
           value={formData.credential_id}
           onChange={handleInputChange}
           placeholder="e.g., CEH-12345"
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
         />
       </div>
 
       {/* Credential URL */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Credential URL
         </label>
         <input
@@ -195,7 +195,7 @@ export function CertificationForm({
           value={formData.credential_url}
           onChange={handleInputChange}
           placeholder="https://verify.example.com/..."
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
         />
         <p className="text-xs text-gray-500 mt-1">
           Link where the certification can be verified
@@ -204,7 +204,7 @@ export function CertificationForm({
 
       {/* Description */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Description
         </label>
         <textarea
@@ -213,7 +213,7 @@ export function CertificationForm({
           onChange={handleInputChange}
           placeholder="Brief description of the certification"
           rows={3}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
         />
       </div>
 
@@ -227,7 +227,7 @@ export function CertificationForm({
 
       {/* Badge Alt Text */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Badge Alt Text (Accessibility)
         </label>
         <input
@@ -236,13 +236,13 @@ export function CertificationForm({
           value={formData.badge_image_alt}
           onChange={handleInputChange}
           placeholder="e.g., Certified Ethical Hacker badge"
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
         />
       </div>
 
       {/* Order Index */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Display Order (lower numbers appear first)
         </label>
         <input
@@ -250,7 +250,7 @@ export function CertificationForm({
           name="order_index"
           value={formData.order_index}
           onChange={handleInputChange}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
         />
       </div>
 
@@ -258,7 +258,7 @@ export function CertificationForm({
       <button
         type="submit"
         disabled={loading}
-        className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-teal-600 hover:bg-teal-700 disabled:bg-gray-400 text-white font-medium rounded-lg transition-colors"
+        className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-black hover:bg-[#4ddcd3] hover:text-black disabled:bg-gray-400 text-white font-medium rounded-xl transition-all duration-300 shadow-soft-lg hover:-translate-y-1 hover:shadow-soft-xl"
       >
         <Save className="w-4 h-4" />
         {loading

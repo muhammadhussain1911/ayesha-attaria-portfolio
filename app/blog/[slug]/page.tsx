@@ -82,10 +82,11 @@ export default async function BlogPostPage({
   const relatedPosts = await getRelatedBlogs(post.category, post.id);
 
   return (
-    <article className="bg-white">
+    <article className="bg-off-white min-h-screen">
       {/* Post Header */}
-      <header className="py-12 md:py-20 bg-linear-to-b from-[#f5f5f5] to-white border-b border-[#e5e5e5]">
-        <div className="section-container max-w-3xl">
+      <header className="py-12 md:py-20 relative overflow-hidden">
+        <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#4ddcd3]/5 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="section-container max-w-3xl relative z-10">
           <div className="mb-6">
             <span className="inline-block px-3 py-1 bg-[#4ddcd3] text-black text-xs font-medium rounded-full">
               {post.category}
@@ -120,7 +121,7 @@ export default async function BlogPostPage({
 
       {/* Post Image */}
       {post.image_url && (
-        <div className="py-12 md:py-20 bg-[#f5f5f5]">
+        <div className="py-12 relative">
           <div className="section-container max-w-3xl">
             <img
               src={post.image_url}
@@ -148,7 +149,7 @@ export default async function BlogPostPage({
                 {post.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-3 py-1 bg-[#f5f5f5] border border-[#e5e5e5] rounded-full text-xs font-medium text-gray-700 hover:border-[#4ddcd3] transition-colors"
+                    className="px-3 py-1 glass-card shadow-none rounded-full text-xs font-medium text-gray-700 hover:text-[#4ddcd3] hover:-translate-y-1 transition-all"
                   >
                     #{tag}
                   </span>
@@ -159,7 +160,7 @@ export default async function BlogPostPage({
 
           {/* Author Bio */}
           <div className="py-8">
-            <div className="p-6 rounded-lg bg-[#f5f5f5] border border-[#e5e5e5]">
+            <div className="glass-card p-6 md:p-8">
               <p className="text-gray-700">
                 <span className="font-bold text-black">About the Author:</span>{" "}
                 Ayesha Attaria is a Web Application Penetration Tester and
@@ -173,16 +174,21 @@ export default async function BlogPostPage({
       </section>
 
       {/* CTA Section */}
-      <section className="py-12 md:py-20 bg-[#4ddcd3]">
-        <div className="section-container text-center">
+      <section className="py-16 md:py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#4ddcd3]/10 to-transparent pointer-events-none"></div>
+        <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#4ddcd3] to-transparent opacity-50 animate-scan"></div>
+        <div className="section-container text-center relative z-10 glass-card p-12 md:p-20">
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-black mb-4">
             Need a Security Assessment?
           </h2>
-          <p className="text-lg text-black mb-8 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-700 mb-8 max-w-2xl mx-auto">
             If this post highlights vulnerabilities you&apos;re concerned about,
             let&apos;s discuss how I can help secure your application.
           </p>
-          <Link href="/contact" className="inline-block btn-secondary">
+          <Link
+            href="/contact"
+            className="inline-block px-8 py-4 bg-black text-white font-medium rounded-2xl hover:bg-[#4ddcd3] hover:text-black transition-all duration-300 shadow-soft-lg hover:-translate-y-1 hover:shadow-soft-xl"
+          >
             Book a Free Consultation
           </Link>
         </div>
@@ -201,14 +207,16 @@ export default async function BlogPostPage({
               {relatedPosts.map((relatedPost) => (
                 <article
                   key={relatedPost.id}
-                  className="rounded-lg overflow-hidden border border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300 bg-white flex flex-col h-full"
+                  className="glass-card group hover:-translate-y-2 transition-all duration-300 flex flex-col h-full relative overflow-hidden"
                 >
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#4ddcd3]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none"></div>
                   {relatedPost.image_url && (
-                    <img
+                    <div className="relative w-full h-48 overflow-hidden bg-off-white">
+                      <img
                       src={relatedPost.image_url}
                       alt={relatedPost.image_alt || relatedPost.title}
-                      className="w-full h-48 object-cover"
-                    />
+                      />
+                    </div>
                   )}
                   <div className="p-6 flex flex-col grow">
                     <div className="flex items-center gap-2 mb-3">

@@ -11,17 +11,19 @@ import {
   Mail,
   Menu as MenuIcon,
   X,
+  Briefcase
 } from "lucide-react";
 
-const IconRenderer = ({ iconName }: { iconName: string }) => {
+const IconRenderer = ({ iconName, className = "w-6 h-6" }: { iconName: string, className?: string }) => {
   const iconMap: Record<string, React.ReactNode> = {
-    home: <Home className="w-6 h-6" />,
-    user: <User className="w-6 h-6" />,
-    folderopen: <FolderOpen className="w-6 h-6" />,
-    bookopen: <BookOpen className="w-6 h-6" />,
-    mail: <Mail className="w-6 h-6" />,
-    menu: <MenuIcon className="w-6 h-6" />,
-    x: <X className="w-6 h-6" />,
+    home: <Home className={className} />,
+    user: <User className={className} />,
+    folderopen: <FolderOpen className={className} />,
+    bookopen: <BookOpen className={className} />,
+    mail: <Mail className={className} />,
+    menu: <MenuIcon className={className} />,
+    x: <X className={className} />,
+    briefcase: <Briefcase className={className} />
   };
 
   return <>{iconMap[iconName.toLowerCase()] || iconName}</>;
@@ -34,8 +36,7 @@ export function MobileBottomNav() {
   const navTabLinks = [
     { href: "/", label: "Home", icon: "home" },
     { href: "/projects", label: "Projects", icon: "folderopen" },
-    { href: "/services", label: "Services", icon: "user" },
-    { href: "/blog", label: "Blog", icon: "bookopen" },
+    { href: "/services", label: "Services", icon: "briefcase" },
     { href: "/contact", label: "Contact", icon: "mail" },
   ];
 
@@ -43,38 +44,59 @@ export function MobileBottomNav() {
     { href: "/", label: "Home", icon: "home" },
     { href: "/about", label: "About", icon: "user" },
     { href: "/projects", label: "Projects", icon: "folderopen" },
-    { href: "/services", label: "Services", icon: "user" },
+    { href: "/services", label: "Services", icon: "briefcase" },
     { href: "/blog", label: "Blog", icon: "bookopen" },
+    { href: "/skills", label: "Skills", icon: "user" },
+    { href: "/experience", label: "Experience", icon: "user" },
+    { href: "/certifications", label: "Certifications", icon: "bookopen" },
     { href: "/contact", label: "Contact", icon: "mail" },
   ];
 
   return (
     <>
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-[#e5e5e5]">
-        <div className="flex items-center justify-around h-20">
+      <nav className="md:hidden fixed bottom-6 left-4 right-4 z-50">
+        <div className="glass-card flex items-center justify-around h-16 px-2 mx-auto max-w-sm rounded-full bg-white/90 shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white">
           {navTabLinks.map((link) => {
             const isActive = pathname === link.href;
             return (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex flex-col items-center justify-center flex-1 h-full gap-1 transition-colors duration-300 ${
-                  isActive ? "text-[#4ddcd3]" : "text-gray-600"
-                }`}
+                className={`relative flex flex-col items-center justify-center flex-1 h-full transition-all duration-300 group`}
                 onClick={() => setShowMenu(false)}
               >
-                <IconRenderer iconName={link.icon} />
-                <span className="text-xs font-medium">{link.label}</span>
+                <div className={`flex flex-col items-center transition-transform duration-300 ${isActive ? '-translate-y-1' : 'group-hover:-translate-y-1'}`}>
+                  <IconRenderer 
+                    iconName={link.icon} 
+                    className={`w-5 h-5 mb-1 ${isActive ? "text-[#4ddcd3]" : "text-gray-500"}`} 
+                  />
+                  <span className={`text-[10px] font-medium ${isActive ? "text-[#4ddcd3]" : "text-gray-500"}`}>
+                    {link.label}
+                  </span>
+                </div>
+                {isActive && (
+                  <div className="absolute bottom-1 w-1 h-1 rounded-full bg-[#4ddcd3] shadow-[0_0_8px_rgba(77,220,211,0.8)]"></div>
+                )}
               </Link>
             );
           })}
           <button
             onClick={() => setShowMenu(!showMenu)}
-            className="flex flex-col items-center justify-center flex-1 h-full gap-1 text-gray-600 hover:text-[#4ddcd3] transition-colors duration-300"
+            className="flex flex-col items-center justify-center flex-1 h-full transition-all duration-300 group"
             aria-label="Toggle navigation menu"
           >
-            <IconRenderer iconName="menu" />
-            <span className="text-xs font-medium">Menu</span>
+            <div className={`flex flex-col items-center transition-transform duration-300 group-hover:-translate-y-1`}>
+              <IconRenderer 
+                iconName="menu" 
+                className={`w-5 h-5 mb-1 ${showMenu ? "text-[#4ddcd3]" : "text-gray-500"}`} 
+              />
+              <span className={`text-[10px] font-medium ${showMenu ? "text-[#4ddcd3]" : "text-gray-500"}`}>
+                Menu
+              </span>
+            </div>
+            {showMenu && (
+              <div className="absolute bottom-1 w-1 h-1 rounded-full bg-[#4ddcd3] shadow-[0_0_8px_rgba(77,220,211,0.8)]"></div>
+            )}
           </button>
         </div>
       </nav>
@@ -82,38 +104,39 @@ export function MobileBottomNav() {
       {/* Mobile Menu */}
       {showMenu && (
         <div
-          className="md:hidden fixed inset-0 z-40 bg-black/50"
+          className="md:hidden fixed inset-0 z-40 bg-black/50 backdrop-blur-sm transition-opacity duration-300"
           onClick={() => setShowMenu(false)}
         >
           <div
-            className="fixed right-0 top-0 bottom-0 w-64 bg-white shadow-lg p-6 overflow-y-auto pb-32"
+            className="fixed right-0 top-0 bottom-0 w-72 bg-off-white shadow-2xl overflow-y-auto pb-32 transition-transform duration-300 transform translate-x-0 border-l border-white"
             onClick={(e) => e.stopPropagation()}
           >
-            <button
-              onClick={() => setShowMenu(false)}
-              className="absolute top-4 right-4 text-2xl text-gray-600 hover:text-[#4ddcd3]"
-              aria-label="Close navigation menu"
-            >
-              <X className="w-6 h-6" />
-            </button>
-            <div className="mt-8 flex flex-col gap-2">
+            <div className="p-6 bg-white sticky top-0 z-10 border-b border-gray-100 flex items-center justify-between">
+              <span className="font-serif font-bold text-lg">Menu</span>
+              <button
+                onClick={() => setShowMenu(false)}
+                className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:text-[#4ddcd3] hover:bg-[#4ddcd3]/10 transition-colors"
+                aria-label="Close navigation menu"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="p-6 flex flex-col gap-2">
               {menuLinks.map((link) => {
                 const isActive = pathname === link.href;
                 return (
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-300 ${
+                    className={`flex items-center gap-4 px-4 py-3 rounded-2xl transition-all duration-300 ${
                       isActive
-                        ? "bg-[#4ddcd3] text-white font-medium"
-                        : "text-black hover:bg-[#f5f5f5]"
+                        ? "bg-white shadow-sm text-[#4ddcd3] font-semibold border border-white"
+                        : "text-gray-600 hover:bg-white hover:shadow-sm hover:text-black border border-transparent"
                     }`}
                     onClick={() => setShowMenu(false)}
                   >
-                    <div
-                      className={`${isActive ? "text-white" : "text-gray-600"}`}
-                    >
-                      <IconRenderer iconName={link.icon} />
+                    <div className={`p-2 rounded-xl ${isActive ? "bg-[#4ddcd3]/10" : "bg-gray-100"}`}>
+                      <IconRenderer iconName={link.icon} className="w-4 h-4" />
                     </div>
                     <span>{link.label}</span>
                   </Link>

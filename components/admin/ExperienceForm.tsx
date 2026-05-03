@@ -149,7 +149,7 @@ export function ExperienceForm({
       <button
         type="button"
         onClick={() => router.back()}
-        className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6"
+        className="flex items-center gap-2 text-gray-500 hover:text-black transition-colors mb-6"
       >
         <ArrowLeft className="w-4 h-4" />
         Back
@@ -157,7 +157,7 @@ export function ExperienceForm({
 
       {/* Title */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Title *
         </label>
         <input
@@ -167,13 +167,13 @@ export function ExperienceForm({
           onChange={handleInputChange}
           placeholder="e.g., Senior Penetration Tester"
           required
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
         />
       </div>
 
       {/* Organization */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Organization *
         </label>
         <input
@@ -183,13 +183,13 @@ export function ExperienceForm({
           onChange={handleInputChange}
           placeholder="Company or Organization name"
           required
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
         />
       </div>
 
       {/* Type */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Type *
         </label>
         <select
@@ -197,7 +197,7 @@ export function ExperienceForm({
           value={formData.type}
           onChange={handleInputChange}
           required
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
         >
           <option value="employment">Employment</option>
           <option value="bug-bounty">Bug Bounty</option>
@@ -208,7 +208,7 @@ export function ExperienceForm({
 
       {/* Location */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Location
         </label>
         <input
@@ -217,13 +217,13 @@ export function ExperienceForm({
           value={formData.location}
           onChange={handleInputChange}
           placeholder="e.g., Remote, New York"
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
         />
       </div>
 
       {/* Start Date */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Start Date *
         </label>
         <input
@@ -232,14 +232,14 @@ export function ExperienceForm({
           value={formData.start_date}
           onChange={handleInputChange}
           required
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
         />
       </div>
 
       {/* End Date & Is Current */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-black mb-2">
             End Date
           </label>
           <input
@@ -248,7 +248,7 @@ export function ExperienceForm({
             value={formData.end_date}
             onChange={handleInputChange}
             disabled={formData.is_current}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent disabled:bg-gray-100"
+            className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm disabled:bg-gray-100"
           />
         </div>
         <div className="flex items-end">
@@ -258,7 +258,7 @@ export function ExperienceForm({
               name="is_current"
               checked={formData.is_current}
               onChange={handleInputChange}
-              className="w-4 h-4 rounded text-teal-600"
+              className="w-4 h-4 rounded text-[#4ddcd3] focus:ring-[#4ddcd3]"
             />
             <span className="text-sm font-medium text-gray-700">
               Currently working here
@@ -269,7 +269,7 @@ export function ExperienceForm({
 
       {/* Description */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Description
         </label>
         <textarea
@@ -278,7 +278,7 @@ export function ExperienceForm({
           onChange={handleInputChange}
           placeholder="Brief description of your role or experience"
           rows={4}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
         />
       </div>
 
@@ -294,7 +294,7 @@ export function ExperienceForm({
 
       {/* Organization Logo Alt Text */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Logo Alt Text
         </label>
         <input
@@ -303,13 +303,13 @@ export function ExperienceForm({
           value={formData.organization_logo_alt}
           onChange={handleInputChange}
           placeholder="Describe the logo for accessibility"
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
         />
       </div>
 
       {/* Technologies */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Technologies Used
         </label>
         <div className="flex gap-2 mb-2">
@@ -321,12 +321,12 @@ export function ExperienceForm({
               e.key === "Enter" && (e.preventDefault(), addTechnology())
             }
             placeholder="e.g., Burp Suite, OWASP"
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+            className="flex-1 px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
           />
           <button
             type="button"
             onClick={addTechnology}
-            className="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700"
+            className="px-4 py-2 bg-black text-white hover:bg-[#4ddcd3] hover:text-black rounded-xl transition-all shadow-soft-sm"
           >
             Add
           </button>
@@ -335,7 +335,7 @@ export function ExperienceForm({
           {formData.technologies.map((tech) => (
             <span
               key={tech}
-              className="px-3 py-1 bg-teal-100 text-teal-800 rounded-full text-sm flex items-center gap-2"
+              className="px-3 py-1 bg-[#4ddcd3]/10 text-[#4ddcd3] border border-[#4ddcd3]/20 rounded-full text-sm flex items-center gap-2"
             >
               {tech}
               <button
@@ -352,7 +352,7 @@ export function ExperienceForm({
 
       {/* Achievements */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Achievements
         </label>
         <div className="flex gap-2 mb-2">
@@ -364,12 +364,12 @@ export function ExperienceForm({
               e.key === "Enter" && (e.preventDefault(), addAchievement())
             }
             placeholder="e.g., Found 15 critical vulnerabilities"
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+            className="flex-1 px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
           />
           <button
             type="button"
             onClick={addAchievement}
-            className="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700"
+            className="px-4 py-2 bg-black text-white hover:bg-[#4ddcd3] hover:text-black rounded-xl transition-all shadow-soft-sm"
           >
             Add
           </button>
@@ -395,7 +395,7 @@ export function ExperienceForm({
 
       {/* Order Index */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Display Order (lower numbers appear first)
         </label>
         <input
@@ -411,7 +411,7 @@ export function ExperienceForm({
       <button
         type="submit"
         disabled={loading}
-        className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-teal-600 hover:bg-teal-700 disabled:bg-gray-400 text-white font-medium rounded-lg transition-colors"
+        className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-black hover:bg-[#4ddcd3] hover:text-black disabled:bg-gray-400 text-white font-medium rounded-xl transition-all duration-300 shadow-soft-lg hover:-translate-y-1 hover:shadow-soft-xl"
       >
         <Save className="w-4 h-4" />
         {loading

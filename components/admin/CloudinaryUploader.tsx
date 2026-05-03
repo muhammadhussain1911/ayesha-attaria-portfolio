@@ -43,7 +43,7 @@ export function CloudinaryUploader({
   return (
     <div className="space-y-3">
       {/* Label */}
-      <label className="block text-sm font-medium text-gray-700">{label}</label>
+      <label className="block text-sm font-medium text-black">{label}</label>
 
       {/* Upload Widget */}
       <CldUploadWidget
@@ -81,7 +81,7 @@ export function CloudinaryUploader({
             type="button"
             onClick={() => open()}
             disabled={uploading}
-            className="w-full flex items-center justify-center gap-2 px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg hover:border-teal-600 hover:bg-teal-50 transition-colors disabled:opacity-50"
+            className="w-full flex items-center justify-center gap-2 px-4 py-3 border-2 border-dashed border-gray-200 rounded-xl hover:border-[#4ddcd3] hover:bg-[#4ddcd3]/5 transition-colors disabled:opacity-50"
           >
             <Upload className={`w-5 h-5 ${uploading ? "animate-spin" : ""}`} />
             <span className="text-sm font-medium">
@@ -101,7 +101,7 @@ export function CloudinaryUploader({
 
       {/* Image Preview */}
       {preview && value && (
-        <div className="relative w-full bg-gray-50 rounded-lg overflow-hidden border border-gray-200">
+        <div className="relative w-full bg-off-white rounded-xl overflow-hidden border border-gray-200">
           <div className="relative w-full h-48">
             <Image
               src={value}
@@ -122,7 +122,7 @@ export function CloudinaryUploader({
           </button>
 
           {/* URL Display */}
-          <div className="p-3 bg-white border-t border-gray-200">
+          <div className="p-3 bg-off-white border-t border-gray-200">
             <p className="text-xs text-gray-600 break-all">{value}</p>
           </div>
         </div>

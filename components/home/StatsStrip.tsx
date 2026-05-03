@@ -11,23 +11,25 @@ export function StatsStrip() {
   ];
 
   return (
-    <section className="bg-[#f5f5f5] border-y border-[#e5e5e5] py-12 md:py-16">
-      <div className="section-container">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {stats.map((stat, idx) => (
-            <div key={idx} className="flex flex-col items-center text-center">
-              <div className="text-4xl md:text-5xl font-serif font-bold text-[#4ddcd3] mb-2">
-                <CountUpNumber
-                  end={stat.number}
-                  duration={2000}
-                  suffix={stat.suffix || ""}
-                />
+    <section className="bg-off-white pb-12 md:pb-20 pt-4 px-4">
+      <div className="max-w-7xl mx-auto">
+        <div className="glass-card p-6 md:p-10 border-t-4 border-t-[#4ddcd3]">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 divide-y md:divide-y-0 md:divide-x divide-gray-200">
+            {stats.map((stat, idx) => (
+              <div key={idx} className="flex flex-col items-center text-center pt-6 md:pt-0 group">
+                <div className="text-4xl md:text-5xl font-serif font-bold text-black mb-2 group-hover:text-[#4ddcd3] transition-colors duration-300">
+                  <CountUpNumber
+                    end={stat.number}
+                    duration={2000}
+                    suffix={stat.suffix || ""}
+                  />
+                </div>
+                <p className="text-sm md:text-base text-gray-500 font-medium tracking-wide uppercase">
+                  {stat.label}
+                </p>
               </div>
-              <p className="text-sm md:text-base text-gray-700 font-medium">
-                {stat.label}
-              </p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

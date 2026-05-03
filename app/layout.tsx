@@ -80,16 +80,16 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${spaceGrotesk.variable} ${dmSans.variable} ${jetbrainsMono.variable} bg-white`}
+      className={`${spaceGrotesk.variable} ${dmSans.variable} ${jetbrainsMono.variable} bg-off-white`}
     >
       <head>
         <PersonSchema />
         <OrganizationSchema />
       </head>
-      <body className="font-sans antialiased text-black">
+      <body className="font-sans antialiased text-black bg-off-white selection:bg-[#4ddcd3] selection:text-black">
         <Providers>
           <Navbar />
-          <main className="min-h-screen">{children}</main>
+          <main className="min-h-screen bg-off-white">{children}</main>
           <Footer />
           <MobileBottomNav />
         </Providers>

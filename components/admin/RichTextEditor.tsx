@@ -171,7 +171,7 @@ export function RichTextEditor({ value, onChange }: RichTextEditorProps) {
   return (
     <div className="space-y-2">
       {/* Toolbar */}
-      <div className="flex flex-wrap gap-1 p-3 bg-gray-100 rounded-t-lg border border-gray-300 border-b-0">
+      <div className="flex flex-wrap gap-1 p-3 bg-off-white border border-gray-200 border-b-0 rounded-t-xl">
         {toolbar.map((item, idx) => {
           if (item.type === "divider") {
             return (
@@ -186,7 +186,7 @@ export function RichTextEditor({ value, onChange }: RichTextEditorProps) {
               type="button"
               onClick={item.onClick}
               title={item.tooltip}
-              className="p-2 rounded hover:bg-gray-200 transition-colors text-gray-700 hover:text-gray-900"
+              className="p-2 rounded hover:bg-[#4ddcd3]/10 transition-colors text-gray-600 hover:text-[#4ddcd3]"
             >
               <IconComponent className="w-5 h-5" />
             </button>
@@ -221,7 +221,7 @@ code blocks
 
 ![Images](image-url-or-base64)`}
         rows={15}
-        className="w-full px-4 py-3 border border-gray-300 rounded-b-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none font-mono text-sm resize-vertical"
+        className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-b-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent outline-none font-mono text-sm resize-vertical"
       />
 
       {/* Preview Note */}

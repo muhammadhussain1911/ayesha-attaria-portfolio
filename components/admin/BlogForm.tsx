@@ -115,7 +115,7 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
       <button
         type="button"
         onClick={() => router.back()}
-        className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
+        className="flex items-center gap-2 text-gray-500 hover:text-black transition-colors"
       >
         <ArrowLeft className="w-4 h-4" />
         Back
@@ -123,7 +123,7 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
 
       {/* Title */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Title *
         </label>
         <input
@@ -133,13 +133,13 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
           onChange={handleInputChange}
           placeholder="Enter blog title"
           required
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
         />
       </div>
 
       {/* Slug */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Slug *
         </label>
         <input
@@ -149,7 +149,7 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
           onChange={handleInputChange}
           placeholder="my-blog-post"
           required
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
         />
         <p className="text-xs text-gray-500 mt-1">
           Must be unique with only lowercase letters, numbers, and hyphens
@@ -158,7 +158,7 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
 
       {/* Description */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Description *
         </label>
         <textarea
@@ -168,7 +168,7 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
           placeholder="Brief SEO description"
           rows={3}
           required
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
         />
       </div>
 
@@ -182,7 +182,7 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
 
       {/* Image Alt Text */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Image Alt Text
         </label>
         <input
@@ -191,13 +191,13 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
           value={formData.image_alt}
           onChange={handleInputChange}
           placeholder="Descriptive alt text for accessibility"
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
         />
       </div>
 
       {/* Category */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Category
         </label>
         <input
@@ -206,13 +206,13 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
           value={formData.category}
           onChange={handleInputChange}
           placeholder="e.g., Web Security, API Security"
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
         />
       </div>
 
       {/* Tags */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Tags
         </label>
         <div className="flex gap-2 mb-2">
@@ -224,12 +224,12 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
               e.key === "Enter" && (e.preventDefault(), addTag())
             }
             placeholder="Add a tag and press Enter"
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+            className="flex-1 px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
           />
           <button
             type="button"
             onClick={addTag}
-            className="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700"
+            className="px-4 py-2 bg-black text-white hover:bg-[#4ddcd3] hover:text-black rounded-xl transition-all shadow-soft-sm"
           >
             Add
           </button>
@@ -238,7 +238,7 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
           {formData.tags.map((tag) => (
             <span
               key={tag}
-              className="px-3 py-1 bg-teal-100 text-teal-800 rounded-full text-sm flex items-center gap-2"
+              className="px-3 py-1 bg-[#4ddcd3]/10 text-[#4ddcd3] border border-[#4ddcd3]/20 rounded-full text-sm flex items-center gap-2"
             >
               {tag}
               <button
@@ -255,7 +255,7 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
 
       {/* Content - Rich Text Editor */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Content (Markdown) *
         </label>
         <RichTextEditor
@@ -271,7 +271,7 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
           name="published"
           checked={formData.published}
           onChange={handleInputChange}
-          className="w-4 h-4 rounded text-teal-600"
+          className="w-4 h-4 rounded text-[#4ddcd3] focus:ring-[#4ddcd3]"
         />
         <span className="text-sm font-medium text-gray-700">
           Publish immediately
@@ -282,7 +282,7 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
       <button
         type="submit"
         disabled={loading}
-        className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-teal-600 hover:bg-teal-700 disabled:bg-gray-400 text-white font-medium rounded-lg transition-colors"
+        className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-black hover:bg-[#4ddcd3] hover:text-black disabled:bg-gray-400 text-white font-medium rounded-xl transition-all duration-300 shadow-soft-lg hover:-translate-y-1 hover:shadow-soft-xl"
       >
         <Save className="w-4 h-4" />
         {loading ? "Saving..." : isEditing ? "Update Blog" : "Create Blog"}

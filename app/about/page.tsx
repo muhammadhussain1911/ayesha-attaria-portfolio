@@ -117,10 +117,11 @@ export default async function AboutPage() {
   });
 
   return (
-    <div className="bg-white">
+    <div className="bg-off-white min-h-screen">
       {/* Header */}
-      <section className="py-12 md:py-20 bg-linear-to-b from-[#f5f5f5] to-white">
-        <div className="section-container">
+      <section className="py-12 md:py-20 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#4ddcd3]/5 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="section-container relative z-10">
           <h1 className="text-5xl md:text-6xl font-serif font-bold text-black mb-6 text-balance">
             About Me
           </h1>
@@ -133,9 +134,9 @@ export default async function AboutPage() {
       </section>
 
       {/* Bio Section */}
-      <section className="py-12 md:py-20">
-        <div className="section-container max-w-3xl">
-          <div className="prose prose-lg max-w-none text-gray-700 space-y-6">
+      <section className="py-12 md:py-20 relative">
+        <div className="section-container max-w-4xl">
+          <div className="glass-card p-8 md:p-12 prose prose-lg max-w-none text-gray-700 space-y-6">
             <p>
               My journey in cybersecurity started with a passion for
               understanding how systems work and, more importantly, how they can
@@ -190,12 +191,13 @@ export default async function AboutPage() {
       </section>
 
       {/* Approach Section */}
-      <section className="py-12 md:py-20 bg-[#f5f5f5]">
-        <div className="section-container max-w-3xl">
-          <SectionHeading
-            title="My Approach"
-            subtitle="Core principles that guide my security testing methodology."
-          />
+      <section className="py-12 md:py-20 relative">
+        <div className="section-container max-w-4xl">
+          <div className="glass-card p-8 md:p-12">
+            <SectionHeading
+              title="My Approach"
+              subtitle="Core principles that guide my security testing methodology."
+            />
 
           <ul className="space-y-4">
             {[
@@ -209,7 +211,7 @@ export default async function AboutPage() {
             ].map((item, idx) => (
               <li
                 key={idx}
-                className="flex items-start gap-3 text-gray-700 text-lg"
+                className="flex items-start gap-3 text-gray-700 text-lg bg-off-white/50 p-4 rounded-xl border border-white/50"
               >
                 <IconRenderer
                   name="Check"
@@ -219,6 +221,7 @@ export default async function AboutPage() {
               </li>
             ))}
           </ul>
+          </div>
         </div>
       </section>
 
@@ -242,7 +245,7 @@ export default async function AboutPage() {
                       {categorySkills.map((skill) => (
                         <div
                           key={skill.id}
-                          className="p-6 rounded-lg bg-white border border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300"
+                          className="glass-card p-6 group hover:-translate-y-2 transition-all duration-300"
                         >
                           {skill.image_url && (
                             <div className="mb-4 relative w-full h-32 rounded-lg overflow-hidden bg-linear-to-br from-[#f5f5f5] to-[#e5e5e5] flex items-center justify-center">
@@ -285,7 +288,7 @@ export default async function AboutPage() {
 
       {/* Experience Section */}
       {experiences.length > 0 && (
-        <section id="experience" className="py-12 md:py-20 bg-[#f5f5f5]">
+        <section id="experience" className="py-12 md:py-20 relative">
           <div className="section-container max-w-4xl">
             <SectionHeading
               title="Professional Timeline"
@@ -301,12 +304,12 @@ export default async function AboutPage() {
                 {experiences.map((exp) => (
                   <div key={exp.id} className="relative md:ml-56">
                     {/* Timeline dot */}
-                    <div className="hidden md:flex absolute -left-32 top-6 w-12 h-12 rounded-full bg-white border-4 border-[#4ddcd3] items-center justify-center">
+                    <div className="hidden md:flex absolute -left-32 top-6 w-12 h-12 rounded-2xl bg-off-white shadow-inner border-2 border-white items-center justify-center group-hover:bg-[#4ddcd3]/10 transition-colors duration-300">
                       {getIconForType(exp.type)}
                     </div>
 
                     {/* Content card */}
-                    <div className="p-6 rounded-lg bg-white border border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300">
+                    <div className="glass-card p-6 group hover:-translate-y-2 transition-all duration-300">
                       <div className="flex items-start gap-4 mb-4">
                         {exp.organization_logo_url ? (
                           <div className="shrink-0 w-12 h-12 rounded-lg overflow-hidden bg-white border-2 border-[#4ddcd3] flex items-center justify-center">
@@ -363,8 +366,9 @@ export default async function AboutPage() {
               {certifications.map((cert) => (
                 <div
                   key={cert.id}
-                  className="p-6 rounded-lg bg-white border-2 border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300"
+                  className="glass-card p-6 group hover:-translate-y-2 transition-all duration-300 relative overflow-hidden"
                 >
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#4ddcd3]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <div className="flex items-start gap-4 mb-4">
                     {cert.badge_image_url ? (
                       <div className="shrink-0 w-16 h-16 rounded-lg overflow-hidden bg-linear-to-br from-[#f5f5f5] to-[#e5e5e5] flex items-center justify-center">
@@ -415,7 +419,7 @@ export default async function AboutPage() {
       )}
 
       {/* Tools Section */}
-      <section className="py-12 md:py-20 bg-[#f5f5f5]">
+      <section className="py-12 md:py-20 relative">
         <div className="section-container">
           <SectionHeading
             title="Tools & Technologies"
@@ -437,7 +441,7 @@ export default async function AboutPage() {
           </p>
           <Link
             href="/contact"
-            className="inline-block px-8 py-4 bg-[#4ddcd3] text-black font-bold rounded-lg hover:bg-[#3db5a1] transition-colors"
+            className="inline-block px-8 py-4 bg-black text-white font-medium rounded-2xl hover:bg-[#4ddcd3] hover:text-black transition-all duration-300 shadow-soft-lg hover:-translate-y-1 hover:shadow-soft-xl"
           >
             Get in Touch
           </Link>

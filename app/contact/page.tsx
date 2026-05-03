@@ -33,11 +33,12 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <>
+    <div className="bg-off-white min-h-screen">
       {/* Hero Section */}
-      <section className="py-12 md:py-20 bg-linear-to-b from-white to-[#f5f5f5]">
-        <div className="section-container">
-          <div className="max-w-3xl">
+      <section className="py-12 md:py-20 relative overflow-hidden">
+        <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#4ddcd3]/5 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="section-container relative z-10">
+          <div className="max-w-4xl">
             <h1 className="text-5xl md:text-6xl font-serif font-bold text-black mb-6 text-balance">
               Let&apos;s Secure Your Web Application
             </h1>
@@ -54,18 +55,20 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Form Section */}
-      <section className="py-12 md:py-20">
-        <div className="section-container max-w-2xl">
+      <section className="py-12 md:py-20 relative">
+        <div className="section-container max-w-4xl">
           <SectionHeading
             title="Get in Touch"
             subtitle="Fill out the form below and I'll respond within 24 hours with a customized proposal tailored to your security needs."
           />
-          <ContactForm />
+          <div className="glass-card p-8 md:p-12">
+            <ContactForm />
+          </div>
         </div>
       </section>
 
       {/* Direct Contact Info */}
-      <section className="py-12 md:py-20 bg-[#f5f5f5]">
+      <section className="py-12 md:py-20 relative">
         <div className="section-container">
           <SectionHeading
             title="Other Ways to Reach Me"
@@ -82,9 +85,11 @@ export default function ContactPage() {
                 href="https://www.linkedin.com/in/ayeshaattaria"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 p-4 rounded-lg bg-white border border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300"
+                className="flex items-center gap-4 p-4 glass-card group hover:-translate-y-1 transition-all duration-300"
               >
-                <Briefcase className="w-8 h-8 text-teal-600" />
+                <div className="w-12 h-12 rounded-full bg-[#4ddcd3]/10 flex items-center justify-center group-hover:bg-[#4ddcd3]/20 transition-colors">
+                  <Briefcase className="w-6 h-6 text-[#4ddcd3]" />
+                </div>
                 <div>
                   <p className="font-medium text-black">LinkedIn</p>
                   <p className="text-sm text-gray-600">
@@ -97,9 +102,11 @@ export default function ContactPage() {
                 href="https://x.com/Bug_blitzer"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 p-4 rounded-lg bg-white border border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300"
+                className="flex items-center gap-4 p-4 glass-card group hover:-translate-y-1 transition-all duration-300"
               >
-                <Twitter className="w-8 h-8 text-teal-600" />
+                <div className="w-12 h-12 rounded-full bg-[#4ddcd3]/10 flex items-center justify-center group-hover:bg-[#4ddcd3]/20 transition-colors">
+                  <Twitter className="w-6 h-6 text-[#4ddcd3]" />
+                </div>
                 <div>
                   <p className="font-medium text-black">Twitter / X</p>
                   <p className="text-sm text-gray-600">
@@ -112,9 +119,11 @@ export default function ContactPage() {
                 href="https://discord.com/users/1238975366186405948"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 p-4 rounded-lg bg-white border border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300"
+                className="flex items-center gap-4 p-4 glass-card group hover:-translate-y-1 transition-all duration-300"
               >
-                <MessageCircle className="w-8 h-8 text-teal-600" />
+                <div className="w-12 h-12 rounded-full bg-[#4ddcd3]/10 flex items-center justify-center group-hover:bg-[#4ddcd3]/20 transition-colors">
+                  <MessageCircle className="w-6 h-6 text-[#4ddcd3]" />
+                </div>
                 <div>
                   <p className="font-medium text-black">Discord</p>
                   <p className="text-sm text-gray-600">
@@ -133,9 +142,11 @@ export default function ContactPage() {
                 href="https://mail.google.com/mail/?view=cm&fs=1&to=ayeshaattaria9263@gmail.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 p-4 rounded-lg bg-white border border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300"
+                className="flex items-center gap-4 p-4 glass-card group hover:-translate-y-1 transition-all duration-300"
               >
-                <Mail className="w-8 h-8 text-teal-600" />
+                <div className="w-12 h-12 rounded-full bg-[#4ddcd3]/10 flex items-center justify-center group-hover:bg-[#4ddcd3]/20 transition-colors">
+                  <Mail className="w-6 h-6 text-[#4ddcd3]" />
+                </div>
                 <div>
                   <p className="font-medium text-black">Email</p>
                   <p className="text-sm text-gray-600">
@@ -148,9 +159,11 @@ export default function ContactPage() {
                 href="https://wa.me/923175779263"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 p-4 rounded-lg bg-white border border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300"
+                className="flex items-center gap-4 p-4 glass-card group hover:-translate-y-1 transition-all duration-300"
               >
-                <Phone className="w-8 h-8 text-teal-600" />
+                <div className="w-12 h-12 rounded-full bg-[#4ddcd3]/10 flex items-center justify-center group-hover:bg-[#4ddcd3]/20 transition-colors">
+                  <Phone className="w-6 h-6 text-[#4ddcd3]" />
+                </div>
                 <div>
                   <p className="font-medium text-black">WhatsApp</p>
                   <p className="text-sm text-gray-600">Quick messages</p>
@@ -158,7 +171,7 @@ export default function ContactPage() {
               </a>
 
               {/* Availability Status */}
-              <div className="p-4 rounded-lg bg-green-50 border border-green-200">
+              <div className="p-4 glass-card border-green-200">
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-6 h-6 text-green-600" />
                   <div>
@@ -207,7 +220,7 @@ export default function ContactPage() {
                   "Yes! Free retesting is included after you fix identified vulnerabilities. This ensures your application is truly secure before going to production.",
               },
             ].map((faq, idx) => (
-              <div key={idx} className="border-l-4 border-[#4ddcd3] pl-6 py-4">
+              <div key={idx} className="glass-card p-6 border-l-4 border-[#4ddcd3]">
                 <h3 className="font-serif font-bold text-lg text-black mb-2">
                   {faq.question}
                 </h3>
@@ -217,6 +230,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

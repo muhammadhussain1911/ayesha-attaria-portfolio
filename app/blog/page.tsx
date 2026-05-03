@@ -53,10 +53,11 @@ export default async function BlogPage() {
   const allCategories = ["All", ...categories];
 
   return (
-    <div className="bg-white">
+    <div className="bg-off-white min-h-screen">
       {/* Header */}
-      <section className="py-12 md:py-20 bg-linear-to-b from-[#f5f5f5] to-white">
-        <div className="section-container">
+      <section className="py-12 md:py-20 relative overflow-hidden">
+        <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#4ddcd3]/5 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="section-container relative z-10">
           <h1 className="text-5xl md:text-6xl font-serif font-bold text-black mb-6 text-balance">
             Security Blog
           </h1>
@@ -75,10 +76,10 @@ export default async function BlogPage() {
             {categories.map((category) => (
               <button
                 key={category}
-                className={`px-4 py-2 rounded-full font-medium transition-all duration-300 ${
+                className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
                   category === "All"
-                    ? "bg-[#4ddcd3] text-black"
-                    : "bg-[#f5f5f5] text-gray-700 hover:border-[#4ddcd3] border border-[#e5e5e5]"
+                    ? "bg-[#4ddcd3] text-black shadow-md -translate-y-1"
+                    : "glass-card shadow-none hover:shadow-soft-sm hover:-translate-y-1 text-gray-700 hover:text-[#4ddcd3]"
                 }`}
               >
                 {category}
@@ -101,10 +102,11 @@ export default async function BlogPage() {
               {posts.map((post) => (
                 <article
                   key={post.id}
-                  className="rounded-lg overflow-hidden border border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300 bg-white flex flex-col h-full"
+                  className="glass-card group hover:-translate-y-2 transition-all duration-300 flex flex-col h-full relative overflow-hidden"
                 >
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#4ddcd3]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none"></div>
                   {post.image_url && (
-                    <div className="relative w-full h-48 overflow-hidden bg-linear-to-br from-[#f5f5f5] to-[#e5e5e5]">
+                    <div className="relative w-full h-48 overflow-hidden bg-off-white">
                       <img
                         src={post.image_url}
                         alt={post.image_alt || post.title}
@@ -152,9 +154,9 @@ export default async function BlogPage() {
 
       {/* Subscribe section */}
       {posts.length > 0 && (
-        <section className="py-12 md:py-20 bg-[#f5f5f5]">
+        <section className="py-12 md:py-20 relative">
           <div className="section-container max-w-2xl">
-            <div className="p-8 rounded-lg bg-white border-l-4 border-[#4ddcd3]">
+            <div className="glass-card p-8 border-l-4 border-[#4ddcd3] flex items-center justify-between">
               <p className="text-gray-700">
                 <span className="font-bold">Subscribe to updates</span> to be
                 notified when new articles are published.

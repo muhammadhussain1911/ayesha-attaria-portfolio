@@ -121,7 +121,7 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
       <button
         type="button"
         onClick={() => router.back()}
-        className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6"
+        className="flex items-center gap-2 text-gray-500 hover:text-black transition-colors mb-6"
       >
         <ArrowLeft className="w-4 h-4" />
         Back
@@ -129,7 +129,7 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
 
       {/* Title */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Title *
         </label>
         <input
@@ -139,13 +139,13 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
           onChange={handleInputChange}
           placeholder="Project title"
           required
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
         />
       </div>
 
       {/* Slug */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Slug *
         </label>
         <input
@@ -155,13 +155,13 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
           onChange={handleInputChange}
           placeholder="my-project"
           required
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
         />
       </div>
 
       {/* Description */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Description *
         </label>
         <textarea
@@ -171,13 +171,13 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
           placeholder="Brief description"
           rows={3}
           required
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
         />
       </div>
 
       {/* Content */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Detailed Content *
         </label>
         <textarea
@@ -187,7 +187,7 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
           placeholder="Detailed project information"
           rows={10}
           required
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent font-mono text-sm"
+          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm font-mono text-sm"
         />
       </div>
 
@@ -201,7 +201,7 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
 
       {/* Image Alt Text */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Image Alt Text
         </label>
         <input
@@ -210,14 +210,14 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
           value={formData.image_alt}
           onChange={handleInputChange}
           placeholder="Describe the image for accessibility"
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
         />
       </div>
 
       {/* URLs */}
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-black mb-2">
             Project URL
           </label>
           <input
@@ -226,11 +226,11 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
             value={formData.project_url}
             onChange={handleInputChange}
             placeholder="https://..."
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+            className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-black mb-2">
             GitHub URL
           </label>
           <input
@@ -239,7 +239,7 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
             value={formData.github_url}
             onChange={handleInputChange}
             placeholder="https://github.com/..."
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+            className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
           />
         </div>
       </div>
@@ -247,7 +247,7 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
       {/* Severity & Impact */}
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-black mb-2">
             Severity Found
           </label>
           <input
@@ -256,11 +256,11 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
             value={formData.severity_found}
             onChange={handleInputChange}
             placeholder="Critical, High, Medium..."
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+            className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-black mb-2">
             Impact
           </label>
           <input
@@ -269,14 +269,14 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
             value={formData.impact}
             onChange={handleInputChange}
             placeholder="Brief impact description"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+            className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
           />
         </div>
       </div>
 
       {/* Technologies */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Technologies
         </label>
         <div className="flex gap-2 mb-2">
@@ -288,12 +288,12 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
               e.key === "Enter" && (e.preventDefault(), addTech())
             }
             placeholder="Add technology"
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+            className="flex-1 px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
           />
           <button
             type="button"
             onClick={addTech}
-            className="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700"
+            className="px-4 py-2 bg-black text-white hover:bg-[#4ddcd3] hover:text-black rounded-xl transition-all shadow-soft-sm"
           >
             Add
           </button>
@@ -302,7 +302,7 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
           {formData.technologies.map((tech) => (
             <span
               key={tech}
-              className="px-3 py-1 bg-teal-100 text-teal-800 rounded-full text-sm flex items-center gap-2"
+              className="px-3 py-1 bg-[#4ddcd3]/10 text-[#4ddcd3] border border-[#4ddcd3]/20 rounded-full text-sm flex items-center gap-2"
             >
               {tech}
               <button
@@ -325,7 +325,7 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
             name="published"
             checked={formData.published}
             onChange={handleInputChange}
-            className="w-4 h-4 rounded text-teal-600"
+            className="w-4 h-4 rounded text-[#4ddcd3] focus:ring-[#4ddcd3]"
           />
           <span className="text-sm font-medium text-gray-700">
             Publish this project
@@ -337,7 +337,7 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
             name="featured"
             checked={formData.featured}
             onChange={handleInputChange}
-            className="w-4 h-4 rounded text-teal-600"
+            className="w-4 h-4 rounded text-[#4ddcd3] focus:ring-[#4ddcd3]"
           />
           <span className="text-sm font-medium text-gray-700">
             Feature on homepage
@@ -349,7 +349,7 @@ export function ProjectForm({ initialData, isEditing }: ProjectFormProps) {
       <button
         type="submit"
         disabled={loading}
-        className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-teal-600 hover:bg-teal-700 disabled:bg-gray-400 text-white font-medium rounded-lg transition-colors"
+        className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-black hover:bg-[#4ddcd3] hover:text-black disabled:bg-gray-400 text-white font-medium rounded-xl transition-all duration-300 shadow-soft-lg hover:-translate-y-1 hover:shadow-soft-xl"
       >
         <Save className="w-4 h-4" />
         {loading

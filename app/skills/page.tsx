@@ -138,10 +138,11 @@ export default async function SkillsPage() {
   });
 
   return (
-    <div className="bg-white">
+    <div className="bg-off-white min-h-screen">
       {/* Header */}
-      <section className="py-12 md:py-20 bg-linear-to-b from-[#f5f5f5] to-white">
-        <div className="section-container">
+      <section className="py-12 md:py-20 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#4ddcd3]/5 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="section-container relative z-10">
           <h1 className="text-5xl md:text-6xl font-serif font-bold text-black mb-6 text-balance">
             Skills & Expertise
           </h1>
@@ -153,7 +154,7 @@ export default async function SkillsPage() {
       </section>
 
       {/* Core Competencies */}
-      <section className="py-12 md:py-20">
+      <section className="py-12 md:py-20 relative">
         <div className="section-container">
           <SectionHeading
             title="Core Competencies"
@@ -164,9 +165,9 @@ export default async function SkillsPage() {
             {coreCompetencies.map((skill, idx) => (
               <div
                 key={idx}
-                className="p-6 rounded-lg border border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300 bg-white"
+                className="glass-card p-6 group hover:-translate-y-2 transition-all duration-300"
               >
-                <h3 className="font-serif font-bold text-lg text-black mb-2">
+                <h3 className="font-serif font-bold text-lg text-black mb-2 group-hover:text-[#4ddcd3] transition-colors">
                   {skill.title}
                 </h3>
                 <p className="text-gray-700 text-sm">{skill.description}</p>
@@ -177,7 +178,7 @@ export default async function SkillsPage() {
       </section>
 
       {/* Vulnerability Specializations */}
-      <section className="py-12 md:py-20 bg-[#f5f5f5]">
+      <section className="py-12 md:py-20 relative">
         <div className="section-container">
           <SectionHeading
             title="Vulnerability Specializations"
@@ -188,7 +189,7 @@ export default async function SkillsPage() {
             {vulnerabilities.map((vuln, idx) => (
               <span
                 key={idx}
-                className="px-4 py-2 bg-white border border-[#e5e5e5] rounded-full text-sm font-medium text-gray-700 hover:border-[#4ddcd3] hover:text-[#4ddcd3] transition-all duration-300"
+                className="px-4 py-2 glass-card rounded-full text-sm font-medium text-gray-700 hover:border-[#4ddcd3] hover:text-[#4ddcd3] hover:-translate-y-1 transition-all duration-300 shadow-sm"
               >
                 {vuln}
               </span>
@@ -198,7 +199,7 @@ export default async function SkillsPage() {
       </section>
 
       {/* Frameworks & Methodologies */}
-      <section className="py-12 md:py-20">
+      <section className="py-12 md:py-20 relative">
         <div className="section-container">
           <SectionHeading
             title="Frameworks & Methodologies"
@@ -209,9 +210,9 @@ export default async function SkillsPage() {
             {frameworks.map((framework, idx) => (
               <div
                 key={idx}
-                className="flex items-center gap-3 p-4 rounded-lg bg-[#f5f5f5] border border-[#e5e5e5]"
+                className="flex items-center gap-3 p-4 glass-card group hover:-translate-y-1 transition-all duration-300"
               >
-                <span className="text-[#4ddcd3] font-bold">→</span>
+                <span className="text-[#4ddcd3] font-bold group-hover:translate-x-1 transition-transform">→</span>
                 <span className="font-medium text-gray-700">{framework}</span>
               </div>
             ))}
@@ -220,7 +221,7 @@ export default async function SkillsPage() {
       </section>
 
       {/* Tools */}
-      <section className="py-12 md:py-20 bg-[#f5f5f5]">
+      <section className="py-12 md:py-20 relative">
         <div className="section-container">
           <SectionHeading
             title="Tools & Technologies"
@@ -243,7 +244,7 @@ export default async function SkillsPage() {
 
       {/* Skills by Category */}
       {Object.keys(skillsByCategory).length > 0 && (
-        <section className="py-12 md:py-20 bg-[#f5f5f5]">
+        <section className="py-12 md:py-20 relative">
           <div className="section-container">
             <SectionHeading
               title="Technical Skills"
@@ -261,7 +262,7 @@ export default async function SkillsPage() {
                       {categorySkills.map((skill) => (
                         <div
                           key={skill.id}
-                          className="p-6 rounded-lg bg-white border border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300"
+                          className="glass-card p-6 group hover:-translate-y-2 transition-all duration-300"
                         >
                           {skill.image_url && (
                             <div className="mb-4 relative w-full h-32 rounded-lg overflow-hidden bg-linear-to-br from-[#f5f5f5] to-[#e5e5e5] flex items-center justify-center">

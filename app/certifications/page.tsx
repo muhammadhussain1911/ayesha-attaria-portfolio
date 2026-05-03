@@ -84,10 +84,11 @@ export default async function CertificationsPage() {
   const certifications = await getCertifications();
 
   return (
-    <div className="bg-white">
+    <div className="bg-off-white min-h-screen">
       {/* Header */}
-      <section className="py-12 md:py-20 bg-linear-to-b from-[#f5f5f5] to-white">
-        <div className="section-container">
+      <section className="py-12 md:py-20 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#4ddcd3]/5 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="section-container relative z-10">
           <h1 className="text-5xl md:text-6xl font-serif font-bold text-black mb-6 text-balance">
             Certifications & Achievements
           </h1>
@@ -112,8 +113,9 @@ export default async function CertificationsPage() {
               {certifications.map((cert) => (
                 <div
                   key={cert.id}
-                  className="p-6 rounded-lg bg-white border-2 border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300"
+                  className="glass-card p-6 group hover:-translate-y-2 transition-all duration-300 relative overflow-hidden"
                 >
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#4ddcd3]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <div className="flex items-start gap-4 mb-4">
                     {cert.badge_image_url ? (
                       <div className="shrink-0 w-16 h-16 rounded-lg overflow-hidden bg-linear-to-br from-[#f5f5f5] to-[#e5e5e5] flex items-center justify-center">
@@ -167,7 +169,7 @@ export default async function CertificationsPage() {
       </section>
 
       {/* CTF Rankings */}
-      <section className="py-12 md:py-20 bg-[#f5f5f5]">
+      <section className="py-12 md:py-20 relative">
         <div className="section-container">
           <SectionHeading
             title="CTF Rankings & Achievements"
@@ -178,7 +180,7 @@ export default async function CertificationsPage() {
             {ctfRankings.map((ranking, idx) => (
               <div
                 key={idx}
-                className="p-8 rounded-lg bg-linear-to-r from-white to-[#f0f9f8] border-2 border-[#4ddcd3]"
+                className="p-8 glass-card cyber-border"
               >
                 <div className="flex items-start gap-6">
                   <div className="text-5xl font-serif font-bold text-[#4ddcd3]">
@@ -209,7 +211,7 @@ export default async function CertificationsPage() {
             {programs.map((program, idx) => (
               <div
                 key={idx}
-                className="p-6 rounded-lg bg-[#f5f5f5] border border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300 flex flex-col items-center text-center"
+                className="p-6 glass-card group hover:-translate-y-2 transition-all duration-300 flex flex-col items-center text-center"
               >
                 <div className="mb-3">{program.icon}</div>
                 <p className="font-medium text-gray-700 text-sm">
@@ -222,7 +224,7 @@ export default async function CertificationsPage() {
       </section>
 
       {/* Key Achievements */}
-      <section className="py-12 md:py-20 bg-[#f5f5f5]">
+      <section className="py-12 md:py-20 relative">
         <div className="section-container max-w-3xl">
           <SectionHeading
             title="Key Achievements"
@@ -242,7 +244,7 @@ export default async function CertificationsPage() {
             ].map((achievement, idx) => (
               <div
                 key={idx}
-                className="flex items-start gap-4 p-4 rounded-lg bg-white border border-[#e5e5e5]"
+                className="flex items-start gap-4 p-4 glass-card hover:-translate-y-1 transition-all duration-300"
               >
                 <IconRenderer name="Star" className="w-6 h-6 text-[#4ddcd3] shrink-0 mt-0.5" />
                 <span className="text-gray-700 font-medium">{achievement}</span>

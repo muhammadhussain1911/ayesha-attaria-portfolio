@@ -45,16 +45,17 @@ export default function AdminBlogs() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-off-white py-12 px-4 relative overflow-hidden">
+      <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-[#4ddcd3]/5 rounded-full blur-[100px] pointer-events-none"></div>
+      <div className="max-w-6xl mx-auto relative z-10">
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-3">
-            <Link href="/admin" className="text-teal-600 hover:text-teal-700">
+            <Link href="/admin" className="text-black hover:text-[#4ddcd3] transition-colors">
               <ArrowLeft className="w-6 h-6" />
             </Link>
-            <h1 className="text-3xl font-bold text-gray-900">Manage Blogs</h1>
+            <h1 className="text-3xl font-serif font-bold text-black">Manage Blogs</h1>
           </div>
-          <Link href="/admin/blogs/new" className="flex items-center gap-2 bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 transition-colors">
+          <Link href="/admin/blogs/new" className="flex items-center gap-2 bg-black text-white px-6 py-2 rounded-xl hover:bg-[#4ddcd3] hover:text-black transition-all shadow-soft-sm hover:-translate-y-1">
             <Plus className="w-5 h-5" />
             New Blog
           </Link>
@@ -62,12 +63,12 @@ export default function AdminBlogs() {
 
         {loading ? (
           <div className="flex justify-center py-8">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#4ddcd3]"></div>
           </div>
         ) : blogs.length === 0 ? (
-          <div className="bg-white rounded-lg shadow p-8 text-center">
+          <div className="glass-card p-8 text-center">
             <p className="text-gray-500 mb-4">No blogs yet. Create your first blog post!</p>
-            <Link href="/admin/blogs/new" className="inline-flex items-center gap-2 bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700">
+            <Link href="/admin/blogs/new" className="inline-flex items-center gap-2 bg-black text-white px-6 py-2 rounded-xl hover:bg-[#4ddcd3] hover:text-black transition-all shadow-soft-sm hover:-translate-y-1">
               <Plus className="w-5 h-5" />
               Create Blog
             </Link>
@@ -75,9 +76,9 @@ export default function AdminBlogs() {
         ) : (
           <div className="space-y-4">
             {blogs.map((blog) => (
-              <div key={blog.id} className="bg-white rounded-lg shadow hover:shadow-md transition-shadow p-6 flex items-center justify-between">
+              <div key={blog.id} className="glass-card group hover:-translate-y-1 transition-all duration-300 p-6 flex items-center justify-between">
                 <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-gray-900">{blog.title}</h3>
+                  <h3 className="text-lg font-serif font-bold text-black">{blog.title}</h3>
                   <p className="text-sm text-gray-500 mt-1">{blog.description}</p>
                   <div className="flex gap-4 mt-2 text-sm">
                     <span className={`px-2 py-1 rounded ${blog.published ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>

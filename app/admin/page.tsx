@@ -107,20 +107,23 @@ export default function AdminDashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-gray-50 to-gray-100 py-12 px-4">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-off-white py-12 px-4 relative overflow-hidden">
+      <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-[#4ddcd3]/5 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
         <div className="mb-12">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
             <div className="flex items-center gap-3">
-              <LayoutDashboard className="w-8 h-8 text-teal-600" />
-              <h1 className="text-4xl font-bold text-gray-900">
+              <div className="w-12 h-12 rounded-2xl bg-[#4ddcd3]/10 flex items-center justify-center">
+                <LayoutDashboard className="w-6 h-6 text-[#4ddcd3]" />
+              </div>
+              <h1 className="text-4xl font-serif font-bold text-black">
                 Admin Dashboard
               </h1>
             </div>
             <button
               onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+              className="flex items-center gap-2 px-6 py-3 text-gray-700 glass-card shadow-none hover:shadow-soft-sm hover:-translate-y-1 transition-all duration-300"
             >
               <LogOut className="w-4 h-4" />
               Logout
@@ -134,28 +137,33 @@ export default function AdminDashboard() {
         {/* Stats Grid */}
         {loading ? (
           <div className="flex items-center justify-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#4ddcd3]"></div>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
             {adminItems.map((item) => {
               const Icon = item.icon;
               return (
-                <Link key={item.label} href={item.href} className="group">
-                  <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 p-6 h-full cursor-pointer transform hover:scale-105">
-                    <div
-                      className={`${item.color} w-12 h-12 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
-                    >
-                      <Icon className="w-6 h-6" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                      {item.label}
-                    </h3>
-                    <p className="text-3xl font-bold text-teal-600">
-                      {item.count}
-                    </p>
+              <Link
+                key={item.label}
+                href={item.href}
+                className="glass-card group hover:-translate-y-2 transition-all duration-300 p-6 h-full cursor-pointer relative overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-[#4ddcd3]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="relative z-10 flex flex-col h-full">
+                  <div
+                    className={`${item.color} w-12 h-12 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-sm`}
+                  >
+                    <Icon className="w-6 h-6" />
                   </div>
-                </Link>
+                  <h3 className="text-lg font-serif font-bold text-black mb-2">
+                    {item.label}
+                  </h3>
+                  <p className="text-4xl font-serif font-bold text-[#4ddcd3] mt-auto pt-4 border-t border-gray-100">
+                    {item.count}
+                  </p>
+                </div>
+              </Link>
               );
             })}
           </div>

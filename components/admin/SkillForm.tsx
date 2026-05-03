@@ -95,7 +95,7 @@ export function SkillForm({ initialData, isEditing }: SkillFormProps) {
       <button
         type="button"
         onClick={() => router.back()}
-        className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6"
+        className="flex items-center gap-2 text-gray-500 hover:text-black transition-colors mb-6"
       >
         <ArrowLeft className="w-4 h-4" />
         Back
@@ -103,7 +103,7 @@ export function SkillForm({ initialData, isEditing }: SkillFormProps) {
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-black mb-2">
             Name *
           </label>
           <input
@@ -113,11 +113,11 @@ export function SkillForm({ initialData, isEditing }: SkillFormProps) {
             onChange={handleInputChange}
             placeholder="Skill name"
             required
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+            className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-black mb-2">
             Category *
           </label>
           <select
@@ -125,7 +125,7 @@ export function SkillForm({ initialData, isEditing }: SkillFormProps) {
             value={formData.category}
             onChange={handleInputChange}
             required
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+            className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
           >
             <option value="">Select category</option>
             <option value="Web App Testing">Web App Testing</option>
@@ -139,7 +139,7 @@ export function SkillForm({ initialData, isEditing }: SkillFormProps) {
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-black mb-2">
             Proficiency (%)
           </label>
           <input
@@ -149,11 +149,11 @@ export function SkillForm({ initialData, isEditing }: SkillFormProps) {
             max="100"
             value={formData.proficiency}
             onChange={handleInputChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+            className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-black mb-2">
             Order Index
           </label>
           <input
@@ -161,13 +161,13 @@ export function SkillForm({ initialData, isEditing }: SkillFormProps) {
             name="order_index"
             value={formData.order_index}
             onChange={handleInputChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+            className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
           />
         </div>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Description
         </label>
         <textarea
@@ -176,7 +176,7 @@ export function SkillForm({ initialData, isEditing }: SkillFormProps) {
           onChange={handleInputChange}
           placeholder="Brief description"
           rows={3}
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
         />
       </div>
 
@@ -189,7 +189,7 @@ export function SkillForm({ initialData, isEditing }: SkillFormProps) {
       />
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Image Alt Text
         </label>
         <input
@@ -198,12 +198,12 @@ export function SkillForm({ initialData, isEditing }: SkillFormProps) {
           value={formData.image_alt}
           onChange={handleInputChange}
           placeholder="Image description for accessibility"
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-black mb-2">
           Icon Name (Lucide)
         </label>
         <input
@@ -212,7 +212,7 @@ export function SkillForm({ initialData, isEditing }: SkillFormProps) {
           value={formData.icon_name}
           onChange={handleInputChange}
           placeholder="e.g., Code, Shield, Zap"
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent"
+          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
         />
         <p className="text-xs text-gray-500 mt-1">
           Lucide icon name (optional)
@@ -223,7 +223,7 @@ export function SkillForm({ initialData, isEditing }: SkillFormProps) {
       <button
         type="submit"
         disabled={loading}
-        className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-teal-600 hover:bg-teal-700 disabled:bg-gray-400 text-white font-medium rounded-lg transition-colors"
+        className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-black hover:bg-[#4ddcd3] hover:text-black disabled:bg-gray-400 text-white font-medium rounded-xl transition-all duration-300 shadow-soft-lg hover:-translate-y-1 hover:shadow-soft-xl"
       >
         <Save className="w-4 h-4" />
         {loading ? "Saving..." : isEditing ? "Update Skill" : "Create Skill"}

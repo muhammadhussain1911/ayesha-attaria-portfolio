@@ -49,27 +49,33 @@ export function WhyChooseMe() {
   ];
 
   return (
-    <section className="py-12 md:py-20 bg-[#f5f5f5]">
-      <div className="section-container">
+    <section className="py-12 md:py-20 bg-off-white relative overflow-hidden">
+      <div className="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#4ddcd3]/30 to-transparent"></div>
+      
+      <div className="section-container relative z-10">
         <SectionHeading
           title="Why Choose Me?"
           subtitle="I don't just run scanners. I think like an attacker to find what others miss."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {reasons.map((reason, idx) => {
             const Icon = reason.icon;
             return (
               <div
                 key={idx}
-                className="flex gap-4 p-6 rounded-lg bg-white border border-[#e5e5e5] hover:border-[#4ddcd3] transition-all duration-300"
+                className="glass-card flex flex-col gap-4 p-6 md:p-8 group hover:-translate-y-2 transition-all duration-300 relative overflow-hidden"
               >
-                <Icon className="w-8 h-8 text-teal-600 shrink-0" />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#4ddcd3]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                <div className="w-14 h-14 rounded-2xl bg-off-white flex items-center justify-center shadow-inner group-hover:bg-[#4ddcd3]/10 transition-colors duration-300">
+                  <Icon className="w-7 h-7 text-black group-hover:text-[#4ddcd3] transition-colors duration-300" />
+                </div>
                 <div>
-                  <h3 className="font-serif font-bold text-lg text-black mb-2">
+                  <h3 className="font-serif font-bold text-xl text-black mb-3 group-hover:text-[#4ddcd3] transition-colors duration-300">
                     {reason.title}
                   </h3>
-                  <p className="text-gray-700 text-sm leading-relaxed">
+                  <p className="text-gray-600 text-sm leading-relaxed">
                     {reason.description}
                   </p>
                 </div>

@@ -4,10 +4,12 @@ import { ShieldAlert } from 'lucide-react';
 export function CTABanner() {
   return (
     <section className="py-16 md:py-24 bg-off-white relative px-4">
-      <div className="max-w-5xl mx-auto glass-card overflow-hidden relative">
+      <div className="max-w-5xl mx-auto glass-card relative cyber-border group/cta">
         {/* Animated background elements */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#4ddcd3]/10 to-transparent"></div>
-        <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#4ddcd3] to-transparent opacity-50 animate-scan"></div>
+        <div className="absolute inset-0 overflow-hidden rounded-3xl">
+          <div className="absolute inset-0 bg-gradient-to-r from-[#4ddcd3]/10 to-transparent"></div>
+          <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#4ddcd3] to-transparent opacity-50 animate-scan"></div>
+        </div>
         
         <div className="relative z-10 p-12 md:p-20 text-center">
           <div className="w-20 h-20 mx-auto bg-black rounded-full flex items-center justify-center mb-8 relative group">

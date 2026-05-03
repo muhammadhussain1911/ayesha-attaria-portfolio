@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
 import {
   Home,
   User,
@@ -15,7 +15,7 @@ import {
   Menu as MenuIcon,
   X,
   ChevronDown,
-} from 'lucide-react';
+} from "lucide-react";
 
 const IconRenderer = ({ iconName }: { iconName: string }) => {
   const iconMap: Record<string, React.ReactNode> = {
@@ -40,26 +40,28 @@ export function MobileBottomNav() {
   const [expandedAbout, setExpandedAbout] = useState(false);
 
   const navTabLinks = [
-    { href: '/', label: 'Home', icon: 'home' },
-    { href: '/projects', label: 'Projects', icon: 'folderopen' },
-    { href: '/blog', label: 'Blog', icon: 'bookopen' },
-    { href: '/contact', label: 'Contact', icon: 'mail' },
+    { href: "/", label: "Home", icon: "home" },
+    { href: "/projects", label: "Projects", icon: "folderopen" },
+    { href: "/services", label: "Services", icon: "shield" },
+    { href: "/blog", label: "Blog", icon: "bookopen" },
+    { href: "/contact", label: "Contact", icon: "mail" },
   ];
 
   const mainLinks = [
-    { href: '/projects', label: 'Projects', icon: 'folderopen' },
-    { href: '/blog', label: 'Blog', icon: 'bookopen' },
-    { href: '/contact', label: 'Contact', icon: 'mail' },
+    { href: "/projects", label: "Projects", icon: "folderopen" },
+    { href: "/services", label: "Services", icon: "shield" },
+    { href: "/blog", label: "Blog", icon: "bookopen" },
+    { href: "/contact", label: "Contact", icon: "mail" },
   ];
 
   const aboutMenuLinks = [
-    { href: '/about', label: 'About Me', icon: 'user' },
-    { href: '/skills', label: 'Skills', icon: 'shield' },
-    { href: '/experience', label: 'Experience', icon: 'briefcase' },
-    { href: '/certifications', label: 'Certifications', icon: 'trophy' },
+    { href: "/about", label: "About Me", icon: "user" },
+    { href: "/skills", label: "Skills", icon: "shield" },
+    { href: "/experience", label: "Experience", icon: "briefcase" },
+    { href: "/certifications", label: "Certifications", icon: "trophy" },
   ];
 
-  const isAboutActive = aboutMenuLinks.some(link => pathname === link.href);
+  const isAboutActive = aboutMenuLinks.some((link) => pathname === link.href);
 
   return (
     <>
@@ -72,7 +74,7 @@ export function MobileBottomNav() {
                 key={link.href}
                 href={link.href}
                 className={`flex flex-col items-center justify-center flex-1 h-full gap-1 transition-colors duration-300 ${
-                  isActive ? 'text-[#4ddcd3]' : 'text-gray-600'
+                  isActive ? "text-[#4ddcd3]" : "text-gray-600"
                 }`}
                 onClick={() => setShowMenu(false)}
               >
@@ -94,7 +96,10 @@ export function MobileBottomNav() {
 
       {/* Mobile Menu */}
       {showMenu && (
-        <div className="md:hidden fixed inset-0 z-40 bg-black/50" onClick={() => setShowMenu(false)}>
+        <div
+          className="md:hidden fixed inset-0 z-40 bg-black/50"
+          onClick={() => setShowMenu(false)}
+        >
           <div
             className="fixed right-0 top-0 bottom-0 w-64 bg-white shadow-lg p-6 overflow-y-auto pb-32"
             onClick={(e) => e.stopPropagation()}
@@ -110,13 +115,15 @@ export function MobileBottomNav() {
               <Link
                 href="/"
                 className={`flex items-center gap-3 px-4 py-2 rounded-lg transition-colors duration-300 ${
-                  pathname === '/'
-                    ? 'bg-[#4ddcd3] text-black font-medium'
-                    : 'text-black hover:bg-[#f5f5f5]'
+                  pathname === "/"
+                    ? "bg-[#4ddcd3] text-black font-medium"
+                    : "text-black hover:bg-[#f5f5f5]"
                 }`}
                 onClick={() => setShowMenu(false)}
               >
-                <div className={`${pathname === '/' ? 'text-black' : 'text-gray-600'}`}>
+                <div
+                  className={`${pathname === "/" ? "text-black" : "text-gray-600"}`}
+                >
                   <Home className="w-6 h-6" />
                 </div>
                 <span>Home</span>
@@ -128,19 +135,21 @@ export function MobileBottomNav() {
                   onClick={() => setExpandedAbout(!expandedAbout)}
                   className={`w-full flex items-center justify-between px-4 py-2 rounded-lg transition-colors duration-300 ${
                     isAboutActive
-                      ? 'bg-[#4ddcd3] text-black font-medium'
-                      : 'text-black hover:bg-[#f5f5f5]'
+                      ? "bg-[#4ddcd3] text-black font-medium"
+                      : "text-black hover:bg-[#f5f5f5]"
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <div className={`${isAboutActive ? 'text-black' : 'text-gray-600'}`}>
+                    <div
+                      className={`${isAboutActive ? "text-black" : "text-gray-600"}`}
+                    >
                       <User className="w-6 h-6" />
                     </div>
                     <span>About</span>
                   </div>
                   <ChevronDown
                     className={`w-4 h-4 transition-transform duration-300 ${
-                      expandedAbout ? 'rotate-180' : ''
+                      expandedAbout ? "rotate-180" : ""
                     }`}
                   />
                 </button>
@@ -156,12 +165,14 @@ export function MobileBottomNav() {
                           href={link.href}
                           className={`flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-300 ${
                             isActive
-                              ? 'bg-[#4ddcd3] text-white font-medium'
-                              : 'text-gray-700 hover:bg-[#e8f7f5] hover:text-[#4ddcd3]'
+                              ? "bg-[#4ddcd3] text-white font-medium"
+                              : "text-gray-700 hover:bg-[#e8f7f5] hover:text-[#4ddcd3]"
                           }`}
                           onClick={() => setShowMenu(false)}
                         >
-                          <div className={`${isActive ? 'text-white' : 'text-gray-600'}`}>
+                          <div
+                            className={`${isActive ? "text-white" : "text-gray-600"}`}
+                          >
                             <IconRenderer iconName={link.icon} />
                           </div>
                           <span>{link.label}</span>
@@ -181,12 +192,14 @@ export function MobileBottomNav() {
                     href={link.href}
                     className={`flex items-center gap-3 px-4 py-2 rounded-lg transition-colors duration-300 ${
                       isActive
-                        ? 'bg-[#4ddcd3] text-black font-medium'
-                        : 'text-black hover:bg-[#f5f5f5]'
+                        ? "bg-[#4ddcd3] text-black font-medium"
+                        : "text-black hover:bg-[#f5f5f5]"
                     }`}
                     onClick={() => setShowMenu(false)}
                   >
-                    <div className={`${isActive ? 'text-black' : 'text-gray-600'}`}>
+                    <div
+                      className={`${isActive ? "text-black" : "text-gray-600"}`}
+                    >
                       <IconRenderer iconName={link.icon} />
                     </div>
                     <span>{link.label}</span>

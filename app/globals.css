@@ -1,5 +1,5 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
+@import "tailwindcss";
+@import "tw-animate-css";
 
 :root {
   --accent: #4ddcd3;
@@ -8,9 +8,9 @@
   --foreground: #000000;
   --surface: #ffffff;
   --border-light: #e5e5e5;
-  --font-space-grotesk: 'Space Grotesk';
-  --font-dm-sans: 'DM Sans';
-  --font-jetbrains-mono: 'JetBrains Mono';
+  --font-space-grotesk: "Space Grotesk";
+  --font-dm-sans: "DM Sans";
+  --font-jetbrains-mono: "JetBrains Mono";
 }
 
 @layer base {
@@ -19,10 +19,15 @@
   }
 
   body {
-    @apply bg-[#f0f2f5] text-black;
+    @apply bg-[#ffffff] text-black;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-serif font-bold tracking-tight;
   }
 
@@ -127,7 +132,8 @@
 }
 
 @keyframes pulse-glow {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 0 0 0 rgba(77, 220, 211, 0.4);
   }
   50% {
@@ -136,7 +142,8 @@
 }
 
 @keyframes bounce-subtle {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -183,6 +190,11 @@
 
 .shimmer {
   animation: shimmer 2s infinite;
-  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.8) 50%, transparent 100%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.8) 50%,
+    transparent 100%
+  );
   background-size: 1000px 100%;
 }

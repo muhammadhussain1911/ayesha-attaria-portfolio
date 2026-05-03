@@ -24,10 +24,10 @@ export function Hero() {
       </div>
 
       <div className="section-container relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-12 items-center">
           {/* Left: Text Content */}
           <div>
-            <h1 className="text-5xl md:text-6xl font-serif font-bold text-black mb-4 text-balance">
+            <h1 className="text-5xl md:text-6xl lg:text-8xl font-serif font-bold text-black mb-4 text-balance">
               Ayesha Attaria
             </h1>
 
@@ -35,16 +35,16 @@ export function Hero() {
             <div className="mb-6 h-16 md:h-20">
               <TypewriterText
                 words={roles}
-                className="text-3xl md:text-4xl font-serif font-bold text-[#4ddcd3]"
+                className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-[#4ddcd3]"
                 speed={50}
                 delay={2000}
               />
             </div>
 
             {/* Subtext */}
-            <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-8 text-balance">
+            <p className="text-lg md:text-xl lg:text-2xl text-gray-700 mb-8 text-balance">
               I help companies in the US, Europe & beyond find real-world
-              vulnerabilities before attackers do — through manual VAPT aligned
+              vulnerabilities before attackers do, through manual VAPT aligned
               with OWASP Top 10.
             </p>
 
@@ -62,7 +62,7 @@ export function Hero() {
             <div className="space-y-3 pt-8 border-t border-[#e5e5e5]">
               <div className="flex items-center gap-2 text-sm text-gray-700">
                 <span className="text-[#4ddcd3] font-bold">✓</span>
-                25+ Organizations Secured
+                30+ Organizations Secured
               </div>
               <div className="flex items-center gap-2 text-sm text-gray-700">
                 <span className="text-[#4ddcd3] font-bold">✓</span>
@@ -78,7 +78,7 @@ export function Hero() {
           {/* Right: Profile Image Placeholder */}
           <div className="flex items-center justify-center md:justify-end">
             <div
-              className="w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-[#4ddcd3] bg-linear-to-br from-[#f5f5f5] to-white flex items-center justify-center shadow-lg"
+              className="w-64 h-64 md:w-80 md:h-80 lg:w-100 lg:h-100 rounded-full border-4 border-[#4ddcd3] bg-linear-to-br from-[#f5f5f5] to-white flex items-center justify-center shadow-lg"
               style={{
                 boxShadow: "0 0 40px rgba(77, 220, 211, 0.2)",
               }}

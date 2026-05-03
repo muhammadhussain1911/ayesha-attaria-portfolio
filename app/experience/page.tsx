@@ -185,7 +185,7 @@ export default async function ExperiencePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center p-8 rounded-lg bg-white border border-[#e5e5e5]">
               <div className="text-5xl font-serif font-bold text-[#4ddcd3] mb-3">
-                25+
+                30+
               </div>
               <p className="font-medium text-gray-700">Organizations Secured</p>
             </div>

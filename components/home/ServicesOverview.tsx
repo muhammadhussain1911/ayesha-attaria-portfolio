@@ -20,7 +20,7 @@ export function ServicesOverview() {
     },
     {
       icon: Map,
-      title: "Attack Surface Analysis",
+      title: "Vulnerbility Assessment",
       description:
         "Reconnaissance and asset discovery to identify all potential entry points before conducting deep testing.",
       link: "/skills",

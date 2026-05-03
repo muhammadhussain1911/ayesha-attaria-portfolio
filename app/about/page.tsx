@@ -154,53 +154,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Personal Touch */}
-      <section className="py-12 md:py-20 bg-[#f5f5f5]">
-        <div className="section-container max-w-3xl">
-          <SectionHeading
-            title="Beyond Security"
-            subtitle="Because I'm more than just a pentester."
-          />
-
-          <div className="space-y-6 text-gray-700">
-            <p>
-              <span className="font-bold text-black">
-                Islamic Scholar in Training:
-              </span>{" "}
-              I&apos;m pursuing classical Islamic education (Dars e Nizami),
-              which teaches me discipline, critical thinking, and deep
-              understanding. These principles directly enhance my security
-              research.
-            </p>
-
-            <p>
-              <span className="font-bold text-black">Multilingual:</span> Fluent
-              in Urdu, Punjabi, and English. This helps me communicate
-              effectively with global clients and understand diverse cultural
-              contexts in security practices.
-            </p>
-
-            <p>
-              <span className="font-bold text-black">
-                Community Contributor:
-              </span>{" "}
-              I actively share knowledge through CTF writeups, vulnerability
-              disclosures, and mentoring aspiring security professionals. I
-              believe in lifting others as I climb.
-            </p>
-
-            <p>
-              <span className="font-bold text-black">Continuous Learner:</span>{" "}
-              The security landscape evolves constantly. I stay current through
-              certifications, research, and hands-on experimentation with
-              emerging technologies and attack vectors.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
-      <section className="py-12 md:py-20">
+      <section className="py-12 md:py-20 bg-[#f5f5f5]">
         <div className="section-container text-center">
           <h2 className="text-4xl font-serif font-bold text-black mb-4">
             Ready to Work Together?

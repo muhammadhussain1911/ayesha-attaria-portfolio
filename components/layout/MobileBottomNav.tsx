@@ -111,9 +111,7 @@ export function MobileBottomNav() {
                     onClick={() => setShowMenu(false)}
                   >
                     <div
-                      className={`${
-                        isActive ? "text-white" : "text-gray-600"
-                      }`}
+                      className={`${isActive ? "text-white" : "text-gray-600"}`}
                     >
                       <IconRenderer iconName={link.icon} />
                     </div>

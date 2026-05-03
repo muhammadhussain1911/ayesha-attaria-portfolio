@@ -398,35 +398,6 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Why Choose Me */}
-      <section className="py-12 md:py-20 bg-[#f5f5f5]">
-        <div className="section-container">
-          <SectionHeading
-            title="Why Choose Me"
-            subtitle="What sets my penetration testing services apart"
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {whyChoose.map((reason, idx) => {
-              const Icon = reason.icon;
-              return (
-                <div key={idx} className="flex items-start gap-4">
-                  <Icon className="w-6 h-6 text-[#4ddcd3] shrink-0 mt-1" />
-                  <div>
-                    <h3 className="font-bold text-black mb-2">
-                      {reason.title}
-                    </h3>
-                    <p className="text-gray-700 text-sm">
-                      {reason.description}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
       {/* Methodology */}
       <section className="py-12 md:py-20">
         <div className="section-container">

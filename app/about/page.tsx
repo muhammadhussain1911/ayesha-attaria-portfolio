@@ -72,7 +72,11 @@ async function getExperiences(): Promise<Experience[]> {
 const getCertIcon = (title: string) => {
   if (title.toLowerCase().includes("bug bounty")) return "Trophy";
   if (title.toLowerCase().includes("red team")) return "Swords";
-  if (title.toLowerCase().includes("educator") || title.toLowerCase().includes("education")) return "GraduationCap";
+  if (
+    title.toLowerCase().includes("educator") ||
+    title.toLowerCase().includes("education")
+  )
+    return "GraduationCap";
   return "Shield";
 };
 
@@ -121,7 +125,9 @@ export default async function AboutPage() {
             About Me
           </h1>
           <p className="text-xl text-gray-700 leading-relaxed max-w-2xl">
-            I&apos;m a Web Application Penetration Tester and Ethical Hacker dedicated to helping organizations discover and fix security vulnerabilities before attackers do.
+            I&apos;m a Web Application Penetration Tester and Ethical Hacker
+            dedicated to helping organizations discover and fix security
+            vulnerabilities before attackers do.
           </p>
         </div>
       </section>
@@ -131,29 +137,53 @@ export default async function AboutPage() {
         <div className="section-container max-w-3xl">
           <div className="prose prose-lg max-w-none text-gray-700 space-y-6">
             <p>
-              My journey in cybersecurity started with a passion for understanding how systems work and, more importantly, how they can be broken. I realized early that the best defense comes from thinking like an attacker—anticipating vulnerabilities before they&apos;re exploited.
+              My journey in cybersecurity started with a passion for
+              understanding how systems work and, more importantly, how they can
+              be broken. I realized early that the best defense comes from
+              thinking like an attacker—anticipating vulnerabilities before
+              they&apos;re exploited.
             </p>
 
             <p>
-              Over the years, I&apos;ve helped 25+ organizations across various industries—from fintech startups to established SaaS companies—identify and remediate critical vulnerabilities. I&apos;ve ranked in international CTF competitions (Black Hat USA, Iran Tech Olympics) and actively participate in bug bounty programs on platforms like Bugcrowd, YesWeHack, and Intigriti.
+              Over the years, I&apos;ve helped 25+ organizations across various
+              industries—from fintech startups to established SaaS
+              companies—identify and remediate critical vulnerabilities.
+              I&apos;ve ranked in international CTF competitions (Black Hat USA,
+              Iran Tech Olympics) and actively participate in bug bounty
+              programs on platforms like Bugcrowd, YesWeHack, and Intigriti.
             </p>
 
             <p>
-              What sets me apart is my commitment to going beyond automated scanners. I manually test every application, analyze business logic flaws, chain vulnerabilities to demonstrate real-world impact, and provide developer-friendly remediation guidance. My reports aren&apos;t just a list of problems—they&apos;re a roadmap to genuine security improvement.
+              What sets me apart is my commitment to going beyond automated
+              scanners. I manually test every application, analyze business
+              logic flaws, chain vulnerabilities to demonstrate real-world
+              impact, and provide developer-friendly remediation guidance. My
+              reports aren&apos;t just a list of problems—they&apos;re a roadmap
+              to genuine security improvement.
             </p>
 
             <blockquote className="border-l-4 border-[#4ddcd3] pl-6 my-8">
               <p className="text-lg italic text-gray-700">
-                "I don't just run scanners — I think like an attacker to find what others miss."
+                "I don't just run scanners — I think like an attacker to find
+                what others miss."
               </p>
             </blockquote>
 
             <p>
-              Beyond my technical expertise, I believe in continuous learning. I hold multiple certifications, contribute to open-source security projects, and stay updated on emerging threats and methodologies. I&apos;m also passionate about sharing knowledge—through writeups, CTF solutions, and mentoring aspiring security professionals.
+              Beyond my technical expertise, I believe in continuous learning. I
+              hold multiple certifications, contribute to open-source security
+              projects, and stay updated on emerging threats and methodologies.
+              I&apos;m also passionate about sharing knowledge—through writeups,
+              CTF solutions, and mentoring aspiring security professionals.
             </p>
 
             <p>
-              When I&apos;m not testing applications, you&apos;ll find me exploring new attack vectors, contributing to the security community, or diving into classical Islamic studies (Dars e Nizami). I&apos;m multilingual—fluent in Urdu, Punjabi, and English—which helps me work effectively with diverse international clients.
+              When I&apos;m not testing applications, you&apos;ll find me
+              exploring new attack vectors, contributing to the security
+              community, or diving into classical Islamic studies (Dars e
+              Nizami). I&apos;m multilingual—fluent in Urdu, Punjabi, and
+              English—which helps me work effectively with diverse international
+              clients.
             </p>
           </div>
         </div>
@@ -202,50 +232,52 @@ export default async function AboutPage() {
             />
 
             <div className="space-y-12">
-              {Object.entries(skillsByCategory).map(([category, categorySkills]) => (
-                <div key={category}>
-                  <h3 className="text-2xl font-serif font-bold text-black mb-6">
-                    {category}
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {categorySkills.map((skill) => (
-                      <div
-                        key={skill.id}
-                        className="p-6 rounded-lg bg-white border border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300"
-                      >
-                        {skill.image_url && (
-                          <div className="mb-4 relative w-full h-32 rounded-lg overflow-hidden bg-linear-to-br from-[#f5f5f5] to-[#e5e5e5] flex items-center justify-center">
-                            <img
-                              src={skill.image_url}
-                              alt={skill.name}
-                              className="w-full h-full object-contain p-3"
-                            />
+              {Object.entries(skillsByCategory).map(
+                ([category, categorySkills]) => (
+                  <div key={category}>
+                    <h3 className="text-2xl font-serif font-bold text-black mb-6">
+                      {category}
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {categorySkills.map((skill) => (
+                        <div
+                          key={skill.id}
+                          className="p-6 rounded-lg bg-white border border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300"
+                        >
+                          {skill.image_url && (
+                            <div className="mb-4 relative w-full h-32 rounded-lg overflow-hidden bg-linear-to-br from-[#f5f5f5] to-[#e5e5e5] flex items-center justify-center">
+                              <img
+                                src={skill.image_url}
+                                alt={skill.name}
+                                className="w-full h-full object-contain p-3"
+                              />
+                            </div>
+                          )}
+                          <h4 className="font-serif font-bold text-lg text-black mb-2">
+                            {skill.name}
+                          </h4>
+                          {skill.description && (
+                            <p className="text-gray-700 text-sm mb-4">
+                              {skill.description}
+                            </p>
+                          )}
+                          <div className="flex items-center gap-2">
+                            <div className="grow bg-[#e5e5e5] rounded-full h-2 overflow-hidden">
+                              <div
+                                className={`bg-[#4ddcd3] h-full transition-all duration-300`}
+                                style={{ width: `${skill.proficiency || 0}%` }}
+                              />
+                            </div>
+                            <span className="text-xs font-medium text-gray-600 w-12 text-right">
+                              {skill.proficiency || 0}%
+                            </span>
                           </div>
-                        )}
-                        <h4 className="font-serif font-bold text-lg text-black mb-2">
-                          {skill.name}
-                        </h4>
-                        {skill.description && (
-                          <p className="text-gray-700 text-sm mb-4">
-                            {skill.description}
-                          </p>
-                        )}
-                        <div className="flex items-center gap-2">
-                          <div className="grow bg-[#e5e5e5] rounded-full h-2 overflow-hidden">
-                            <div
-                              className={`bg-[#4ddcd3] h-full transition-all duration-300`}
-                              style={{ width: `${skill.proficiency || 0}%` }}
-                            />
-                          </div>
-                          <span className="text-xs font-medium text-gray-600 w-12 text-right">
-                            {skill.proficiency || 0}%
-                          </span>
                         </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ),
+              )}
             </div>
           </div>
         </section>
@@ -280,12 +312,16 @@ export default async function AboutPage() {
                           <div className="shrink-0 w-12 h-12 rounded-lg overflow-hidden bg-white border-2 border-[#4ddcd3] flex items-center justify-center">
                             <img
                               src={exp.organization_logo_url}
-                              alt={exp.organization_logo_alt || exp.organization}
+                              alt={
+                                exp.organization_logo_alt || exp.organization
+                              }
                               className="w-full h-full object-contain p-2"
                             />
                           </div>
                         ) : (
-                          <div className="shrink-0">{getIconForType(exp.type)}</div>
+                          <div className="shrink-0">
+                            {getIconForType(exp.type)}
+                          </div>
                         )}
                         <div className="flex-1">
                           <h3 className="font-serif font-bold text-lg text-black">
@@ -295,12 +331,15 @@ export default async function AboutPage() {
                             {exp.organization}
                           </p>
                           <p className="text-xs text-gray-500">
-                            {exp.start_date} {exp.end_date && `- ${exp.end_date}`}
+                            {exp.start_date}{" "}
+                            {exp.end_date && `- ${exp.end_date}`}
                           </p>
                         </div>
                       </div>
                       {exp.description && (
-                        <p className="text-gray-700 text-sm">{exp.description}</p>
+                        <p className="text-gray-700 text-sm">
+                          {exp.description}
+                        </p>
                       )}
                     </div>
                   </div>
@@ -337,7 +376,10 @@ export default async function AboutPage() {
                       </div>
                     ) : (
                       <div className="shrink-0 text-4xl">
-                        <IconRenderer name={getCertIcon(cert.title)} className="w-12 h-12 text-[#4ddcd3]" />
+                        <IconRenderer
+                          name={getCertIcon(cert.title)}
+                          className="w-12 h-12 text-[#4ddcd3]"
+                        />
                       </div>
                     )}
                     <div className="flex-1">
@@ -390,7 +432,8 @@ export default async function AboutPage() {
             Ready to Work Together?
           </h2>
           <p className="text-lg text-gray-700 mb-8 max-w-2xl mx-auto">
-            Let&apos;s discuss how I can help secure your web application and APIs.
+            Let&apos;s discuss how I can help secure your web application and
+            APIs.
           </p>
           <Link
             href="/contact"

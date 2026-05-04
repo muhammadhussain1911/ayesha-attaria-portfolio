@@ -20,9 +20,9 @@ export function ServicesOverview() {
     },
     {
       icon: Map,
-      title: "Vulnerbility Assessment",
+      title: "Attack Surface Assessment",
       description:
-        "Reconnaissance and asset discovery to identify all potential entry points before conducting deep testing.",
+        "Discover hidden endpoints, unused API routes, exposed subdomains, misconfigured services, and overlooked attack paths across your infrastructure.",
       link: "/skills",
     },
   ];
@@ -30,7 +30,7 @@ export function ServicesOverview() {
   return (
     <section className="py-12 md:py-20 bg-off-white relative">
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#4ddcd3]/5 rounded-full blur-[100px] pointer-events-none"></div>
-      
+
       <div className="section-container relative z-10">
         <SectionHeading
           title="Services"
@@ -47,7 +47,7 @@ export function ServicesOverview() {
               >
                 {/* Tech hover overlay */}
                 <div className="absolute -right-10 -top-10 w-32 h-32 bg-gradient-to-br from-[#4ddcd3]/20 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl"></div>
-                
+
                 <div className="w-16 h-16 bg-off-white rounded-2xl flex items-center justify-center mb-6 shadow-inner group-hover:bg-[#4ddcd3]/10 transition-colors duration-500">
                   <Icon className="w-8 h-8 text-black group-hover:text-[#4ddcd3] transition-colors duration-500" />
                 </div>
@@ -61,9 +61,12 @@ export function ServicesOverview() {
                   href={service.link}
                   className="inline-flex items-center gap-2 text-black font-semibold hover:text-[#4ddcd3] transition-colors group/link"
                 >
-                  Learn More <span className="group-hover/link:translate-x-1 transition-transform duration-300">→</span>
+                  Learn More{" "}
+                  <span className="group-hover/link:translate-x-1 transition-transform duration-300">
+                    →
+                  </span>
                 </Link>
-                
+
                 {/* Tech bottom border */}
                 <div className="absolute bottom-0 left-0 h-1 bg-[#4ddcd3] w-0 group-hover:w-full transition-all duration-500"></div>
               </div>

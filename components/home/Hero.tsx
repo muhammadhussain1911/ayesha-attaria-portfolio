@@ -56,18 +56,23 @@ export function Hero() {
 
               {/* Subtext */}
               <p className="text-lg md:text-xl text-gray-600 mb-10 text-balance leading-relaxed">
-                I help companies in the US, Europe & beyond find real-world
-                vulnerabilities before attackers do, through manual VAPT aligned
-                with OWASP Top 10.
+                I help companies identify real-world vulnerabilities before
+                attackers do through manual VAPT aligned with the OWASP Top 10.
               </p>
 
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-4 mb-10">
-                <Link href="/contact" className="btn-primary flex items-center justify-center gap-2 group">
+                <Link
+                  href="/contact"
+                  className="btn-primary flex items-center justify-center gap-2 group"
+                >
                   <Lock className="w-4 h-4 group-hover:animate-bounce-subtle" />
                   Secure Your App Now
                 </Link>
-                <Link href="/skills" className="btn-secondary flex items-center justify-center gap-2 group">
+                <Link
+                  href="/skills"
+                  className="btn-secondary flex items-center justify-center gap-2 group"
+                >
                   <Activity className="w-4 h-4 group-hover:text-[#4ddcd3] transition-colors" />
                   View My Methodology
                 </Link>
@@ -80,7 +85,10 @@ export function Hero() {
                   "Google · TikTok · Pinterest",
                   "OWASP Aligned",
                 ].map((badge, idx) => (
-                  <div key={idx} className="flex items-center gap-2 text-sm text-gray-600 bg-white/50 px-4 py-2 rounded-xl shadow-sm border border-white">
+                  <div
+                    key={idx}
+                    className="flex items-center gap-2 text-sm text-gray-600 bg-white/50 px-4 py-2 rounded-xl shadow-sm border border-white"
+                  >
                     <Shield className="w-4 h-4 text-[#4ddcd3]" />
                     <span className="font-medium">{badge}</span>
                   </div>
@@ -91,7 +99,7 @@ export function Hero() {
             {/* Right: Profile Image & Tech Overlay */}
             <div className="flex items-center justify-center md:justify-end relative">
               <div className="absolute inset-0 bg-[#4ddcd3]/5 rounded-full animate-pulse-glow blur-xl pointer-events-none"></div>
-              
+
               <div className="relative animate-float">
                 {/* Tech floating elements */}
                 <div className="absolute -top-6 -left-6 bg-white p-3 rounded-2xl shadow-soft-lg border border-white/50 z-20 backdrop-blur-md">
@@ -100,7 +108,7 @@ export function Hero() {
                 <div className="absolute -bottom-6 -right-6 bg-black p-3 rounded-2xl shadow-soft-lg border border-white/10 z-20 backdrop-blur-md">
                   <Lock className="w-6 h-6 text-[#4ddcd3]" />
                 </div>
-                
+
                 <div className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full p-2 bg-white/50 backdrop-blur-sm border border-white shadow-soft-xl overflow-hidden relative z-10 group">
                   <div className="w-full h-full rounded-full overflow-hidden relative">
                     {/* Matrix-like overlay effect on hover */}

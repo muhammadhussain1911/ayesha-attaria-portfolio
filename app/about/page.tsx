@@ -27,6 +27,82 @@ export const metadata: Metadata = {
   },
 };
 
+const coreCompetencies = [
+  {
+    title: "Web Application Penetration Testing",
+    description: "Comprehensive security assessment of web applications.",
+  },
+  {
+    title: "API Security Testing (REST & GraphQL)",
+    description:
+      "Specialized testing for API vulnerabilities and misconfigurations.",
+  },
+  {
+    title: "Vulnerability Assessment (VAPT)",
+    description: "Full-cycle vulnerability discovery and reporting.",
+  },
+  {
+    title: "Bug Bounty Hunting",
+    description:
+      "Active participation in public and private bug bounty programs.",
+  },
+  {
+    title: "Attack Surface Analysis",
+    description: "Reconnaissance and asset discovery methodologies.",
+  },
+  {
+    title: "Report Writing & Documentation",
+    description: "Clear, actionable, CVSS-scored vulnerability reports.",
+  },
+  {
+    title: "CTF Competitions",
+    description: "Web security challenges and competitive exploitation.",
+  },
+];
+
+const ctfRankings = [
+  {
+    rank: "#5",
+    icon: "Trophy",
+    event: "Bugcrowd x Black Hat USA International CTF 2025",
+    description:
+      "Ranked among the top 5 teams globally in web security challenges.",
+  },
+  {
+    rank: "#18",
+    icon: "Trophy",
+    event: "Iran Tech Olympics International CTF 2025",
+    description:
+      "Top-ranked performer in international cybersecurity competition.",
+  },
+  {
+    rank: "Top Ranked",
+    icon: "Trophy",
+    event: "Multiple Public & Private Bug Bounty Programs",
+    description:
+      "Consistent top performer on Bugcrowd, YesWeHack, Intigriti, and Standoff365.",
+  },
+];
+
+const vulnerabilities = [
+  "SQL Injection",
+  "Cross-Site Scripting (XSS)",
+  "Cross-Site Request Forgery (CSRF)",
+  "Broken Authentication",
+  "API Key Exposure",
+  "Server-Side Template Injection (SSTI)",
+  "XML External Entity (XXE)",
+  "Insecure Deserialization",
+  "API Rate Limiting Bypass",
+  "GraphQL Vulnerabilities",
+  "JWT Token Vulnerabilities",
+  "Directory Traversal",
+  "Insecure Direct Object References",
+  "Security Misconfiguration",
+  "Sensitive Data Exposure",
+  "Broken Access Control",
+];
+
 async function getSkills(): Promise<Skill[]> {
   try {
     const { data, error } = await supabaseAdmin
@@ -100,6 +176,27 @@ const tools = [
   { name: "Nmap", icon: "Map" },
   { name: "Subfinder", icon: "Search" },
   { name: "Metasploit", icon: "Flame" },
+];
+
+const platforms = [
+  { name: "Bugcrowd", icon: "Trophy" },
+  { name: "YesWeHack", icon: "Target" },
+  { name: "Intigriti", icon: "Shield" },
+  { name: "Standoff365", icon: "Swords" },
+  { name: "HackerOne", icon: "AlertCircle" },
+  { name: "Hack The Box", icon: "Package" },
+  { name: "Portswigger", imageUrl: "/icons/portswigger.svg" },
+  { name: "PentesterLab", imageUrl: "/icons/pentesterlab.svg" },
+];
+
+const methodology = [
+  "OWASP Top 10 aligned testing",
+  "OWASP API Top 10 for API security",
+  "NIST Cybersecurity Framework principles",
+  "CIS Controls implementation review",
+  "CVSS v3.1 vulnerability scoring",
+  "SANS Top 25 vulnerability focus",
+  "Mitre ATT&CK Framework mapping",
 ];
 
 export default async function AboutPage() {
@@ -190,38 +287,259 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      {/* Approach Section */}
+      {/* Core Competencies */}
       <section className="py-12 md:py-20 relative">
-        <div className="section-container max-w-4xl">
-          <div className="glass-card p-8 md:p-12">
-            <SectionHeading
-              title="My Approach"
-              subtitle="Core principles that guide my security testing methodology."
-            />
+        <div className="section-container">
+          <SectionHeading
+            title="Core Competencies"
+            subtitle="The foundation of my security testing practice."
+          />
 
-          <ul className="space-y-4">
-            {[
-              "OWASP Top 10 and API Top 10 aligned testing",
-              "Manual analysis with strategic tool assistance",
-              "Business logic vulnerability identification",
-              "Attack chain demonstration for maximum impact",
-              "CVSS-scored, reproducible, actionable reports",
-              "Developer-friendly remediation guidance",
-              "Free retesting after fixes are implemented",
-            ].map((item, idx) => (
-              <li
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {coreCompetencies.map((skill, idx) => (
+              <div
                 key={idx}
-                className="flex items-start gap-3 text-gray-700 text-lg bg-off-white/50 p-4 rounded-xl border border-white/50"
+                className="glass-card p-6 group hover:-translate-y-2 transition-all duration-300"
               >
+                <h3 className="font-serif font-bold text-lg text-black mb-2 group-hover:text-[#4ddcd3] transition-colors">
+                  {skill.title}
+                </h3>
+                <p className="text-gray-700 text-sm">{skill.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Certifications */}
+      <section className="py-12 md:py-20">
+        <div className="section-container">
+          <SectionHeading
+            title="Professional Certifications"
+            subtitle="Industry-recognized credentials validating my expertise."
+          />
+
+          {certifications.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {certifications.map((cert) => (
+                <div
+                  key={cert.id}
+                  className="glass-card p-6 group hover:-translate-y-2 transition-all duration-300 relative overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#4ddcd3]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="flex items-start gap-4 mb-4">
+                    {cert.badge_image_url ? (
+                      <div className="shrink-0 w-16 h-16 rounded-lg overflow-hidden bg-linear-to-br from-[#f5f5f5] to-[#e5e5e5] flex items-center justify-center">
+                        <img
+                          src={cert.badge_image_url}
+                          alt={cert.badge_image_alt || cert.title}
+                          className="w-full h-full object-contain p-2"
+                        />
+                      </div>
+                    ) : (
+                      <div className="shrink-0 text-4xl">
+                        <IconRenderer
+                          name={getCertIcon(cert.title)}
+                          className="w-12 h-12 text-[#4ddcd3]"
+                        />
+                      </div>
+                    )}
+                    <div className="flex-1">
+                      <h3 className="font-serif font-bold text-lg text-black mb-1">
+                        {cert.title}
+                      </h3>
+                      <p className="text-sm text-gray-600 mb-2">
+                        {cert.issuer}
+                      </p>
+                      <span className="inline-block px-2 py-1 bg-[#4ddcd3] bg-opacity-20 text-[#4ddcd3] text-xs font-medium rounded">
+                        {cert.issue_date}
+                      </span>
+                    </div>
+                  </div>
+                  {cert.description && (
+                    <p className="text-gray-700 text-sm">{cert.description}</p>
+                  )}
+                  {cert.credential_url && (
+                    <a
+                      href={cert.credential_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 text-[#4ddcd3] text-sm font-medium hover:underline"
+                    >
+                      View Credential →
+                    </a>
+                  )}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-gray-500 text-lg">
+                No certifications added yet.
+              </p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* CTF Rankings */}
+      <section className="py-12 md:py-20 relative">
+        <div className="section-container">
+          <SectionHeading
+            title="CTF Rankings & Achievements"
+            subtitle="Competitive accomplishments in international cybersecurity competitions."
+          />
+
+          <div className="space-y-6">
+            {ctfRankings.map((ranking, idx) => (
+              <div key={idx} className="p-8 glass-card cyber-border">
+                <div className="flex items-start gap-6">
+                  <div className="text-5xl font-serif font-bold text-[#4ddcd3]">
+                    {ranking.rank}
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-serif font-bold text-xl text-black mb-2">
+                      {ranking.event}
+                    </h3>
+                    <p className="text-gray-700">{ranking.description}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Vulnerability Specializations */}
+      <section className="py-12 md:py-20 relative">
+        <div className="section-container">
+          <SectionHeading
+            title="Vulnerability Specializations"
+            subtitle="The attack vectors and vulnerabilities I specialize in finding and exploiting."
+          />
+
+          <div className="flex flex-wrap gap-3">
+            {vulnerabilities.map((vuln, idx) => (
+              <span
+                key={idx}
+                className="px-4 py-2 glass-card rounded-full text-sm font-medium text-gray-700 hover:border-[#4ddcd3] hover:text-[#4ddcd3] hover:-translate-y-1 transition-all duration-300 shadow-sm"
+              >
+                {vuln}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Platforms */}
+      <section className="py-12 md:py-20">
+        <div className="section-container">
+          <SectionHeading
+            title="Platforms & Communities"
+            subtitle="Bug bounty programs and security platforms where I'm actively involved."
+          />
+          <ToolsGrid tools={platforms} />
+        </div>
+      </section>
+
+      {/* Methodology */}
+      <section className="py-12 md:py-20">
+        <div className="section-container">
+          <SectionHeading
+            title="Methodologies & Frameworks"
+            subtitle="Industry-standard approaches to comprehensive security testing"
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {methodology.map((method, idx) => (
+              <div
+                key={idx}
+                className="glass-card p-6 text-center hover:shadow-soft-md hover:-translate-y-1 transition-all duration-300"
+              >
+                <p className="font-semibold text-gray-800">{method}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Tools Section */}
+      <section className="py-12 md:py-20 relative">
+        <div className="section-container">
+          <SectionHeading
+            title="Tools & Technologies"
+            subtitle="The instruments of my trade. I combine deep tool knowledge with manual analysis."
+          />
+          <ToolsGrid tools={tools} />
+        </div>
+      </section>
+
+      {/* Key Achievements */}
+      <section className="py-12 md:py-20 relative">
+        <div className="section-container">
+          <SectionHeading
+            title="Key Achievements"
+            subtitle="Notable accomplishments that demonstrate impact and expertise."
+          />
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {[
+              "Discovered 100+ vulnerabilities across diverse applications and platforms",
+              "Helped 25+ organizations remediate critical security issues",
+              "Ranked in top 5 of international Black Hat CTF competition",
+              "Active bug bounty hunter on 5+ platforms with consistent results",
+              "Multiple valid submissions to Fortune 500 company security programs",
+              "Expertise recognized through certifications from leading cybersecurity organizations",
+              "Contributed to open-source security tools and research",
+              "Mentored aspiring security professionals in VAPT methodologies",
+            ].map((achievement, idx) => (
+              <div
+                key={idx}
+                className="flex items-start gap-4 p-4 glass-card hover:-translate-y-1 transition-all duration-300"
+              >
+                <IconRenderer
+                  name="Star"
+                  className="w-6 h-6 text-[#4ddcd3] shrink-0 mt-0.5"
+                />
+                <span className="text-gray-700 font-medium">{achievement}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Continuous Learning */}
+      <section className="py-12 md:py-20">
+        <div className="section-container">
+          <SectionHeading
+            title="Continuous Learning"
+            subtitle="Commitment to staying current with evolving security threats."
+          />
+
+          <p className="text-lg text-gray-700 leading-relaxed mb-6">
+            The cybersecurity landscape evolves rapidly. I maintain my expertise
+            through:
+          </p>
+
+          <ul className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {[
+              "Regular completion of advanced security training and labs",
+              "Active participation in CTF competitions and capture-the-flag events",
+              "Continuous bug bounty hunting and real-world vulnerability research",
+              "Membership in security communities and professional organizations",
+              "Attending security conferences and workshops",
+              "Reading threat research and vulnerability disclosures",
+              "Experimenting with emerging attack vectors and techniques",
+            ].map((item, idx) => (
+              <li key={idx} className="flex items-start gap-3">
                 <IconRenderer
                   name="Check"
                   className="w-6 h-6 text-[#4ddcd3] shrink-0 mt-0.5"
                 />
-                <span>{item}</span>
+                <span className="text-gray-700">{item}</span>
               </li>
             ))}
           </ul>
-          </div>
         </div>
       </section>
 
@@ -417,17 +735,6 @@ export default async function AboutPage() {
           </div>
         </section>
       )}
-
-      {/* Tools Section */}
-      <section className="py-12 md:py-20 relative">
-        <div className="section-container">
-          <SectionHeading
-            title="Tools & Technologies"
-            subtitle="The instruments of my trade. I combine deep tool knowledge with manual analysis."
-          />
-          <ToolsGrid tools={tools} />
-        </div>
-      </section>
 
       {/* CTA */}
       <section className="py-12 md:py-20">

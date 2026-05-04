@@ -114,23 +114,6 @@ export default function ContactPage() {
                   </p>
                 </div>
               </a>
-
-              <a
-                href="https://discord.com/users/1238975366186405948"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-4 p-4 glass-card group hover:-translate-y-1 transition-all duration-300"
-              >
-                <div className="w-12 h-12 rounded-full bg-[#4ddcd3]/10 flex items-center justify-center group-hover:bg-[#4ddcd3]/20 transition-colors">
-                  <MessageCircle className="w-6 h-6 text-[#4ddcd3]" />
-                </div>
-                <div>
-                  <p className="font-medium text-black">Discord</p>
-                  <p className="text-sm text-gray-600">
-                    Join the security community
-                  </p>
-                </div>
-              </a>
             </div>
 
             {/* Direct Contact */}
@@ -154,36 +137,6 @@ export default function ContactPage() {
                   </p>
                 </div>
               </a>
-
-              <a
-                href="https://wa.me/923175779263"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-4 p-4 glass-card group hover:-translate-y-1 transition-all duration-300"
-              >
-                <div className="w-12 h-12 rounded-full bg-[#4ddcd3]/10 flex items-center justify-center group-hover:bg-[#4ddcd3]/20 transition-colors">
-                  <Phone className="w-6 h-6 text-[#4ddcd3]" />
-                </div>
-                <div>
-                  <p className="font-medium text-black">WhatsApp</p>
-                  <p className="text-sm text-gray-600">Quick messages</p>
-                </div>
-              </a>
-
-              {/* Availability Status */}
-              <div className="p-4 glass-card border-green-200">
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-6 h-6 text-green-600" />
-                  <div>
-                    <p className="font-medium text-green-900">
-                      Currently Accepting New Clients
-                    </p>
-                    <p className="text-sm text-green-700">
-                      Limited slots available for Q2 2025
-                    </p>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -220,7 +173,10 @@ export default function ContactPage() {
                   "Yes! Free retesting is included after you fix identified vulnerabilities. This ensures your application is truly secure before going to production.",
               },
             ].map((faq, idx) => (
-              <div key={idx} className="glass-card p-6 border-l-4 border-[#4ddcd3]">
+              <div
+                key={idx}
+                className="glass-card p-6 border-l-4 border-[#4ddcd3]"
+              >
                 <h3 className="font-serif font-bold text-lg text-black mb-2">
                   {faq.question}
                 </h3>

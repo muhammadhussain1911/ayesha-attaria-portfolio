@@ -32,6 +32,7 @@ export const metadata: Metadata = {
   title: "Ayesha Attaria | Web App & API Penetration Tester | Ethical Hacker",
   description:
     "Ayesha Attaria is a certified Web Application & API Penetration Tester helping companies in the USA, UK, Europe, Australia & Canada secure their systems. OWASP Top 10 aligned VAPT services.",
+  metadataBase: new URL("https://ayeshaattaria.site"),
   generator: "v0.app",
   openGraph: {
     title: "Ayesha Attaria | Web App & API Penetration Tester",

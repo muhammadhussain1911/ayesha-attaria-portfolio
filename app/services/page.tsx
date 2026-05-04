@@ -81,7 +81,7 @@ const coreServices = [
   },
   {
     icon: Target,
-    title: "Vulnerability Assessment & Penetration Testing (VAPT)",
+    title: "Attack Surface Assessment",
     shortDesc: "Full-cycle vulnerability discovery and exploitation",
     description:
       "A complete vulnerability assessment that combines automated scanning with manual testing to identify all security issues. This includes vulnerability chaining to demonstrate real-world attack scenarios and business impact.",
@@ -226,16 +226,6 @@ const whyChoose = [
     description:
       "Worked with 25+ organizations globally across fintech, SaaS, healthcare, and enterprise sectors.",
   },
-];
-
-const methodology = [
-  "OWASP Top 10 aligned testing",
-  "OWASP API Top 10 for API security",
-  "NIST Cybersecurity Framework principles",
-  "CIS Controls implementation review",
-  "CVSS v3.1 vulnerability scoring",
-  "SANS Top 25 vulnerability focus",
-  "Mitre ATT&CK Framework mapping",
 ];
 
 export default function ServicesPage() {
@@ -394,27 +384,6 @@ export default function ServicesPage() {
                 <p className="text-gray-700 text-sm leading-relaxed">
                   {step.description}
                 </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Methodology */}
-      <section className="py-12 md:py-20">
-        <div className="section-container">
-          <SectionHeading
-            title="Methodologies & Frameworks"
-            subtitle="Industry-standard approaches to comprehensive security testing"
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {methodology.map((method, idx) => (
-              <div
-                key={idx}
-                className="glass-card p-6 text-center hover:shadow-soft-md hover:-translate-y-1 transition-all duration-300"
-              >
-                <p className="font-semibold text-gray-800">{method}</p>
               </div>
             ))}
           </div>

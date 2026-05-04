@@ -2,10 +2,12 @@
 
 import type { LucideIcon } from "lucide-react";
 import * as LucideIcons from "lucide-react";
+import Image from "next/image";
 
 interface Tool {
   name: string;
-  icon: LucideIcon | string;
+  icon?: LucideIcon | string;
+  imageUrl?: string;
 }
 
 interface ToolsGridProps {
@@ -36,6 +38,8 @@ const iconMap: Record<string, LucideIcon> = {
   Pin: LucideIcons.Pin,
   Star: LucideIcons.Star,
   Check: LucideIcons.Check,
+  Code2: LucideIcons.Code2,
+  BookOpen: LucideIcons.BookOpen,
 };
 
 export function ToolsGrid({ tools, className = "" }: ToolsGridProps) {
@@ -44,9 +48,12 @@ export function ToolsGrid({ tools, className = "" }: ToolsGridProps) {
       className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ${className}`}
     >
       {tools.map((tool) => {
-        const isComponent = typeof tool.icon !== "string";
-        const isIconName = typeof tool.icon === "string" && iconMap[tool.icon];
-        const isEmoji = typeof tool.icon === "string" && !isIconName;
+        const hasImageUrl = !!tool.imageUrl;
+        const isComponent = typeof tool.icon !== "string" && !hasImageUrl;
+        const isIconName =
+          typeof tool.icon === "string" && iconMap[tool.icon] && !hasImageUrl;
+        const isEmoji =
+          typeof tool.icon === "string" && !isIconName && !hasImageUrl;
 
         let IconComponent: LucideIcon | null = null;
 
@@ -61,7 +68,15 @@ export function ToolsGrid({ tools, className = "" }: ToolsGridProps) {
             key={tool.name}
             className="flex flex-col items-center justify-center p-6 rounded-lg bg-[#f5f5f5] border border-[#e5e5e5] hover:border-[#4ddcd3] hover:shadow-lg transition-all duration-300"
           >
-            {isEmoji ? (
+            {hasImageUrl && tool.imageUrl ? (
+              <Image
+                src={tool.imageUrl}
+                alt={tool.name}
+                width={48}
+                height={48}
+                className="mb-2 object-contain"
+              />
+            ) : isEmoji && typeof tool.icon === "string" ? (
               <span className="text-4xl mb-2">{tool.icon}</span>
             ) : IconComponent ? (
               <IconComponent className="w-12 h-12 text-[#4ddcd3] mb-2" />

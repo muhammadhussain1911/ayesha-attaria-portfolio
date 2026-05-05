@@ -101,3 +101,28 @@ export interface Certification {
   created_at: string;
   updated_at: string;
 }
+
+export interface CTFRanking {
+  id: string;
+  competition_name: string;
+  rank: number;
+  year: number;
+  description: string | null;
+  image_url: string | null;
+  image_alt: string | null;
+  order_index: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface BugBountyProgram {
+  id: string;
+  name: string;
+  description: string | null;
+  logo_url: string | null;
+  logo_alt: string | null;
+  url: string | null;
+  order_index: number;
+  created_at: string;
+  updated_at: string;
+}

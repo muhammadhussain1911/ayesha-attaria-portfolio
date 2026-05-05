@@ -3,11 +3,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { ChevronDown, Shield } from "lucide-react";
+import { Shield } from "lucide-react";
 
 export function Navbar() {
   const pathname = usePathname();
-  const [isAboutHovered, setIsAboutHovered] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -20,17 +19,12 @@ export function Navbar() {
 
   const mainLinks = [
     { href: "/", label: "Home" },
+    { href: "/about", label: "About" },
+    { href: "/portfolio", label: "Portfolio" },
     { href: "/projects", label: "Projects" },
     { href: "/services", label: "Services" },
     { href: "/blog", label: "Blog" },
     { href: "/contact", label: "Contact" },
-  ];
-
-  const aboutDropdownLinks = [
-    { href: "/about", label: "About Me" },
-    { href: "/skills", label: "Skills" },
-    { href: "/experience", label: "Experience" },
-    { href: "/certifications", label: "Certifications" },
   ];
 
   return (
@@ -47,66 +41,7 @@ export function Navbar() {
           </Link>
           
           <div className="flex items-center gap-1 bg-off-white p-1.5 rounded-2xl border border-gray-100 shadow-inner">
-            {/* Home Link */}
-            <Link
-              href="/"
-              className={`relative px-4 py-2 text-sm font-medium rounded-xl transition-all duration-300 ${
-                pathname === "/"
-                  ? "bg-white text-[#4ddcd3] shadow-sm"
-                  : "text-gray-600 hover:text-black hover:bg-white/50"
-              }`}
-            >
-              Home
-            </Link>
-
-            {/* About Dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => setIsAboutHovered(true)}
-              onMouseLeave={() => setIsAboutHovered(false)}
-            >
-              <button
-                className={`flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-xl transition-all duration-300 ${
-                  isAboutHovered || pathname === "/about"
-                    ? "bg-white text-[#4ddcd3] shadow-sm"
-                    : "text-gray-600 hover:text-black hover:bg-white/50"
-                }`}
-              >
-                About
-                <ChevronDown
-                  className={`w-4 h-4 transition-transform duration-300 ${
-                    isAboutHovered ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-
-              {/* Dropdown Menu */}
-              {isAboutHovered && (
-                <div className="absolute top-full left-0 pt-2 w-48">
-                  <div className="glass-card border border-white p-2">
-                    {aboutDropdownLinks.map((link) => {
-                    const isActive = pathname === link.href;
-                    return (
-                      <Link
-                        key={link.href}
-                        href={link.href}
-                        className={`block px-4 py-2.5 text-sm rounded-xl transition-all duration-300 mb-1 last:mb-0 ${
-                          isActive
-                            ? "bg-[#4ddcd3]/10 text-[#4ddcd3] font-semibold"
-                            : "text-gray-600 hover:bg-off-white hover:text-black"
-                        }`}
-                      >
-                        {link.label}
-                      </Link>
-                    );
-                  })}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Remaining Links */}
-            {mainLinks.slice(1).map((link) => {
+            {mainLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
                 <Link

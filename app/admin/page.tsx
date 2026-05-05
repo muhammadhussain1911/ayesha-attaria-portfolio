@@ -11,6 +11,8 @@ import {
   Zap,
   FileText,
   LogOut,
+  Trophy,
+  Shield,
 } from "lucide-react";
 import { useAuth } from "@/app/context/AuthContext";
 import { toast } from "react-hot-toast";
@@ -24,6 +26,8 @@ export default function AdminDashboard() {
     skills: 0,
     experience: 0,
     certifications: 0,
+    ctfRankings: 0,
+    bugBountyPrograms: 0,
   });
   const [loading, setLoading] = useState(true);
 
@@ -40,13 +44,15 @@ export default function AdminDashboard() {
   useEffect(() => {
     const loadStats = async () => {
       try {
-        const [blogs, projects, skills, experience, certifications] =
+        const [blogs, projects, skills, experience, certifications, ctfRankings, bugBountyPrograms] =
           await Promise.all([
             fetch("/api/blogs").then((r) => r.json()),
             fetch("/api/projects").then((r) => r.json()),
             fetch("/api/skills").then((r) => r.json()),
             fetch("/api/experience").then((r) => r.json()),
             fetch("/api/certifications").then((r) => r.json()),
+            fetch("/api/ctf-rankings").then((r) => r.json()),
+            fetch("/api/bug-bounty-programs").then((r) => r.json()),
           ]);
 
         setStats({
@@ -57,6 +63,8 @@ export default function AdminDashboard() {
           certifications: Array.isArray(certifications)
             ? certifications.length
             : 0,
+          ctfRankings: Array.isArray(ctfRankings) ? ctfRankings.length : 0,
+          bugBountyPrograms: Array.isArray(bugBountyPrograms) ? bugBountyPrograms.length : 0,
         });
       } catch (error) {
         console.error("Error loading stats:", error);
@@ -103,6 +111,20 @@ export default function AdminDashboard() {
       href: "/admin/certifications",
       count: stats.certifications,
       color: "bg-red-100 text-red-700",
+    },
+    {
+      icon: Trophy,
+      label: "CTF Rankings",
+      href: "/admin/ctf-rankings",
+      count: stats.ctfRankings,
+      color: "bg-orange-100 text-orange-700",
+    },
+    {
+      icon: Shield,
+      label: "Bug Bounty Programs",
+      href: "/admin/bug-bounty-programs",
+      count: stats.bugBountyPrograms,
+      color: "bg-pink-100 text-pink-700",
     },
   ];
 

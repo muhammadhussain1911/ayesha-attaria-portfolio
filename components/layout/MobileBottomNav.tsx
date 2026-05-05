@@ -43,12 +43,10 @@ export function MobileBottomNav() {
   const menuLinks = [
     { href: "/", label: "Home", icon: "home" },
     { href: "/about", label: "About", icon: "user" },
+    { href: "/portfolio", label: "Portfolio", icon: "folderopen" },
     { href: "/projects", label: "Projects", icon: "folderopen" },
     { href: "/services", label: "Services", icon: "briefcase" },
     { href: "/blog", label: "Blog", icon: "bookopen" },
-    { href: "/skills", label: "Skills", icon: "user" },
-    { href: "/experience", label: "Experience", icon: "user" },
-    { href: "/certifications", label: "Certifications", icon: "bookopen" },
     { href: "/contact", label: "Contact", icon: "mail" },
   ];
 

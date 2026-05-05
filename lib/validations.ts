@@ -68,8 +68,29 @@ export const certificationSchema = z.object({
   order_index: z.number().default(0),
 });
 
+export const ctfRankingSchema = z.object({
+  competition_name: z.string().min(3, 'Competition name is required'),
+  rank: z.number().min(1, 'Rank must be positive'),
+  year: z.number().min(2000, 'Year must be valid'),
+  description: z.string().optional(),
+  image_url: z.string().url().optional().or(z.literal('')),
+  image_alt: z.string().optional(),
+  order_index: z.number().default(0),
+});
+
+export const bugBountyProgramSchema = z.object({
+  name: z.string().min(2, 'Program name is required'),
+  description: z.string().optional(),
+  logo_url: z.string().url().optional().or(z.literal('')),
+  logo_alt: z.string().optional(),
+  url: z.string().url().optional().or(z.literal('')),
+  order_index: z.number().default(0),
+});
+
 export type BlogInput = z.infer<typeof blogSchema>;
 export type ProjectInput = z.infer<typeof projectSchema>;
 export type SkillInput = z.infer<typeof skillSchema>;
 export type ExperienceInput = z.infer<typeof experienceSchema>;
 export type CertificationInput = z.infer<typeof certificationSchema>;
+export type CTFRankingInput = z.infer<typeof ctfRankingSchema>;
+export type BugBountyProgramInput = z.infer<typeof bugBountyProgramSchema>;

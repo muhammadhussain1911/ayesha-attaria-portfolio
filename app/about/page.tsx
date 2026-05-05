@@ -232,7 +232,7 @@ export default async function AboutPage() {
 
       {/* Bio Section */}
       <section className="py-12 md:py-20 relative">
-        <div className="section-container max-w-4xl">
+        <div className="section-container">
           <div className="glass-card p-8 md:p-12 prose prose-lg max-w-none text-gray-700 space-y-6">
             <p>
               My journey in cybersecurity started with a passion for

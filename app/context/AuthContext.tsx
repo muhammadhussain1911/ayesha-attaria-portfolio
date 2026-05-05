@@ -16,6 +16,7 @@ interface AuthContextType {
   loading: boolean;
   mounted: boolean;
   signIn: (email: string, password: string) => Promise<void>;
+  signUp: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
   updatePassword: (newPassword: string) => Promise<void>;
@@ -100,6 +101,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (error) throw error;
   };
 
+  const signUp = async (email: string, password: string) => {
+    // Only allow signup for the specific admin email
+    const ALLOWED_ADMIN_EMAIL = "responsiblesecexpert@gmail.com";
+    
+    if (email.toLowerCase() !== ALLOWED_ADMIN_EMAIL.toLowerCase()) {
+      throw new Error("Signup is restricted. Only the authorized admin email can create an account.");
+    }
+
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: "https://www.ayeshaattaria.site/admin/login",
+      },
+    });
+    if (error) throw error;
+  };
+
   const signOut = async () => {
     try {
       await supabase.auth.signOut();
@@ -135,6 +154,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         loading,
         mounted,
         signIn,
+        signUp,
         signOut,
         resetPassword,
         updatePassword,

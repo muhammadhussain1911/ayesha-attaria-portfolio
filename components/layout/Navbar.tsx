@@ -28,8 +28,12 @@ export function Navbar() {
   ];
 
   return (
-    <nav className={`hidden md:block sticky top-0 z-50 pt-4 px-4 transition-all duration-300`}>
-      <div className={`max-w-7xl mx-auto transition-all duration-500 rounded-3xl glass-card ${scrolled ? 'py-2 px-8 shadow-soft-lg' : 'py-3 px-6'}`}>
+    <nav
+      className={`hidden md:block sticky top-0 z-50 pt-4 px-4 transition-all duration-300`}
+    >
+      <div
+        className={`max-w-7xl mx-auto transition-all duration-500 rounded-3xl glass-card ${scrolled ? "py-2 px-8 shadow-soft-lg" : "py-3 px-6"}`}
+      >
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group">
             <div className="w-10 h-10 rounded-xl bg-[#4ddcd3]/10 flex items-center justify-center group-hover:bg-[#4ddcd3]/20 transition-colors">
@@ -39,7 +43,7 @@ export function Navbar() {
               Ayesha Attaria
             </span>
           </Link>
-          
+
           <div className="flex items-center gap-1 bg-off-white p-1.5 rounded-2xl border border-gray-100 shadow-inner">
             {mainLinks.map((link) => {
               const isActive = pathname === link.href;
@@ -58,9 +62,12 @@ export function Navbar() {
               );
             })}
           </div>
-          
+
           <div>
-            <Link href="/contact" className="px-5 py-2.5 bg-black text-white text-sm font-medium rounded-xl hover:bg-[#4ddcd3] hover:text-black hover:shadow-soft transition-all duration-300">
+            <Link
+              href="/contact"
+              className="px-5 py-2.5 bg-black text-white text-sm font-medium rounded-xl hover:bg-[#4ddcd3] hover:text-black hover:shadow-soft transition-all duration-300"
+            >
               Get in Touch
             </Link>
           </div>

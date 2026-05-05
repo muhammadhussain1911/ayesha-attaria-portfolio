@@ -14,7 +14,10 @@ interface CTFRankingFormProps {
   isEditing?: boolean;
 }
 
-export function CTFRankingForm({ initialData, isEditing }: CTFRankingFormProps) {
+export function CTFRankingForm({
+  initialData,
+  isEditing,
+}: CTFRankingFormProps) {
   const router = useRouter();
   const { session } = useAuth();
   const [loading, setLoading] = useState(false);
@@ -29,7 +32,7 @@ export function CTFRankingForm({ initialData, isEditing }: CTFRankingFormProps) 
   });
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value, type } = e.target;
     setFormData((prev) => ({
@@ -75,9 +78,7 @@ export function CTFRankingForm({ initialData, isEditing }: CTFRankingFormProps) 
         throw new Error(data.error || "Failed to save CTF ranking");
       }
 
-      toast.success(
-        isEditing ? "CTF ranking updated" : "CTF ranking created"
-      );
+      toast.success(isEditing ? "CTF ranking updated" : "CTF ranking created");
       router.push("/admin/ctf-rankings");
     } catch (error: any) {
       toast.error(error.message || "Error saving CTF ranking");

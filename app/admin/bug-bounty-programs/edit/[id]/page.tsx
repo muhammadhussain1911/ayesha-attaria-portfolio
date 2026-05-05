@@ -1,11 +1,15 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { BugBountyProgramForm } from '@/components/admin/BugBountyProgramForm';
-import { BugBountyProgram } from '@/lib/supabase';
-import toast from 'react-hot-toast';
+import { useEffect, useState } from "react";
+import { BugBountyProgramForm } from "@/components/admin/BugBountyProgramForm";
+import { BugBountyProgram } from "@/lib/supabase";
+import toast from "react-hot-toast";
 
-export default function EditBugBountyProgram({ params }: { params: { id: string } }) {
+export default function EditBugBountyProgram({
+  params,
+}: {
+  params: { id: string };
+}) {
   const [program, setProgram] = useState<BugBountyProgram | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -13,11 +17,11 @@ export default function EditBugBountyProgram({ params }: { params: { id: string 
     const loadProgram = async () => {
       try {
         const response = await fetch(`/api/bug-bounty-programs/${params.id}`);
-        if (!response.ok) throw new Error('Failed to load program');
+        if (!response.ok) throw new Error("Failed to load program");
         const data = await response.json();
         setProgram(data);
       } catch (error: any) {
-        toast.error(error.message || 'Failed to load program');
+        toast.error(error.message || "Failed to load program");
       } finally {
         setLoading(false);
       }

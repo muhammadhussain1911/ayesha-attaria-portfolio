@@ -11,10 +11,16 @@ import {
   Mail,
   Menu as MenuIcon,
   X,
-  Briefcase
+  Briefcase,
 } from "lucide-react";
 
-const IconRenderer = ({ iconName, className = "w-6 h-6" }: { iconName: string, className?: string }) => {
+const IconRenderer = ({
+  iconName,
+  className = "w-6 h-6",
+}: {
+  iconName: string;
+  className?: string;
+}) => {
   const iconMap: Record<string, React.ReactNode> = {
     home: <Home className={className} />,
     user: <User className={className} />,
@@ -23,7 +29,7 @@ const IconRenderer = ({ iconName, className = "w-6 h-6" }: { iconName: string, c
     mail: <Mail className={className} />,
     menu: <MenuIcon className={className} />,
     x: <X className={className} />,
-    briefcase: <Briefcase className={className} />
+    briefcase: <Briefcase className={className} />,
   };
 
   return <>{iconMap[iconName.toLowerCase()] || iconName}</>;
@@ -63,12 +69,16 @@ export function MobileBottomNav() {
                 className={`relative flex flex-col items-center justify-center flex-1 h-full transition-all duration-300 group`}
                 onClick={() => setShowMenu(false)}
               >
-                <div className={`flex flex-col items-center transition-transform duration-300 ${isActive ? '-translate-y-1' : 'group-hover:-translate-y-1'}`}>
-                  <IconRenderer 
-                    iconName={link.icon} 
-                    className={`w-5 h-5 mb-1 ${isActive ? "text-[#4ddcd3]" : "text-gray-500"}`} 
+                <div
+                  className={`flex flex-col items-center transition-transform duration-300 ${isActive ? "-translate-y-1" : "group-hover:-translate-y-1"}`}
+                >
+                  <IconRenderer
+                    iconName={link.icon}
+                    className={`w-5 h-5 mb-1 ${isActive ? "text-[#4ddcd3]" : "text-gray-500"}`}
                   />
-                  <span className={`text-[10px] font-medium ${isActive ? "text-[#4ddcd3]" : "text-gray-500"}`}>
+                  <span
+                    className={`text-[10px] font-medium ${isActive ? "text-[#4ddcd3]" : "text-gray-500"}`}
+                  >
                     {link.label}
                   </span>
                 </div>
@@ -83,12 +93,16 @@ export function MobileBottomNav() {
             className="flex flex-col items-center justify-center flex-1 h-full transition-all duration-300 group"
             aria-label="Toggle navigation menu"
           >
-            <div className={`flex flex-col items-center transition-transform duration-300 group-hover:-translate-y-1`}>
-              <IconRenderer 
-                iconName="menu" 
-                className={`w-5 h-5 mb-1 ${showMenu ? "text-[#4ddcd3]" : "text-gray-500"}`} 
+            <div
+              className={`flex flex-col items-center transition-transform duration-300 group-hover:-translate-y-1`}
+            >
+              <IconRenderer
+                iconName="menu"
+                className={`w-5 h-5 mb-1 ${showMenu ? "text-[#4ddcd3]" : "text-gray-500"}`}
               />
-              <span className={`text-[10px] font-medium ${showMenu ? "text-[#4ddcd3]" : "text-gray-500"}`}>
+              <span
+                className={`text-[10px] font-medium ${showMenu ? "text-[#4ddcd3]" : "text-gray-500"}`}
+              >
                 Menu
               </span>
             </div>
@@ -133,7 +147,9 @@ export function MobileBottomNav() {
                     }`}
                     onClick={() => setShowMenu(false)}
                   >
-                    <div className={`p-2 rounded-xl ${isActive ? "bg-[#4ddcd3]/10" : "bg-gray-100"}`}>
+                    <div
+                      className={`p-2 rounded-xl ${isActive ? "bg-[#4ddcd3]/10" : "bg-gray-100"}`}
+                    >
                       <IconRenderer iconName={link.icon} className="w-4 h-4" />
                     </div>
                     <span>{link.label}</span>

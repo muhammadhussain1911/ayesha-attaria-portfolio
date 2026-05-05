@@ -1,5 +1,12 @@
 import Link from "next/link";
-import { Briefcase, Twitter, MessageCircle, Phone, Mail, ShieldCheck } from "lucide-react";
+import {
+  Briefcase,
+  Twitter,
+  MessageCircle,
+  Phone,
+  Mail,
+  ShieldCheck,
+} from "lucide-react";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();

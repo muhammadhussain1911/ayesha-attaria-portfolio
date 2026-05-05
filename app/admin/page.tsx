@@ -44,16 +44,23 @@ export default function AdminDashboard() {
   useEffect(() => {
     const loadStats = async () => {
       try {
-        const [blogs, projects, skills, experience, certifications, ctfRankings, bugBountyPrograms] =
-          await Promise.all([
-            fetch("/api/blogs").then((r) => r.json()),
-            fetch("/api/projects").then((r) => r.json()),
-            fetch("/api/skills").then((r) => r.json()),
-            fetch("/api/experience").then((r) => r.json()),
-            fetch("/api/certifications").then((r) => r.json()),
-            fetch("/api/ctf-rankings").then((r) => r.json()),
-            fetch("/api/bug-bounty-programs").then((r) => r.json()),
-          ]);
+        const [
+          blogs,
+          projects,
+          skills,
+          experience,
+          certifications,
+          ctfRankings,
+          bugBountyPrograms,
+        ] = await Promise.all([
+          fetch("/api/blogs").then((r) => r.json()),
+          fetch("/api/projects").then((r) => r.json()),
+          fetch("/api/skills").then((r) => r.json()),
+          fetch("/api/experience").then((r) => r.json()),
+          fetch("/api/certifications").then((r) => r.json()),
+          fetch("/api/ctf-rankings").then((r) => r.json()),
+          fetch("/api/bug-bounty-programs").then((r) => r.json()),
+        ]);
 
         setStats({
           blogs: Array.isArray(blogs) ? blogs.length : 0,
@@ -64,7 +71,9 @@ export default function AdminDashboard() {
             ? certifications.length
             : 0,
           ctfRankings: Array.isArray(ctfRankings) ? ctfRankings.length : 0,
-          bugBountyPrograms: Array.isArray(bugBountyPrograms) ? bugBountyPrograms.length : 0,
+          bugBountyPrograms: Array.isArray(bugBountyPrograms)
+            ? bugBountyPrograms.length
+            : 0,
         });
       } catch (error) {
         console.error("Error loading stats:", error);
@@ -166,26 +175,26 @@ export default function AdminDashboard() {
             {adminItems.map((item) => {
               const Icon = item.icon;
               return (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="glass-card group hover:-translate-y-2 transition-all duration-300 p-6 h-full cursor-pointer relative overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-[#4ddcd3]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="relative z-10 flex flex-col h-full">
-                  <div
-                    className={`${item.color} w-12 h-12 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-sm`}
-                  >
-                    <Icon className="w-6 h-6" />
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="glass-card group hover:-translate-y-2 transition-all duration-300 p-6 h-full cursor-pointer relative overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#4ddcd3]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="relative z-10 flex flex-col h-full">
+                    <div
+                      className={`${item.color} w-12 h-12 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-sm`}
+                    >
+                      <Icon className="w-6 h-6" />
+                    </div>
+                    <h3 className="text-lg font-serif font-bold text-black mb-2">
+                      {item.label}
+                    </h3>
+                    <p className="text-4xl font-serif font-bold text-[#4ddcd3] mt-auto pt-4 border-t border-gray-100">
+                      {item.count}
+                    </p>
                   </div>
-                  <h3 className="text-lg font-serif font-bold text-black mb-2">
-                    {item.label}
-                  </h3>
-                  <p className="text-4xl font-serif font-bold text-[#4ddcd3] mt-auto pt-4 border-t border-gray-100">
-                    {item.count}
-                  </p>
-                </div>
-              </Link>
+                </Link>
               );
             })}
           </div>

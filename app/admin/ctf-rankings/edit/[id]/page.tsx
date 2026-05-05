@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { CTFRankingForm } from '@/components/admin/CTFRankingForm';
-import { CTFRanking } from '@/lib/supabase';
-import toast from 'react-hot-toast';
+import { useEffect, useState } from "react";
+import { CTFRankingForm } from "@/components/admin/CTFRankingForm";
+import { CTFRanking } from "@/lib/supabase";
+import toast from "react-hot-toast";
 
 export default function EditCTFRanking({ params }: { params: { id: string } }) {
   const [ranking, setRanking] = useState<CTFRanking | null>(null);
@@ -13,11 +13,11 @@ export default function EditCTFRanking({ params }: { params: { id: string } }) {
     const loadRanking = async () => {
       try {
         const response = await fetch(`/api/ctf-rankings/${params.id}`);
-        if (!response.ok) throw new Error('Failed to load ranking');
+        if (!response.ok) throw new Error("Failed to load ranking");
         const data = await response.json();
         setRanking(data);
       } catch (error: any) {
-        toast.error(error.message || 'Failed to load ranking');
+        toast.error(error.message || "Failed to load ranking");
       } finally {
         setLoading(false);
       }

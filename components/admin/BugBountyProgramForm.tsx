@@ -14,7 +14,10 @@ interface BugBountyProgramFormProps {
   isEditing?: boolean;
 }
 
-export function BugBountyProgramForm({ initialData, isEditing }: BugBountyProgramFormProps) {
+export function BugBountyProgramForm({
+  initialData,
+  isEditing,
+}: BugBountyProgramFormProps) {
   const router = useRouter();
   const { session } = useAuth();
   const [loading, setLoading] = useState(false);
@@ -28,7 +31,7 @@ export function BugBountyProgramForm({ initialData, isEditing }: BugBountyProgra
   });
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value, type } = e.target;
     setFormData((prev) => ({
@@ -74,9 +77,7 @@ export function BugBountyProgramForm({ initialData, isEditing }: BugBountyProgra
         throw new Error(data.error || "Failed to save bug bounty program");
       }
 
-      toast.success(
-        isEditing ? "Program updated" : "Program created"
-      );
+      toast.success(isEditing ? "Program updated" : "Program created");
       router.push("/admin/bug-bounty-programs");
     } catch (error: any) {
       toast.error(error.message || "Error saving bug bounty program");

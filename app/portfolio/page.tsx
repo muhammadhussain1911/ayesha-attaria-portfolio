@@ -102,8 +102,8 @@ export default async function PortfolioPage() {
             Portfolio
           </h1>
           <p className="text-xl text-gray-700 leading-relaxed max-w-2xl">
-            Curated selection of security research, vulnerability assessments, and
-            penetration testing engagements showcasing real-world expertise.
+            Curated selection of security research, vulnerability assessments,
+            and penetration testing engagements showcasing real-world expertise.
           </p>
         </div>
       </section>
@@ -125,7 +125,7 @@ export default async function PortfolioPage() {
                     className="glass-card p-8 group hover:-translate-y-2 transition-all duration-300 flex flex-col h-full relative overflow-hidden"
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-[#4ddcd3]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    
+
                     <div className="relative z-10">
                       {project.image_url && (
                         <img
@@ -134,25 +134,28 @@ export default async function PortfolioPage() {
                           className="w-full h-48 object-cover rounded-lg mb-6 group-hover:shadow-lg transition-shadow duration-300"
                         />
                       )}
-                      
+
                       <h3 className="text-2xl font-serif font-bold text-black mb-3 group-hover:text-[#4ddcd3] transition-colors">
                         {project.title}
                       </h3>
-                      
+
                       <p className="text-gray-700 text-sm mb-4 line-clamp-3">
                         {project.description}
                       </p>
 
                       {project.tags && (
                         <div className="flex flex-wrap gap-2 mb-6">
-                          {project.tags.split(",").slice(0, 3).map((tag, idx) => (
-                            <span
-                              key={idx}
-                              className="px-3 py-1 text-xs font-medium bg-[#4ddcd3]/10 text-[#4ddcd3] rounded-full"
-                            >
-                              {tag.trim()}
-                            </span>
-                          ))}
+                          {project.tags
+                            .split(",")
+                            .slice(0, 3)
+                            .map((tag, idx) => (
+                              <span
+                                key={idx}
+                                className="px-3 py-1 text-xs font-medium bg-[#4ddcd3]/10 text-[#4ddcd3] rounded-full"
+                              >
+                                {tag.trim()}
+                              </span>
+                            ))}
                         </div>
                       )}
 
@@ -225,7 +228,9 @@ export default async function PortfolioPage() {
                   <div className="text-4xl md:text-5xl font-serif font-bold text-black mb-2">
                     {item.stat}
                   </div>
-                  <p className="font-medium text-gray-700 text-sm">{item.label}</p>
+                  <p className="font-medium text-gray-700 text-sm">
+                    {item.label}
+                  </p>
                 </div>
               );
             })}
@@ -249,7 +254,7 @@ export default async function PortfolioPage() {
                   className="glass-card p-6 group hover:-translate-y-2 transition-all duration-300 relative overflow-hidden flex flex-col"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-[#4ddcd3]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  
+
                   <div className="relative z-10">
                     {cert.badge_image_url && (
                       <div className="mb-4 h-32 flex items-center justify-center">
@@ -260,18 +265,22 @@ export default async function PortfolioPage() {
                         />
                       </div>
                     )}
-                    
+
                     <h3 className="text-lg font-serif font-bold text-black mb-2 group-hover:text-[#4ddcd3] transition-colors">
                       {cert.title}
                     </h3>
-                    
+
                     <p className="text-sm text-gray-600 mb-2">{cert.issuer}</p>
-                    <p className="text-xs text-gray-500 mb-4">Issued: {cert.issue_date}</p>
-                    
+                    <p className="text-xs text-gray-500 mb-4">
+                      Issued: {cert.issue_date}
+                    </p>
+
                     {cert.description && (
-                      <p className="text-sm text-gray-700 mb-4">{cert.description}</p>
+                      <p className="text-sm text-gray-700 mb-4">
+                        {cert.description}
+                      </p>
                     )}
-                    
+
                     {cert.credential_url && (
                       <Link
                         href={cert.credential_url}
@@ -307,7 +316,7 @@ export default async function PortfolioPage() {
                   className="glass-card p-6 group hover:-translate-y-2 transition-all duration-300 flex items-center gap-6 relative overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-[#4ddcd3]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  
+
                   <div className="relative z-10 flex-1">
                     {ranking.image_url && (
                       <div className="w-20 h-20 rounded-lg overflow-hidden bg-white border-2 border-[#4ddcd3] flex-shrink-0 flex items-center justify-center">
@@ -329,7 +338,9 @@ export default async function PortfolioPage() {
                     </p>
                     <p className="text-sm text-gray-600 mb-2">{ranking.year}</p>
                     {ranking.description && (
-                      <p className="text-sm text-gray-700">{ranking.description}</p>
+                      <p className="text-sm text-gray-700">
+                        {ranking.description}
+                      </p>
                     )}
                   </div>
                 </div>
@@ -357,7 +368,7 @@ export default async function PortfolioPage() {
                     className="flex-shrink-0 glass-card p-6 w-48 group hover:-translate-y-2 transition-all duration-300 flex flex-col items-center text-center relative overflow-hidden"
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-[#4ddcd3]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    
+
                     <div className="relative z-10">
                       {program.logo_url && (
                         <div className="w-16 h-16 rounded-lg overflow-hidden bg-white border-2 border-[#4ddcd3] flex items-center justify-center mb-4">
@@ -368,15 +379,17 @@ export default async function PortfolioPage() {
                           />
                         </div>
                       )}
-                      
+
                       <h3 className="text-lg font-serif font-bold text-black mb-2 group-hover:text-[#4ddcd3] transition-colors">
                         {program.name}
                       </h3>
-                      
+
                       {program.description && (
-                        <p className="text-sm text-gray-700 mb-3">{program.description}</p>
+                        <p className="text-sm text-gray-700 mb-3">
+                          {program.description}
+                        </p>
                       )}
-                      
+
                       {program.url && (
                         <Link
                           href={program.url}
@@ -417,7 +430,8 @@ export default async function PortfolioPage() {
                 Interested in a Security Assessment?
               </h2>
               <p className="text-gray-700 text-lg mb-8 max-w-2xl mx-auto">
-                Let's discuss your security needs and how I can help protect your applications.
+                Let's discuss your security needs and how I can help protect
+                your applications.
               </p>
               <Link
                 href="/contact"

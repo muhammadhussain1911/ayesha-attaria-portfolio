@@ -1,14 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/context/AuthContext";
-import { supabase } from "@/lib/supabase";
 import { Lock, AlertCircle, CheckCircle, Loader } from "lucide-react";
 
 export default function ResetPasswordPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const { updatePassword, user, loading, mounted } = useAuth();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -47,31 +45,6 @@ export default function ResetPasswordPage() {
       setError("Invalid or expired reset link. Please request a new one.");
     }
   }, [loading, user, mounted, isProcessingToken]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-
-    if (password !== confirmPassword) {
-      setError("Passwords do not match");
-      return;
-    }
-    if (password.length < 8) {
-      setError("Password must be at least 8 characters");
-      return;
-    }
-
-    setIsSubmitting(true);
-    try {
-      await updatePassword(password);
-      setSuccess(true);
-      setTimeout(() => router.push("/admin"), 2000);
-    } catch (err: any) {
-      setError(err.message || "Failed to update password");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   if (isProcessingToken || loading) {
     return (

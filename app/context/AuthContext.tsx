@@ -104,9 +104,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signUp = async (email: string, password: string) => {
     // Only allow signup for the specific admin email
     const ALLOWED_ADMIN_EMAIL = "responsiblesecexpert@gmail.com";
-    
+
     if (email.toLowerCase() !== ALLOWED_ADMIN_EMAIL.toLowerCase()) {
-      throw new Error("Signup is restricted. Only the authorized admin email can create an account.");
+      throw new Error(
+        "Signup is restricted. Only the authorized admin email can create an account.",
+      );
     }
 
     const { error } = await supabase.auth.signUp({

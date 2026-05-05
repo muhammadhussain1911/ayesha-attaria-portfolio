@@ -60,9 +60,12 @@ export default function SignupPage() {
         <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-[#4ddcd3]/5 rounded-full blur-[80px] pointer-events-none"></div>
         <div className="w-full max-w-md glass-card p-8 md:p-10 text-center space-y-6 relative z-10">
           <CheckCircle className="w-16 h-16 text-green-600 mx-auto" />
-          <h1 className="text-3xl font-serif font-bold text-black">Account Created</h1>
+          <h1 className="text-3xl font-serif font-bold text-black">
+            Account Created
+          </h1>
           <p className="text-gray-600 leading-relaxed">
-            Your admin account has been created successfully. Please check your email to confirm your account.
+            Your admin account has been created successfully. Please check your
+            email to confirm your account.
           </p>
           <a
             href="/admin/login"
@@ -83,10 +86,10 @@ export default function SignupPage() {
           <div className="w-16 h-16 rounded-2xl bg-[#4ddcd3]/10 flex items-center justify-center mx-auto mb-6">
             <Lock className="w-8 h-8 text-[#4ddcd3]" />
           </div>
-          <h1 className="text-3xl font-serif font-bold text-black">Admin Signup</h1>
-          <p className="text-gray-600 mt-2">
-            Create your admin account
-          </p>
+          <h1 className="text-3xl font-serif font-bold text-black">
+            Admin Signup
+          </h1>
+          <p className="text-gray-600 mt-2">Create your admin account</p>
         </div>
 
         <form
@@ -101,7 +104,10 @@ export default function SignupPage() {
           )}
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
               Email Address
             </label>
             <div className="relative">
@@ -123,7 +129,10 @@ export default function SignupPage() {
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
               Password
             </label>
             <div className="relative">
@@ -139,13 +148,14 @@ export default function SignupPage() {
                 className="w-full pl-10 pr-4 py-3 bg-off-white/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent disabled:bg-gray-50 disabled:cursor-not-allowed transition-all"
               />
             </div>
-            <p className="text-xs text-gray-500 mt-1">
-              At least 8 characters
-            </p>
+            <p className="text-xs text-gray-500 mt-1">At least 8 characters</p>
           </div>
 
           <div>
-            <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700 mb-2">
+            <label
+              htmlFor="confirm-password"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
               Confirm Password
             </label>
             <div className="relative">
@@ -180,7 +190,10 @@ export default function SignupPage() {
 
           <p className="text-center text-sm text-gray-600">
             Already have an account?{" "}
-            <a href="/admin/login" className="text-[#4ddcd3] hover:text-[#3db5a1] font-medium">
+            <a
+              href="/admin/login"
+              className="text-[#4ddcd3] hover:text-[#3db5a1] font-medium"
+            >
               Sign in
             </a>
           </p>

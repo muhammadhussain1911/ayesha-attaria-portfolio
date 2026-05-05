@@ -23,13 +23,13 @@ export default function ResetPasswordPage() {
       try {
         // Check if there's a token in the URL hash (Supabase recovery links)
         const hash = window.location.hash;
-        
+
         if (hash && hash.includes("access_token")) {
           // Let Supabase client process the hash automatically via onAuthStateChange
           // The token should be exchanged by the Supabase auth listener
-          await new Promise(resolve => setTimeout(resolve, 1000)); // Give time for auth state to update
+          await new Promise((resolve) => setTimeout(resolve, 1000)); // Give time for auth state to update
         }
-        
+
         setIsProcessingToken(false);
       } catch (err) {
         console.error("Error processing recovery token:", err);
@@ -87,7 +87,9 @@ export default function ResetPasswordPage() {
         <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-[#4ddcd3]/5 rounded-full blur-[80px] pointer-events-none"></div>
         <div className="w-full max-w-md glass-card p-8 md:p-10 text-center space-y-6 relative z-10">
           <CheckCircle className="w-16 h-16 text-green-600 mx-auto" />
-          <h1 className="text-3xl font-serif font-bold text-black">Password Updated</h1>
+          <h1 className="text-3xl font-serif font-bold text-black">
+            Password Updated
+          </h1>
           <p className="text-gray-600 leading-relaxed">
             Your password has been changed. Redirecting to admin panel...
           </p>
@@ -135,7 +137,9 @@ export default function ResetPasswordPage() {
         <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-[#4ddcd3]/5 rounded-full blur-[80px] pointer-events-none"></div>
         <div className="w-full max-w-md glass-card p-8 md:p-10 text-center space-y-6 relative z-10">
           <CheckCircle className="w-16 h-16 text-green-600 mx-auto" />
-          <h1 className="text-3xl font-serif font-bold text-black">Password Updated</h1>
+          <h1 className="text-3xl font-serif font-bold text-black">
+            Password Updated
+          </h1>
           <p className="text-gray-600 leading-relaxed">
             Your password has been changed. Redirecting to admin panel...
           </p>
@@ -152,7 +156,9 @@ export default function ResetPasswordPage() {
           <div className="w-16 h-16 rounded-2xl bg-[#4ddcd3]/10 flex items-center justify-center mx-auto mb-6">
             <Lock className="w-8 h-8 text-[#4ddcd3]" />
           </div>
-          <h1 className="text-3xl font-serif font-bold text-black">Set New Password</h1>
+          <h1 className="text-3xl font-serif font-bold text-black">
+            Set New Password
+          </h1>
           <p className="text-gray-600 mt-2">
             Choose a strong password for your admin account
           </p>
@@ -168,7 +174,10 @@ export default function ResetPasswordPage() {
               <div className="text-sm">
                 <p className="text-red-700 font-medium">{error}</p>
                 {error.includes("Invalid or expired") && (
-                  <a href="/admin/forgot-password" className="text-red-600 underline mt-2 inline-block">
+                  <a
+                    href="/admin/forgot-password"
+                    className="text-red-600 underline mt-2 inline-block"
+                  >
                     Request a new link
                   </a>
                 )}
@@ -177,7 +186,10 @@ export default function ResetPasswordPage() {
           )}
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
               New Password
             </label>
             <div className="relative">
@@ -197,7 +209,10 @@ export default function ResetPasswordPage() {
           </div>
 
           <div>
-            <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700 mb-2">
+            <label
+              htmlFor="confirm-password"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
               Confirm Password
             </label>
             <div className="relative">
@@ -232,7 +247,10 @@ export default function ResetPasswordPage() {
 
           <p className="text-center text-sm text-gray-600">
             Remembered your password?{" "}
-            <a href="/admin/login" className="text-[#4ddcd3] hover:text-[#3db5a1] font-medium">
+            <a
+              href="/admin/login"
+              className="text-[#4ddcd3] hover:text-[#3db5a1] font-medium"
+            >
               Sign in
             </a>
           </p>

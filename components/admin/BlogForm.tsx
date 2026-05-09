@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/context/AuthContext";
 import { CloudinaryUploader } from "@/components/admin/CloudinaryUploader";
 import { RichTextEditor } from "./RichTextEditor";
+import { BlogPreview } from "./BlogPreview";
 import { blogSchema } from "@/lib/validations";
 import toast from "react-hot-toast";
 import { Save, ArrowLeft } from "lucide-react";
@@ -93,7 +94,7 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
         const error = await response.json();
         // Zod returns array of errors, flatten to readable message
         if (Array.isArray(error.error)) {
-          throw new Error(error.error.map((e: any) => e.message).join(', '));
+          throw new Error(error.error.map((e: any) => e.message).join(", "));
         }
         throw new Error(error.error || "Failed to save blog");
       }
@@ -110,7 +111,7 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
+    <div className="space-y-6">
       {/* Back Button */}
       <button
         type="button"
@@ -121,172 +122,185 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
         Back
       </button>
 
-      {/* Title */}
-      <div>
-        <label className="block text-sm font-medium text-black mb-2">
-          Title *
-        </label>
-        <input
-          type="text"
-          name="title"
-          value={formData.title}
-          onChange={handleInputChange}
-          placeholder="Enter blog title"
-          required
-          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
-        />
-      </div>
+      {/* Form and Preview Container */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Form Section */}
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Title */}
+          <div>
+            <label className="block text-sm font-medium text-black mb-2">
+              Title *
+            </label>
+            <input
+              type="text"
+              name="title"
+              value={formData.title}
+              onChange={handleInputChange}
+              placeholder="Enter blog title"
+              required
+              className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
+            />
+          </div>
 
-      {/* Slug */}
-      <div>
-        <label className="block text-sm font-medium text-black mb-2">
-          Slug *
-        </label>
-        <input
-          type="text"
-          name="slug"
-          value={formData.slug}
-          onChange={handleInputChange}
-          placeholder="my-blog-post"
-          required
-          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
-        />
-        <p className="text-xs text-gray-500 mt-1">
-          Must be unique with only lowercase letters, numbers, and hyphens
-        </p>
-      </div>
+          {/* Slug */}
+          <div>
+            <label className="block text-sm font-medium text-black mb-2">
+              Slug *
+            </label>
+            <input
+              type="text"
+              name="slug"
+              value={formData.slug}
+              onChange={handleInputChange}
+              placeholder="my-blog-post"
+              required
+              className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
+            />
+            <p className="text-xs text-gray-500 mt-1">
+              Must be unique with only lowercase letters, numbers, and hyphens
+            </p>
+          </div>
 
-      {/* Description */}
-      <div>
-        <label className="block text-sm font-medium text-black mb-2">
-          Description *
-        </label>
-        <textarea
-          name="description"
-          value={formData.description}
-          onChange={handleInputChange}
-          placeholder="Brief SEO description"
-          rows={3}
-          required
-          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
-        />
-      </div>
+          {/* Description */}
+          <div>
+            <label className="block text-sm font-medium text-black mb-2">
+              Description *
+            </label>
+            <textarea
+              name="description"
+              value={formData.description}
+              onChange={handleInputChange}
+              placeholder="Brief SEO description"
+              rows={3}
+              required
+              className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
+            />
+          </div>
 
-      {/* Image Upload */}
-      <CloudinaryUploader
-        value={formData.image_url}
-        onChange={(url) => setFormData({ ...formData, image_url: url })}
-        folder="portfolio/blogs"
-        label="Featured Image"
-      />
-
-      {/* Image Alt Text */}
-      <div>
-        <label className="block text-sm font-medium text-black mb-2">
-          Image Alt Text
-        </label>
-        <input
-          type="text"
-          name="image_alt"
-          value={formData.image_alt}
-          onChange={handleInputChange}
-          placeholder="Descriptive alt text for accessibility"
-          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
-        />
-      </div>
-
-      {/* Category */}
-      <div>
-        <label className="block text-sm font-medium text-black mb-2">
-          Category
-        </label>
-        <input
-          type="text"
-          name="category"
-          value={formData.category}
-          onChange={handleInputChange}
-          placeholder="e.g., Web Security, API Security"
-          className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
-        />
-      </div>
-
-      {/* Tags */}
-      <div>
-        <label className="block text-sm font-medium text-black mb-2">
-          Tags
-        </label>
-        <div className="flex gap-2 mb-2">
-          <input
-            type="text"
-            value={tagInput}
-            onChange={(e) => setTagInput(e.target.value)}
-            onKeyPress={(e) =>
-              e.key === "Enter" && (e.preventDefault(), addTag())
-            }
-            placeholder="Add a tag and press Enter"
-            className="flex-1 px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
+          {/* Image Upload */}
+          <CloudinaryUploader
+            value={formData.image_url}
+            onChange={(url) => setFormData({ ...formData, image_url: url })}
+            folder="portfolio/blogs"
+            label="Featured Image"
           />
-          <button
-            type="button"
-            onClick={addTag}
-            className="px-4 py-2 bg-black text-white hover:bg-[#4ddcd3] hover:text-black rounded-xl transition-all shadow-soft-sm"
-          >
-            Add
-          </button>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {formData.tags.map((tag) => (
-            <span
-              key={tag}
-              className="px-3 py-1 bg-[#4ddcd3]/10 text-[#4ddcd3] border border-[#4ddcd3]/20 rounded-full text-sm flex items-center gap-2"
-            >
-              {tag}
+
+          {/* Image Alt Text */}
+          <div>
+            <label className="block text-sm font-medium text-black mb-2">
+              Image Alt Text
+            </label>
+            <input
+              type="text"
+              name="image_alt"
+              value={formData.image_alt}
+              onChange={handleInputChange}
+              placeholder="Descriptive alt text for accessibility"
+              className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
+            />
+          </div>
+
+          {/* Category */}
+          <div>
+            <label className="block text-sm font-medium text-black mb-2">
+              Category
+            </label>
+            <input
+              type="text"
+              name="category"
+              value={formData.category}
+              onChange={handleInputChange}
+              placeholder="e.g., Web Security, API Security"
+              className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
+            />
+          </div>
+
+          {/* Tags */}
+          <div>
+            <label className="block text-sm font-medium text-black mb-2">
+              Tags
+            </label>
+            <div className="flex gap-2 mb-2">
+              <input
+                type="text"
+                value={tagInput}
+                onChange={(e) => setTagInput(e.target.value)}
+                onKeyPress={(e) =>
+                  e.key === "Enter" && (e.preventDefault(), addTag())
+                }
+                placeholder="Add a tag and press Enter"
+                className="flex-1 px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
+              />
               <button
                 type="button"
-                onClick={() => removeTag(tag)}
-                className="hover:text-red-600"
+                onClick={addTag}
+                className="px-4 py-2 bg-black text-white hover:bg-[#4ddcd3] hover:text-black rounded-xl transition-all shadow-soft-sm"
               >
-                ✕
+                Add
               </button>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {formData.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="px-3 py-1 bg-[#4ddcd3]/10 text-[#4ddcd3] border border-[#4ddcd3]/20 rounded-full text-sm flex items-center gap-2"
+                >
+                  {tag}
+                  <button
+                    type="button"
+                    onClick={() => removeTag(tag)}
+                    className="hover:text-red-600"
+                  >
+                    ✕
+                  </button>
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Content - Rich Text Editor */}
+          <div>
+            <label className="block text-sm font-medium text-black mb-2">
+              Content (Rich Text) *
+            </label>
+            <RichTextEditor
+              value={formData.content}
+              onChange={(content) =>
+                setFormData((prev) => ({ ...prev, content }))
+              }
+            />
+          </div>
+
+          {/* Published */}
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="checkbox"
+              name="published"
+              checked={formData.published}
+              onChange={handleInputChange}
+              className="w-4 h-4 rounded text-[#4ddcd3] focus:ring-[#4ddcd3]"
+            />
+            <span className="text-sm font-medium text-gray-700">
+              Publish immediately
             </span>
-          ))}
+          </label>
+
+          {/* Submit */}
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-black hover:bg-[#4ddcd3] hover:text-black disabled:bg-gray-400 text-white font-medium rounded-xl transition-all duration-300 shadow-soft-lg hover:-translate-y-1 hover:shadow-soft-xl"
+          >
+            <Save className="w-4 h-4" />
+            {loading ? "Saving..." : isEditing ? "Update Blog" : "Create Blog"}
+          </button>
+        </form>
+
+        {/* Preview Section - Sticky */}
+        <div className="lg:sticky lg:top-20 h-fit">
+          <BlogPreview title={formData.title} content={formData.content} />
         </div>
       </div>
-
-      {/* Content - Rich Text Editor */}
-      <div>
-        <label className="block text-sm font-medium text-black mb-2">
-          Content (Markdown) *
-        </label>
-        <RichTextEditor
-          value={formData.content}
-          onChange={(content) => setFormData((prev) => ({ ...prev, content }))}
-        />
-      </div>
-
-      {/* Published */}
-      <label className="flex items-center gap-2 cursor-pointer">
-        <input
-          type="checkbox"
-          name="published"
-          checked={formData.published}
-          onChange={handleInputChange}
-          className="w-4 h-4 rounded text-[#4ddcd3] focus:ring-[#4ddcd3]"
-        />
-        <span className="text-sm font-medium text-gray-700">
-          Publish immediately
-        </span>
-      </label>
-
-      {/* Submit */}
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-black hover:bg-[#4ddcd3] hover:text-black disabled:bg-gray-400 text-white font-medium rounded-xl transition-all duration-300 shadow-soft-lg hover:-translate-y-1 hover:shadow-soft-xl"
-      >
-        <Save className="w-4 h-4" />
-        {loading ? "Saving..." : isEditing ? "Update Blog" : "Create Blog"}
-      </button>
-    </form>
+    </div>
   );
 }

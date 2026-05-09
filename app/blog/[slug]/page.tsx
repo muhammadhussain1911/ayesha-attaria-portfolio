@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { supabaseAdmin } from "@/lib/supabase";
 import { Blog } from "@/lib/supabase";
-import { MarkdownRenderer } from "@/components/shared/MarkdownRenderer";
+import { HTMLRenderer } from "@/components/shared/HTMLRenderer";
 import { notFound } from "next/navigation";
 
 export const metadata: Metadata = {
@@ -136,9 +136,9 @@ export default async function BlogPostPage({
       {/* Post Content */}
       <section className="py-12 md:py-20">
         <div className="section-container max-w-3xl">
-          {/* Post body - Markdown content rendered */}
+          {/* Post body - HTML content rendered */}
           <div className="mb-12">
-            <MarkdownRenderer content={post.content} />
+            <HTMLRenderer content={post.content} className="text-gray-700" />
           </div>
 
           {/* Tags */}
@@ -212,8 +212,8 @@ export default async function BlogPostPage({
                   {relatedPost.image_url && (
                     <div className="relative w-full h-48 overflow-hidden bg-off-white">
                       <img
-                      src={relatedPost.image_url}
-                      alt={relatedPost.image_alt || relatedPost.title}
+                        src={relatedPost.image_url}
+                        alt={relatedPost.image_alt || relatedPost.title}
                       />
                     </div>
                   )}

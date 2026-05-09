@@ -1,20 +1,16 @@
 "use client";
 
-import { useState, useRef } from "react";
-import {
-  Bold,
-  Italic,
-  Underline,
-  Code,
-  Heading2,
-  Heading3,
-  List,
-  ListOrdered,
-  Quote,
-  Link,
-  Image as ImageIcon,
-  Trash2,
-} from "lucide-react";
+import dynamic from "next/dynamic";
+import { useMemo } from "react";
+import "quill/dist/quill.snow.css";
+
+const ReactQuill = dynamic(
+  async () => {
+    const { default: RQ } = await import("react-quill");
+    return RQ;
+  },
+  { ssr: false, loading: () => <div className="h-64 bg-gray-50 rounded-lg animate-pulse" /> }
+);
 
 interface RichTextEditorProps {
   value: string;
@@ -22,212 +18,160 @@ interface RichTextEditorProps {
 }
 
 export function RichTextEditor({ value, onChange }: RichTextEditorProps) {
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const [selectedText, setSelectedText] = useState("");
+  const modules = useMemo(
+    () => ({
+      toolbar: [
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+        ["bold", "italic", "underline", "strike"],
+        [{ color: [] }, { background: [] }],
+        ["blockquote", "code-block"],
+        [{ list: "ordered" }, { list: "bullet" }],
+        ["link", "image"],
+        ["clean"],
+      ],
+    }),
+    []
+  );
 
-  const insertMarkdown = (before: string, after: string = before) => {
-    const textarea = textareaRef.current;
-    if (!textarea) return;
-
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    const text = textarea.value;
-    const selectedText = text.substring(start, end) || "text";
-
-    const newText =
-      text.substring(0, start) +
-      before +
-      selectedText +
-      after +
-      text.substring(end);
-
-    onChange(newText);
-
-    setTimeout(() => {
-      textarea.focus();
-      const newCursorPos = start + before.length + selectedText.length;
-      textarea.setSelectionRange(newCursorPos, newCursorPos);
-    }, 0);
-  };
-
-  const insertBlock = (block: string) => {
-    const textarea = textareaRef.current;
-    if (!textarea) return;
-
-    const start = textarea.selectionStart;
-    const text = textarea.value;
-    const isNewLine = start === 0 || text[start - 1] === "\n";
-
-    const newText = isNewLine
-      ? text.substring(0, start) + block + text.substring(start)
-      : text.substring(0, start) + "\n" + block + text.substring(start);
-
-    onChange(newText);
-
-    setTimeout(() => {
-      textarea.focus();
-    }, 0);
-  };
-
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const base64 = event.target?.result as string;
-        insertMarkdown(`![alt text](${base64})`, "");
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const insertLink = () => {
-    const url = prompt("Enter URL:");
-    const text = prompt("Enter link text:") || "link";
-    if (url) {
-      insertMarkdown(`[${text}](${url})`, "");
-    }
-  };
-
-  const toolbar = [
-    {
-      label: "H2",
-      icon: Heading2,
-      onClick: () => insertBlock("## Heading 2\n"),
-      tooltip: "Heading 2",
-    },
-    {
-      label: "H3",
-      icon: Heading3,
-      onClick: () => insertBlock("### Heading 3\n"),
-      tooltip: "Heading 3",
-    },
-    { type: "divider" },
-    {
-      label: "B",
-      icon: Bold,
-      onClick: () => insertMarkdown("**", "**"),
-      tooltip: "Bold",
-    },
-    {
-      label: "I",
-      icon: Italic,
-      onClick: () => insertMarkdown("*", "*"),
-      tooltip: "Italic",
-    },
-    {
-      label: "U",
-      icon: Underline,
-      onClick: () => insertMarkdown("<u>", "</u>"),
-      tooltip: "Underline",
-    },
-    { type: "divider" },
-    {
-      label: "Bullet List",
-      icon: List,
-      onClick: () => insertBlock("- Item 1\n- Item 2\n- Item 3\n"),
-      tooltip: "Bullet List",
-    },
-    {
-      label: "Numbered List",
-      icon: ListOrdered,
-      onClick: () => insertBlock("1. Item 1\n2. Item 2\n3. Item 3\n"),
-      tooltip: "Numbered List",
-    },
-    { type: "divider" },
-    {
-      label: "Blockquote",
-      icon: Quote,
-      onClick: () => insertBlock("> Quote here\n"),
-      tooltip: "Quote",
-    },
-    {
-      label: "Code",
-      icon: Code,
-      onClick: () => insertBlock("```\ncode here\n```\n"),
-      tooltip: "Code Block",
-    },
-    { type: "divider" },
-    {
-      label: "Link",
-      icon: Link,
-      onClick: insertLink,
-      tooltip: "Insert Link",
-    },
-    {
-      label: "Image",
-      icon: ImageIcon,
-      onClick: () => {
-        const input = document.createElement("input");
-        input.type = "file";
-        input.accept = "image/*";
-        input.onchange = (e) => handleImageUpload(e as any);
-        input.click();
-      },
-      tooltip: "Insert Image",
-    },
+  const formats = [
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "color",
+    "background",
+    "blockquote",
+    "code-block",
+    "list",
+    "link",
+    "image",
   ];
 
   return (
     <div className="space-y-2">
-      {/* Toolbar */}
-      <div className="flex flex-wrap gap-1 p-3 bg-off-white border border-gray-200 border-b-0 rounded-t-xl">
-        {toolbar.map((item, idx) => {
-          if (item.type === "divider") {
-            return (
-              <div key={`divider-${idx}`} className="w-px bg-gray-300 mx-1" />
-            );
-          }
+      <style jsx global>{`
+        .ql-container {
+          font-size: 16px;
+          border: 1px solid #e5e7eb;
+          border-top: none;
+          border-radius: 0 0 0.75rem 0.75rem;
+          background: white;
+        }
 
-          const IconComponent = item.icon;
-          return (
-            <button
-              key={item.label}
-              type="button"
-              onClick={item.onClick}
-              title={item.tooltip}
-              className="p-2 rounded hover:bg-[#4ddcd3]/10 transition-colors text-gray-600 hover:text-[#4ddcd3]"
-            >
-              <IconComponent className="w-5 h-5" />
-            </button>
-          );
-        })}
-      </div>
+        .ql-toolbar {
+          border: 1px solid #e5e7eb;
+          border-radius: 0.75rem 0.75rem 0 0;
+          background: #f9fafb;
+        }
 
-      {/* Textarea */}
-      <textarea
-        ref={textareaRef}
+        .ql-toolbar button:hover,
+        .ql-toolbar button.ql-active,
+        .ql-toolbar button:focus {
+          color: #4ddcd3;
+        }
+
+        .ql-toolbar button svg {
+          stroke: currentColor;
+        }
+
+        .ql-editor {
+          min-height: 300px;
+          padding: 16px;
+          font-family: inherit;
+        }
+
+        .ql-editor.ql-blank::before {
+          color: #d1d5db;
+          font-style: italic;
+        }
+
+        .ql-editor h1 {
+          font-size: 2em;
+          font-weight: bold;
+          margin: 0.67em 0;
+        }
+
+        .ql-editor h2 {
+          font-size: 1.5em;
+          font-weight: bold;
+          margin: 0.75em 0;
+        }
+
+        .ql-editor h3 {
+          font-size: 1.25em;
+          font-weight: bold;
+          margin: 0.83em 0;
+        }
+
+        .ql-editor h4 {
+          font-size: 1.1em;
+          font-weight: bold;
+          margin: 1em 0;
+        }
+
+        .ql-editor h5 {
+          font-size: 0.95em;
+          font-weight: bold;
+          margin: 1.17em 0;
+        }
+
+        .ql-editor h6 {
+          font-size: 0.85em;
+          font-weight: bold;
+          margin: 1.33em 0;
+        }
+
+        .ql-editor ul,
+        .ql-editor ol {
+          padding-left: 1.5em;
+          margin: 1em 0;
+        }
+
+        .ql-editor blockquote {
+          border-left: 4px solid #4ddcd3;
+          padding-left: 1em;
+          margin: 1em 0;
+          background: #f0fffe;
+        }
+
+        .ql-editor pre {
+          background: #1f2937;
+          color: #f3f4f6;
+          padding: 1em;
+          border-radius: 0.5em;
+          margin: 1em 0;
+        }
+
+        .ql-editor code {
+          background: #f3f4f6;
+          color: #ef4444;
+          padding: 0.2em 0.4em;
+          border-radius: 0.25em;
+          font-family: monospace;
+        }
+
+        .ql-editor a {
+          color: #4ddcd3;
+          text-decoration: underline;
+        }
+
+        .ql-editor img {
+          max-width: 100%;
+          height: auto;
+          border-radius: 0.5em;
+          margin: 1em 0;
+        }
+      `}</style>
+
+      <ReactQuill
         value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder={`# Your Blog Title
-
-Write your content here. You can use markdown formatting:
-
-## Headings
-Use ## for H2, ### for H3
-
-**Bold text** and *italic text*
-
-- Bullet points
-1. Numbered lists
-
-\`\`\`
-code blocks
-\`\`\`
-
-> Blockquotes
-
-[Links](https://example.com)
-
-![Images](image-url-or-base64)`}
-        rows={15}
-        className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-b-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent outline-none font-mono text-sm resize-vertical"
+        onChange={onChange}
+        modules={modules}
+        formats={formats}
+        placeholder="Start writing your blog post here..."
+        theme="snow"
       />
-
-      {/* Preview Note */}
-      <p className="text-xs text-gray-500">
-        💡 Supports Markdown formatting. Preview will render on the live page.
-      </p>
     </div>
   );
 }

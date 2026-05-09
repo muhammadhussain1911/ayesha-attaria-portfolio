@@ -63,11 +63,13 @@ export function HTMLRenderer({ content, className = "" }: HTMLRendererProps) {
     <div
       className={`html-content prose prose-lg max-w-none ${className}`}
       dangerouslySetInnerHTML={{ __html: sanitizedHTML }}
-      style={{
-        "--tw-prose-headings": "var(--color-black)",
-        "--tw-prose-body": "var(--color-gray-700)",
-        "--tw-prose-links": "var(--color-teal)",
-      } as React.CSSProperties}
+      style={
+        {
+          "--tw-prose-headings": "var(--color-black)",
+          "--tw-prose-body": "var(--color-gray-700)",
+          "--tw-prose-links": "var(--color-teal)",
+        } as React.CSSProperties
+      }
     />
   );
 }

@@ -108,10 +108,12 @@ async function getSkills(): Promise<Skill[]> {
     const response = await fetch(`${baseUrl}/api/skills`, {
       next: { revalidate: 60 },
     });
-    
+
     if (!response.ok) throw new Error("Failed to fetch skills");
     const data = await response.json();
-    return Array.isArray(data) ? data.sort((a, b) => (a.order_index || 0) - (b.order_index || 0)) : [];
+    return Array.isArray(data)
+      ? data.sort((a, b) => (a.order_index || 0) - (b.order_index || 0))
+      : [];
   } catch (error) {
     console.error("Error fetching skills:", error);
     return [];
@@ -124,7 +126,7 @@ async function getCertifications(): Promise<Certification[]> {
     const response = await fetch(`${baseUrl}/api/certifications`, {
       next: { revalidate: 60 },
     });
-    
+
     if (!response.ok) throw new Error("Failed to fetch certifications");
     const data = await response.json();
     return Array.isArray(data) ? data : [];
@@ -140,7 +142,7 @@ async function getExperiences(): Promise<Experience[]> {
     const response = await fetch(`${baseUrl}/api/experience`, {
       next: { revalidate: 60 },
     });
-    
+
     if (!response.ok) throw new Error("Failed to fetch experience");
     const data = await response.json();
     return Array.isArray(data) ? data : [];

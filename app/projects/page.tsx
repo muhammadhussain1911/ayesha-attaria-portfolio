@@ -29,7 +29,7 @@ async function getProjects(): Promise<Project[]> {
     const response = await fetch(`${baseUrl}/api/projects?published=true`, {
       next: { revalidate: 60 },
     });
-    
+
     if (!response.ok) throw new Error("Failed to fetch projects");
     const data = await response.json();
     return Array.isArray(data) ? data : [];
@@ -188,10 +188,16 @@ export default async function ProjectsPage() {
             discuss your security needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
-            <Link href="/blog" className="px-8 py-4 bg-white text-black font-medium rounded-2xl border border-gray-100 hover:border-[#4ddcd3]/50 transition-all duration-300 shadow-soft-lg hover:-translate-y-1">
+            <Link
+              href="/blog"
+              className="px-8 py-4 bg-white text-black font-medium rounded-2xl border border-gray-100 hover:border-[#4ddcd3]/50 transition-all duration-300 shadow-soft-lg hover:-translate-y-1"
+            >
               Read More on Blog
             </Link>
-            <Link href="/contact" className="px-8 py-4 bg-black text-white font-medium rounded-2xl hover:bg-[#4ddcd3] hover:text-black transition-all duration-300 shadow-soft-lg hover:-translate-y-1 hover:shadow-soft-xl">
+            <Link
+              href="/contact"
+              className="px-8 py-4 bg-black text-white font-medium rounded-2xl hover:bg-[#4ddcd3] hover:text-black transition-all duration-300 shadow-soft-lg hover:-translate-y-1 hover:shadow-soft-xl"
+            >
               Start Your Assessment
             </Link>
           </div>

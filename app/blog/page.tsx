@@ -29,7 +29,7 @@ async function getBlogs(): Promise<Blog[]> {
     const response = await fetch(`${baseUrl}/api/blogs?published=true`, {
       next: { revalidate: 60 },
     });
-    
+
     if (!response.ok) throw new Error("Failed to fetch blogs");
     const data = await response.json();
     return Array.isArray(data) ? data : [];

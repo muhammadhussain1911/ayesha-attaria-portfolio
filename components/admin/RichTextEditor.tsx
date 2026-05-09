@@ -105,37 +105,49 @@ export function RichTextEditor({ value, onChange }: RichTextEditorProps) {
         {/* Heading levels */}
         <div className="flex gap-1 border-r border-gray-300 pr-2">
           <ToolbarButton
-            onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+            onClick={() =>
+              editor.chain().focus().toggleHeading({ level: 1 }).run()
+            }
             active={editor.isActive("heading", { level: 1 })}
             Icon={Heading1}
             title="Heading 1"
           />
           <ToolbarButton
-            onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+            onClick={() =>
+              editor.chain().focus().toggleHeading({ level: 2 }).run()
+            }
             active={editor.isActive("heading", { level: 2 })}
             Icon={Heading2}
             title="Heading 2"
           />
           <ToolbarButton
-            onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+            onClick={() =>
+              editor.chain().focus().toggleHeading({ level: 3 }).run()
+            }
             active={editor.isActive("heading", { level: 3 })}
             Icon={Heading3}
             title="Heading 3"
           />
           <ToolbarButton
-            onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
+            onClick={() =>
+              editor.chain().focus().toggleHeading({ level: 4 }).run()
+            }
             active={editor.isActive("heading", { level: 4 })}
             Icon={Heading4}
             title="Heading 4"
           />
           <ToolbarButton
-            onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
+            onClick={() =>
+              editor.chain().focus().toggleHeading({ level: 5 }).run()
+            }
             active={editor.isActive("heading", { level: 5 })}
             Icon={Heading5}
             title="Heading 5"
           />
           <ToolbarButton
-            onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
+            onClick={() =>
+              editor.chain().focus().toggleHeading({ level: 6 }).run()
+            }
             active={editor.isActive("heading", { level: 6 })}
             Icon={Heading6}
             title="Heading 6"
@@ -225,10 +237,7 @@ export function RichTextEditor({ value, onChange }: RichTextEditorProps) {
 
       {/* Editor */}
       <div className="bg-white">
-        <EditorContent
-          editor={editor}
-          className="tiptap-editor prose-editor"
-        />
+        <EditorContent editor={editor} className="tiptap-editor prose-editor" />
       </div>
 
       {/* Styling */}

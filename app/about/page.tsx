@@ -3,7 +3,6 @@ import Link from "next/link";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { ToolsGrid } from "@/components/shared/ToolsGrid";
 import { IconRenderer } from "@/components/shared/IconRenderer";
-import { supabaseAdmin } from "@/lib/supabase";
 import { Skill, Certification, Experience } from "@/lib/supabase";
 import { Award, Briefcase, Code2, BookOpen } from "lucide-react";
 
@@ -105,12 +104,14 @@ const vulnerabilities = [
 
 async function getSkills(): Promise<Skill[]> {
   try {
-    const { data, error } = await supabaseAdmin
-      .from("skills")
-      .select("*")
-      .order("order_index", { ascending: true });
-    if (error) throw error;
-    return data || [];
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    const response = await fetch(`${baseUrl}/api/skills`, {
+      next: { revalidate: 60 },
+    });
+    
+    if (!response.ok) throw new Error("Failed to fetch skills");
+    const data = await response.json();
+    return Array.isArray(data) ? data.sort((a, b) => (a.order_index || 0) - (b.order_index || 0)) : [];
   } catch (error) {
     console.error("Error fetching skills:", error);
     return [];
@@ -119,12 +120,14 @@ async function getSkills(): Promise<Skill[]> {
 
 async function getCertifications(): Promise<Certification[]> {
   try {
-    const { data, error } = await supabaseAdmin
-      .from("certifications")
-      .select("*")
-      .order("order_index", { ascending: true });
-    if (error) throw error;
-    return data || [];
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    const response = await fetch(`${baseUrl}/api/certifications`, {
+      next: { revalidate: 60 },
+    });
+    
+    if (!response.ok) throw new Error("Failed to fetch certifications");
+    const data = await response.json();
+    return Array.isArray(data) ? data : [];
   } catch (error) {
     console.error("Error fetching certifications:", error);
     return [];
@@ -133,12 +136,14 @@ async function getCertifications(): Promise<Certification[]> {
 
 async function getExperiences(): Promise<Experience[]> {
   try {
-    const { data, error } = await supabaseAdmin
-      .from("experience")
-      .select("*")
-      .order("order_index", { ascending: true });
-    if (error) throw error;
-    return data || [];
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    const response = await fetch(`${baseUrl}/api/experience`, {
+      next: { revalidate: 60 },
+    });
+    
+    if (!response.ok) throw new Error("Failed to fetch experience");
+    const data = await response.json();
+    return Array.isArray(data) ? data : [];
   } catch (error) {
     console.error("Error fetching experiences:", error);
     return [];

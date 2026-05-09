@@ -51,8 +51,17 @@ export function CertificationForm({
     setLoading(true);
 
     try {
+      // Prepare data with empty strings converted to null for optional fields
+      const dataToValidate = {
+        ...formData,
+        issue_date: formData.issue_date || "",
+        expiry_date: formData.expiry_date || "",
+        badge_image_url: formData.badge_image_url || "",
+        credential_url: formData.credential_url || "",
+      };
+
       // Validate form data
-      const validated = certificationSchema.parse(formData);
+      const validated = certificationSchema.parse(dataToValidate);
 
       // Get auth token
       if (!session?.access_token) {
@@ -143,14 +152,13 @@ export function CertificationForm({
       {/* Issue Date */}
       <div>
         <label className="block text-sm font-medium text-black mb-2">
-          Issue Date *
+          Issue Date (Optional)
         </label>
         <input
           type="date"
           name="issue_date"
           value={formData.issue_date}
           onChange={handleInputChange}
-          required
           className="w-full px-4 py-3 bg-off-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4ddcd3] focus:border-transparent transition-all shadow-soft-sm"
         />
       </div>

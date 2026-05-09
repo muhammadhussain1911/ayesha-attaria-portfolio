@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { BlogCard } from "@/components/shared/BlogCard";
 import { SectionHeading } from "@/components/shared/SectionHeading";
-import { supabaseAdmin } from "@/lib/supabase";
 import { Blog } from "@/lib/supabase";
 import { FileText } from "lucide-react";
 
@@ -26,14 +25,14 @@ export const metadata: Metadata = {
 
 async function getBlogs(): Promise<Blog[]> {
   try {
-    const { data, error } = await supabaseAdmin
-      .from("blogs")
-      .select("*")
-      .eq("published", true)
-      .order("created_at", { ascending: false });
-
-    if (error) throw error;
-    return data || [];
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    const response = await fetch(`${baseUrl}/api/blogs?published=true`, {
+      next: { revalidate: 60 },
+    });
+    
+    if (!response.ok) throw new Error("Failed to fetch blogs");
+    const data = await response.json();
+    return Array.isArray(data) ? data : [];
   } catch (error) {
     console.error("Error fetching blogs:", error);
     return [];

@@ -77,7 +77,8 @@ export const certificationSchema = z.object({
   issuer: z.string().min(2, "Issuer is required"),
   issue_date: z
     .string()
-    .refine((date) => !isNaN(Date.parse(date)), "Invalid issue date"),
+    .optional()
+    .refine((date) => !date || !isNaN(Date.parse(date)), "Invalid issue date"),
   expiry_date: z
     .string()
     .optional()

@@ -16,7 +16,7 @@ export default function AdminProjects() {
 
   const loadProjects = async () => {
     try {
-      const response = await fetch('/api/projects');
+      const response = await fetch('/api/projects?admin=true');
       const data = await response.json();
       setProjects(Array.isArray(data) ? data : []);
     } catch {

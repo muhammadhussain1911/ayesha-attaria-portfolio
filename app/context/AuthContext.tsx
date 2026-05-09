@@ -5,6 +5,7 @@ import {
   useContext,
   useEffect,
   useState,
+  useRef,
   ReactNode,
 } from "react";
 import { User, Session } from "@supabase/supabase-js";
@@ -31,10 +32,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const setupInProgressRef = React.useRef<Set<string>>(new Set());
 
-  // Helper function to ensure user is in admins table (auto-setup)
+  // Helper function to ensure user is in admins table (auto-setup) - only once per email
   const ensureAdminSetup = async (userEmail: string | undefined) => {
     if (!userEmail) return;
+
+    // Skip if already in progress for this email
+    if (setupInProgressRef.current.has(userEmail)) {
+      return;
+    }
+
+    setupInProgressRef.current.add(userEmail);
 
     try {
       // Call the admin setup endpoint to ensure user is in admins table
@@ -51,6 +60,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } catch (error) {
       // Silently fail - don't interrupt auth flow
       console.debug("Admin setup fetch error:", error);
+    } finally {
+      setupInProgressRef.current.delete(userEmail);
     }
   };
 

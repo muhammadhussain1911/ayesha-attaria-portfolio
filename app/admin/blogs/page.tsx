@@ -16,7 +16,7 @@ export default function AdminBlogs() {
 
   const loadBlogs = async () => {
     try {
-      const response = await fetch('/api/blogs');
+      const response = await fetch('/api/blogs?admin=true');
       const data = await response.json();
       setBlogs(Array.isArray(data) ? data : []);
     } catch {

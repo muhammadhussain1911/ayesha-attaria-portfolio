@@ -92,7 +92,7 @@ export interface Certification {
   id: string;
   title: string;
   issuer: string;
-  issue_date: string;
+  issue_date: string | null;
   expiry_date: string | null;
   credential_id: string | null;
   credential_url: string | null;

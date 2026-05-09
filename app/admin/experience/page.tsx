@@ -16,7 +16,7 @@ export default function AdminExperience() {
 
   const loadExperiences = async () => {
     try {
-      const response = await fetch('/api/experience');
+      const response = await fetch('/api/experience?admin=true');
       const data = await response.json();
       setExperiences(Array.isArray(data) ? data : []);
     } catch {

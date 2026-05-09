@@ -16,11 +16,14 @@ export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
     const published = searchParams.get("published") === "true";
+    const admin = searchParams.get("admin") === "true";
     const category = searchParams.get("category");
 
-    let query = supabase.from("blogs").select("*");
+    // For admin requests, use supabaseAdmin to bypass RLS and get all records
+    const client = admin ? supabaseAdmin : supabase;
+    let query = client.from("blogs").select("*");
 
-    if (published) {
+    if (published && !admin) {
       query = query.eq("published", true);
     }
 

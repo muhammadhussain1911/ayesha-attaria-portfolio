@@ -14,7 +14,11 @@ async function isAdmin(userId: string) {
 
 export async function GET(request: NextRequest) {
   try {
-    const { data, error } = await supabase
+    const searchParams = request.nextUrl.searchParams;
+    const admin = searchParams.get("admin") === "true";
+
+    const client = admin ? supabaseAdmin : supabase;
+    const { data, error } = await client
       .from("ctf_rankings")
       .select("*")
       .order("order_index", { ascending: true });

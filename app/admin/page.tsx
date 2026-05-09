@@ -53,13 +53,13 @@ export default function AdminDashboard() {
           ctfRankings,
           bugBountyPrograms,
         ] = await Promise.all([
-          fetch("/api/blogs").then((r) => r.json()),
-          fetch("/api/projects").then((r) => r.json()),
-          fetch("/api/skills").then((r) => r.json()),
-          fetch("/api/experience").then((r) => r.json()),
-          fetch("/api/certifications").then((r) => r.json()),
-          fetch("/api/ctf-rankings").then((r) => r.json()),
-          fetch("/api/bug-bounty-programs").then((r) => r.json()),
+          fetch("/api/blogs?admin=true").then((r) => r.json()),
+          fetch("/api/projects?admin=true").then((r) => r.json()),
+          fetch("/api/skills?admin=true").then((r) => r.json()),
+          fetch("/api/experience?admin=true").then((r) => r.json()),
+          fetch("/api/certifications?admin=true").then((r) => r.json()),
+          fetch("/api/ctf-rankings?admin=true").then((r) => r.json()),
+          fetch("/api/bug-bounty-programs?admin=true").then((r) => r.json()),
         ]);
 
         setStats({

@@ -16,8 +16,10 @@ export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
     const type = searchParams.get("type");
+    const admin = searchParams.get("admin") === "true";
 
-    let query = supabase.from("experience").select("*");
+    const client = admin ? supabaseAdmin : supabase;
+    let query = client.from("experience").select("*");
 
     if (type) {
       query = query.eq("type", type);

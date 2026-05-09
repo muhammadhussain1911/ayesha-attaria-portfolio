@@ -123,7 +123,7 @@ export function BlogForm({ initialData, isEditing }: BlogFormProps) {
       </button>
 
       {/* Form and Preview Container */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1">
         {/* Form Section */}
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Title */}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { CldUploadWidget } from "next-cloudinary";
 import { Upload, X, AlertCircle } from "lucide-react";
 import Image from "next/image";

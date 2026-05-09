@@ -18,7 +18,7 @@ export default function AdminBugBountyPrograms() {
 
   const loadPrograms = async () => {
     try {
-      const response = await fetch("/api/bug-bounty-programs");
+      const response = await fetch("/api/bug-bounty-programs?admin=true");
       const data = await response.json();
       setPrograms(
         Array.isArray(data)

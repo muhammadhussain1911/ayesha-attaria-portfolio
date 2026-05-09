@@ -16,7 +16,7 @@ export default function AdminSkills() {
 
   const loadSkills = async () => {
     try {
-      const response = await fetch('/api/skills');
+      const response = await fetch('/api/skills?admin=true');
       const data = await response.json();
       setSkills(Array.isArray(data) ? data : []);
     } catch {

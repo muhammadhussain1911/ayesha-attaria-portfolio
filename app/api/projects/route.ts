@@ -17,14 +17,16 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     const published = searchParams.get("published") === "true";
     const featured = searchParams.get("featured") === "true";
+    const admin = searchParams.get("admin") === "true";
 
-    let query = supabase.from("projects").select("*");
+    const client = admin ? supabaseAdmin : supabase;
+    let query = client.from("projects").select("*");
 
-    if (published) {
+    if (published && !admin) {
       query = query.eq("published", true);
     }
 
-    if (featured) {
+    if (featured && !admin) {
       query = query.eq("featured", true);
     }
 

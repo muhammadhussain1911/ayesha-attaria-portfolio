@@ -18,7 +18,7 @@ export default function AdminCTFRankings() {
 
   const loadRankings = async () => {
     try {
-      const response = await fetch("/api/ctf-rankings");
+      const response = await fetch("/api/ctf-rankings?admin=true");
       const data = await response.json();
       setRankings(
         Array.isArray(data)

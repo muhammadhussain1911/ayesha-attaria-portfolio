@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { supabaseAdmin } from "@/lib/supabase";
 import { Blog } from "@/lib/supabase";
+import { MarkdownRenderer } from "@/components/shared/MarkdownRenderer";
 import { notFound } from "next/navigation";
 
 export const metadata: Metadata = {
@@ -135,11 +136,9 @@ export default async function BlogPostPage({
       {/* Post Content */}
       <section className="py-12 md:py-20">
         <div className="section-container max-w-3xl">
-          {/* Post body - Markdown content */}
-          <div className="prose prose-lg max-w-none mb-12 text-gray-700 space-y-6">
-            <div className="whitespace-pre-wrap leading-relaxed">
-              {post.content}
-            </div>
+          {/* Post body - Markdown content rendered */}
+          <div className="mb-12">
+            <MarkdownRenderer content={post.content} />
           </div>
 
           {/* Tags */}

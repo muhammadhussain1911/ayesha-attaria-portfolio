@@ -38,6 +38,21 @@ export default function SignupPage() {
     setIsSubmitting(true);
     try {
       await signUp(email, password);
+
+      // After successful signup, add user to admins table
+      const setupResponse = await fetch("/api/admin/setup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!setupResponse.ok) {
+        const setupError = await setupResponse.json();
+        console.warn("Admin setup warning:", setupError);
+        // Don't fail signup if admin setup fails, user can manually trigger it
+        // But log for debugging
+      }
+
       setSuccess(true);
     } catch (err: any) {
       setError(err.message || "Signup failed");

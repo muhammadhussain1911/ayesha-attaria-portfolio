@@ -32,6 +32,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [mounted, setMounted] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
+  // Helper function to ensure user is in admins table (auto-setup)
+  const ensureAdminSetup = async (userEmail: string | undefined) => {
+    if (!userEmail) return;
+
+    try {
+      // Call the admin setup endpoint to ensure user is in admins table
+      const response = await fetch("/api/admin/setup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: userEmail }),
+      });
+
+      if (!response.ok) {
+        // If setup fails, it's not critical - admin might already be in table
+        console.debug("Admin setup response:", response.status);
+      }
+    } catch (error) {
+      // Silently fail - don't interrupt auth flow
+      console.debug("Admin setup fetch error:", error);
+    }
+  };
+
   useEffect(() => {
     // Set mounted to true to indicate hydration is complete
     setMounted(true);
@@ -44,6 +66,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setSession(session);
         setUser(session?.user || null);
         if (session?.user) {
+          // Auto-setup admin if authorized email
+          await ensureAdminSetup(session.user.email);
+
           try {
             const { data } = await supabase
               .from("admins")
@@ -72,6 +97,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setSession(session);
         setUser(session?.user || null);
         if (session?.user) {
+          // Auto-setup admin if authorized email
+          await ensureAdminSetup(session.user.email);
+
           try {
             const { data } = await supabase
               .from("admins")

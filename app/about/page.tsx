@@ -50,36 +50,8 @@ const coreCompetencies = [
     description: "Reconnaissance and asset discovery methodologies.",
   },
   {
-    title: "Report Writing & Documentation",
-    description: "Clear, actionable, CVSS-scored vulnerability reports.",
-  },
-  {
     title: "CTF Competitions",
     description: "Web security challenges and competitive exploitation.",
-  },
-];
-
-const ctfRankings = [
-  {
-    rank: "#5",
-    icon: "Trophy",
-    event: "Bugcrowd x Black Hat USA International CTF 2025",
-    description:
-      "Ranked among the top 5 teams globally in web security challenges.",
-  },
-  {
-    rank: "#18",
-    icon: "Trophy",
-    event: "Iran Tech Olympics International CTF 2025",
-    description:
-      "Top-ranked performer in international cybersecurity competition.",
-  },
-  {
-    rank: "Top Ranked",
-    icon: "Trophy",
-    event: "Multiple Public & Private Bug Bounty Programs",
-    description:
-      "Consistent top performer on Bugcrowd, YesWeHack, Intigriti, and Standoff365.",
   },
 ];
 
@@ -223,22 +195,17 @@ export default async function AboutPage() {
   return (
     <div className="bg-off-white min-h-screen">
       {/* Header */}
-      <section className="py-12 md:py-20 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#4ddcd3]/5 rounded-full blur-[100px] pointer-events-none"></div>
+      <section className="pt-12 md:pt-20 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-125 h-125 bg-[#4ddcd3]/5 rounded-full blur-[100px] pointer-events-none"></div>
         <div className="section-container relative z-10">
           <h1 className="text-5xl md:text-6xl font-serif font-bold text-black mb-6 text-balance">
             About Me
           </h1>
-          <p className="text-xl text-gray-700 leading-relaxed max-w-2xl">
-            I&apos;m a Web Application Penetration Tester and Ethical Hacker
-            dedicated to helping organizations discover and fix security
-            vulnerabilities before attackers do.
-          </p>
         </div>
       </section>
 
       {/* Bio Section */}
-      <section className="py-12 md:py-20 relative">
+      <section className="pb-12 md:pb-20 relative">
         <div className="section-container">
           <div className="glass-card p-8 md:p-12 prose prose-lg max-w-none text-gray-700 space-y-6">
             <p>
@@ -389,34 +356,6 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      {/* CTF Rankings */}
-      <section className="py-12 md:py-20 relative">
-        <div className="section-container">
-          <SectionHeading
-            title="CTF Rankings & Achievements"
-            subtitle="Competitive accomplishments in international cybersecurity competitions."
-          />
-
-          <div className="space-y-6">
-            {ctfRankings.map((ranking, idx) => (
-              <div key={idx} className="p-8 glass-card cyber-border">
-                <div className="flex items-start gap-6">
-                  <div className="text-5xl font-serif font-bold text-[#4ddcd3]">
-                    {ranking.rank}
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-serif font-bold text-xl text-black mb-2">
-                      {ranking.event}
-                    </h3>
-                    <p className="text-gray-700">{ranking.description}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Vulnerability Specializations */}
       <section className="py-12 md:py-20 relative">
         <div className="section-container">
@@ -550,67 +489,6 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      {/* Skills Section */}
-      {Object.keys(skillsByCategory).length > 0 && (
-        <section id="skills" className="py-12 md:py-20">
-          <div className="section-container">
-            <SectionHeading
-              title="Skills & Expertise"
-              subtitle="Technical skills and proficiencies organized by category."
-            />
-
-            <div className="space-y-12">
-              {Object.entries(skillsByCategory).map(
-                ([category, categorySkills]) => (
-                  <div key={category}>
-                    <h3 className="text-2xl font-serif font-bold text-black mb-6">
-                      {category}
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {categorySkills.map((skill) => (
-                        <div
-                          key={skill.id}
-                          className="glass-card p-6 group hover:-translate-y-2 transition-all duration-300"
-                        >
-                          {skill.image_url && (
-                            <div className="mb-4 relative w-full h-32 rounded-lg overflow-hidden bg-linear-to-br from-[#f5f5f5] to-[#e5e5e5] flex items-center justify-center">
-                              <img
-                                src={skill.image_url}
-                                alt={skill.name}
-                                className="w-full h-full object-contain p-3"
-                              />
-                            </div>
-                          )}
-                          <h4 className="font-serif font-bold text-lg text-black mb-2">
-                            {skill.name}
-                          </h4>
-                          {skill.description && (
-                            <p className="text-gray-700 text-sm mb-4">
-                              {skill.description}
-                            </p>
-                          )}
-                          <div className="flex items-center gap-2">
-                            <div className="grow bg-[#e5e5e5] rounded-full h-2 overflow-hidden">
-                              <div
-                                className={`bg-[#4ddcd3] h-full transition-all duration-300`}
-                                style={{ width: `${skill.proficiency || 0}%` }}
-                              />
-                            </div>
-                            <span className="text-xs font-medium text-gray-600 w-12 text-right">
-                              {skill.proficiency || 0}%
-                            </span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ),
-              )}
-            </div>
-          </div>
-        </section>
-      )}
-
       {/* Experience Section */}
       {experiences.length > 0 && (
         <section id="experience" className="py-12 md:py-20 relative">
@@ -673,71 +551,6 @@ export default async function AboutPage() {
                   </div>
                 ))}
               </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Certifications Section */}
-      {certifications.length > 0 && (
-        <section id="certifications" className="py-12 md:py-20">
-          <div className="section-container">
-            <SectionHeading
-              title="Certifications & Achievements"
-              subtitle="Professional certifications and credentials validating my expertise."
-            />
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {certifications.map((cert) => (
-                <div
-                  key={cert.id}
-                  className="glass-card p-6 group hover:-translate-y-2 transition-all duration-300 relative overflow-hidden"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#4ddcd3]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <div className="flex items-start gap-4 mb-4">
-                    {cert.badge_image_url ? (
-                      <div className="shrink-0 w-16 h-16 rounded-lg overflow-hidden bg-linear-to-br from-[#f5f5f5] to-[#e5e5e5] flex items-center justify-center">
-                        <img
-                          src={cert.badge_image_url}
-                          alt={cert.badge_image_alt || cert.title}
-                          className="w-full h-full object-contain p-2"
-                        />
-                      </div>
-                    ) : (
-                      <div className="shrink-0 text-4xl">
-                        <IconRenderer
-                          name={getCertIcon(cert.title)}
-                          className="w-12 h-12 text-[#4ddcd3]"
-                        />
-                      </div>
-                    )}
-                    <div className="flex-1">
-                      <h3 className="font-serif font-bold text-lg text-black mb-1">
-                        {cert.title}
-                      </h3>
-                      <p className="text-sm text-gray-600 mb-2">
-                        {cert.issuer}
-                      </p>
-                      <span className="inline-block px-2 py-1 bg-[#4ddcd3] bg-opacity-20 text-[#4ddcd3] text-xs font-medium rounded">
-                        {cert.issue_date}
-                      </span>
-                    </div>
-                  </div>
-                  {cert.description && (
-                    <p className="text-gray-700 text-sm">{cert.description}</p>
-                  )}
-                  {cert.credential_url && (
-                    <a
-                      href={cert.credential_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block mt-4 px-3 py-1.5 bg-[#4ddcd3] text-black text-xs font-medium rounded hover:bg-[#3db5a1] transition-colors"
-                    >
-                      View Credential →
-                    </a>
-                  )}
-                </div>
-              ))}
             </div>
           </div>
         </section>

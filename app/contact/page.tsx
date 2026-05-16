@@ -36,9 +36,9 @@ export default function ContactPage() {
     <div className="bg-off-white min-h-screen">
       {/* Hero Section */}
       <section className="py-12 md:py-20 relative overflow-hidden">
-        <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#4ddcd3]/5 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="absolute top-0 right-1/4 w-125 h-125 bg-[#4ddcd3]/5 rounded-full blur-[100px] pointer-events-none"></div>
         <div className="section-container relative z-10">
-          <div className="max-w-4xl">
+          <div className="max-w-6xl">
             <h1 className="text-5xl md:text-6xl font-serif font-bold text-black mb-6 text-balance">
               Let&apos;s Secure Your Web Application
             </h1>
@@ -48,7 +48,7 @@ export default function ContactPage() {
                 FREE 15-minute consultation
               </span>
               . I&apos;ll review your attack surface and tell you exactly where
-              you&apos;re exposed — before we discuss a contract.
+              you&apos;re exposed before we discuss a contract.
             </p>
           </div>
         </div>

@@ -32,11 +32,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const setupInProgressRef = React.useRef<Set<string>>(new Set());
+  const setupInProgressRef = useRef<Set<string>>(new Set());
+  const setupDoneRef = useRef<boolean>(false);
 
-  // Helper function to ensure user is in admins table (auto-setup) - only once per email
+  // Helper function to ensure user is in admins table (auto-setup) - only once per session
   const ensureAdminSetup = async (userEmail: string | undefined) => {
-    if (!userEmail) return;
+    if (!userEmail || setupDoneRef.current) return;
 
     // Skip if already in progress for this email
     if (setupInProgressRef.current.has(userEmail)) {
@@ -44,6 +45,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     setupInProgressRef.current.add(userEmail);
+    setupDoneRef.current = true;
 
     try {
       // Call the admin setup endpoint to ensure user is in admins table

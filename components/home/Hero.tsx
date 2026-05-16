@@ -109,8 +109,8 @@ export function Hero() {
                   <Lock className="w-6 h-6 text-[#4ddcd3]" />
                 </div>
 
-                <div className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full p-2 bg-white/50 backdrop-blur-sm border border-white shadow-soft-xl overflow-hidden relative z-10 group">
-                  <div className="w-full h-full rounded-full overflow-hidden relative">
+                <div className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 p-2 rounded-lg bg-white/50 backdrop-blur-sm border border-white shadow-soft-xl overflow-hidden relative z-10 group">
+                  <div className="w-full h-full overflow-hidden relative rounded-lg">
                     {/* Matrix-like overlay effect on hover */}
                     <div className="absolute inset-0 bg-[#4ddcd3]/20 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
                     <img

@@ -109,7 +109,7 @@ export default async function PortfolioPage() {
       </section>
 
       {/* Featured Work */}
-      <section className="py-12 md:py-20">
+      {/* <section className="py-12 md:py-20">
         <div className="section-container">
           <SectionHeading
             title="Featured Work"
@@ -200,7 +200,7 @@ export default async function PortfolioPage() {
             </div>
           )}
         </div>
-      </section>
+      </section> */}
 
       {/* Impact & Achievements */}
       <section className="py-12 md:py-20">
@@ -300,55 +300,33 @@ export default async function PortfolioPage() {
         </section>
       )}
 
-      {/* CTF Rankings & Hall of Fame */}
-      {ctfRankings.length > 0 && (
-        <section className="py-12 md:py-20">
-          <div className="section-container">
-            <SectionHeading
-              title="CTF Rankings & Hall of Fame"
-              subtitle="International CTF competition achievements and rankings."
-            />
+      {/* CTF Rankings */}
+      <section className="py-12 md:py-20 relative">
+        <div className="section-container">
+          <SectionHeading
+            title="CTF Rankings & Achievements"
+            subtitle="Competitive accomplishments in international cybersecurity competitions."
+          />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {ctfRankings.map((ranking) => (
-                <div
-                  key={ranking.id}
-                  className="glass-card p-6 group hover:-translate-y-2 transition-all duration-300 flex items-center gap-6 relative overflow-hidden"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#4ddcd3]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                  <div className="relative z-10 flex-1">
-                    {ranking.image_url && (
-                      <div className="w-20 h-20 rounded-lg overflow-hidden bg-white border-2 border-[#4ddcd3] flex-shrink-0 flex items-center justify-center">
-                        <img
-                          src={ranking.image_url}
-                          alt={ranking.competition_name}
-                          className="w-full h-full object-contain p-2"
-                        />
-                      </div>
-                    )}
+          <div className="space-y-6">
+            {ctfRankings.map((ranking, idx) => (
+              <div key={idx} className="p-8 glass-card cyber-border">
+                <div className="flex items-start gap-6">
+                  <div className="text-5xl font-serif font-bold text-[#4ddcd3]">
+                    {ranking.rank}
                   </div>
-
-                  <div className="relative z-10 flex-1">
-                    <h3 className="text-lg font-serif font-bold text-black mb-1 group-hover:text-[#4ddcd3] transition-colors">
-                      {ranking.competition_name}
+                  <div className="flex-1">
+                    <h3 className="font-serif font-bold text-xl text-black mb-2">
+                      {ranking.event}
                     </h3>
-                    <p className="text-[#4ddcd3] font-bold text-2xl mb-1">
-                      #{ranking.rank}
-                    </p>
-                    <p className="text-sm text-gray-600 mb-2">{ranking.year}</p>
-                    {ranking.description && (
-                      <p className="text-sm text-gray-700">
-                        {ranking.description}
-                      </p>
-                    )}
+                    <p className="text-gray-700">{ranking.description}</p>
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
       {/* Bug Bounty Programs */}
       {bugBountyPrograms.length > 0 && (

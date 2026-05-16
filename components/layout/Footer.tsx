@@ -1,6 +1,6 @@
 import Link from "next/link";
 import {
-  Briefcase,
+  Linkedin,
   Twitter,
   MessageCircle,
   Phone,
@@ -22,7 +22,7 @@ export function Footer() {
   // when someone click on
   const socials = [
     {
-      icon: Briefcase,
+      icon: Linkedin,
       label: "LinkedIn",
       url: "https://www.linkedin.com/in/ayeshaattaria",
     },

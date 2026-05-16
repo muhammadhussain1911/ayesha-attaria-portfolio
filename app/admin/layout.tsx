@@ -26,7 +26,7 @@ export default function AdminLayout({
     if (mounted && !isAuthPage && (!user || !isAdmin)) {
       router.push("/admin/login");
     }
-  }, [user, isAdmin, router, isAuthPage, mounted]);
+  }, [user, isAdmin, isAuthPage, mounted]);
 
   // Show loading state only for protected pages and only after mount
   if (mounted && !isAuthPage && loading) {

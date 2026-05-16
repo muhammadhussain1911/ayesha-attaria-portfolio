@@ -125,6 +125,12 @@ const coreServices = [
 
 const specializedServices = [
   {
+    icon: Users,
+    title: "Security Consulting",
+    description:
+      "One-on-one consultation on security best practices, secure coding, API security architecture, and vulnerability remediation strategies.",
+  },
+  {
     icon: GitBranch,
     title: "Attack Surface Analysis",
     description:
@@ -136,12 +142,7 @@ const specializedServices = [
     description:
       "Professional vulnerability reports with technical depth for developers and executive summaries for management. CVSS-scored, reproducible, and actionable.",
   },
-  {
-    icon: Users,
-    title: "Security Consulting",
-    description:
-      "One-on-one consultation on security best practices, secure coding, API security architecture, and vulnerability remediation strategies.",
-  },
+
   {
     icon: Zap,
     title: "Post-Assessment Retesting",
@@ -365,7 +366,7 @@ export default function ServicesPage() {
       <section className="py-12 md:py-20">
         <div className="section-container">
           <SectionHeading
-            title="Our Testing Process"
+            title="My Testing Process"
             subtitle="A systematic, methodical approach to comprehensive security assessment"
           />
 
